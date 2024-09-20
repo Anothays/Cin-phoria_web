@@ -1,3 +1,9 @@
+import Hero from '@/containers/HomePage/Hero';
+
 export default function Home() {
-  return <div>Page accueil</div>;
+  return (
+    <div>
+      <Hero />
+    </div>
+  );
 }
