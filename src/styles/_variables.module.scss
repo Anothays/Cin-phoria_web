@@ -1,0 +1,30 @@
+$space-unit: 0.5rem;
+$space-xxs: calc(0.25 * $space-unit);
+$space-xs: calc(0.5 * $space-unit);
+$space-sm: calc(0.75 * $space-unit);
+$space-md: calc(1.25 * $space-unit);
+$space-lg: calc(2 * $space-unit);
+$space-xl: calc(3.25 * $space-unit);
+$space-xxl: calc(5.25 * $space-unit);
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+$shadow-xs: 0px 4px 8px rgba(0, 0, 0, 0.04);
+$shadow-s: 0 4px 16px rgba(0, 0, 0, 0.12);
+$shadow-m: 0 8px 32px rgba(0, 0, 0, 0.14);
+$shadow-l: 0 16px 3rem rgba(0, 0, 0, 0.18);
+$shadow-up-xs: 0 -4px 8px rgba(0, 0, 0, 0.04);
+$shadow-up-s: 0 -4px 16px rgba(0, 0, 0, 0.12);
+$shadow-up-m: 0 -8px 32px rgba(0, 0, 0, 0.14);
+$shadow-up-l: 0 -16px 3rem rgba(0, 0, 0, 0.18);
+
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-md: 1rem;
+$font-size-lg: 1.25rem;
+$font-size-xl: 1.5rem;
+$font-size-xxl: 2rem;
+$font-size-3xl: 2.5rem;

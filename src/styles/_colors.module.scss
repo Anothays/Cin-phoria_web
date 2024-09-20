@@ -1,0 +1,19 @@
+$primary-color: #292323;
+$secondary-color: #0a288b;
+$white-color: #fff;
+$grey-text-color: #6c757d;
+$light-grey-color: #e9eaec;
+$gold-color: #ffb942;
+$black-color: #000;
+$gradient1: linear-gradient(90deg, #000000 0%, #240d80 100%);
+$gradient2: linear-gradient(90deg, #375de7 0%, #4168f4 100%);
+:export {
+  primaryColor: $primary-color;
+  secondaryColor: $secondary-color;
+  whiteColor: $white-color;
+  greyTextColor: $grey-text-color;
+  lightGreyColor: $light-grey-color;
+  goldColor: $gold-color;
+  blackColor: $black-color;
+  $gradient1: $gradient1;
+}
