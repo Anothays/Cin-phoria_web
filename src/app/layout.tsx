@@ -1,3 +1,4 @@
+import Header from '@/containers/Header';
 import { GlobalContextHandler } from '@/context/globalContext';
 import classnames from 'classnames';
 import type { Metadata } from 'next';
@@ -24,7 +25,10 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={classnames(font.className, styles.layoutContainer)}>
-        <GlobalContextHandler>{children}</GlobalContextHandler>
+        <GlobalContextHandler>
+          <Header />
+          {children}
+        </GlobalContextHandler>
       </body>
     </html>
   );
