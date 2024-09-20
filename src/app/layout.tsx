@@ -1,3 +1,4 @@
+import { GlobalContextHandler } from '@/context/globalContext';
 import classnames from 'classnames';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
@@ -22,7 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={classnames(font.className, styles.layoutContainer)}>{children}</body>
+      <body className={classnames(font.className, styles.layoutContainer)}>
+        <GlobalContextHandler>{children}</GlobalContextHandler>
+      </body>
     </html>
   );
 }
