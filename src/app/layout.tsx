@@ -7,6 +7,7 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.scss';
 import styles from './page.module.css';
+import Providers from './Providers';
 
 export const metadata: Metadata = {
   title: 'Cinéphoria',
@@ -28,10 +29,12 @@ export default function RootLayout({
     <html lang="fr">
       <body className={classnames(font.className, styles.layoutContainer)}>
         <GlobalContextHandler>
-          <LoginModal />
-          <Header />
-          {children}
-          <Footer />
+          <Providers>
+            <LoginModal />
+            <Header />
+            {children}
+            <Footer />
+          </Providers>
         </GlobalContextHandler>
       </body>
     </html>
