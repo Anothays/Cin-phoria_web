@@ -1,4 +1,5 @@
 import Header from '@/containers/Header';
+import LoginModal from '@/containers/LoginModal';
 import { GlobalContextHandler } from '@/context/globalContext';
 import classnames from 'classnames';
 import type { Metadata } from 'next';
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="fr">
       <body className={classnames(font.className, styles.layoutContainer)}>
         <GlobalContextHandler>
+          <LoginModal />
           <Header />
           {children}
         </GlobalContextHandler>

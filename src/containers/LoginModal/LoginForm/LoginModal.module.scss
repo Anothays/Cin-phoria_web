@@ -1,0 +1,52 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 25rem;
+  gap: 1rem;
+  .closeIcon {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: -1rem;
+    margin-top: -1rem;
+    margin-right: -4rem;
+    cursor: pointer;
+  }
+  .title {
+    font-size: $font-size-xxl;
+    font-weight: bold;
+  }
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+  }
+  .forgetPassword {
+    font-size: $font-size-xs;
+    align-self: flex-end;
+  }
+  .connectLink {
+    display: flex;
+    font-size: $font-size-xs;
+    gap: $space-sm;
+  }
+  .button {
+    background: $gradient1;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .container {
+    .closeIcon {
+      margin-right: -2rem;
+    }
+  }
+}
