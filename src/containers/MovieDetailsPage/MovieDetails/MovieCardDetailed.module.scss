@@ -1,0 +1,56 @@
+@import '/src/styles/_variables.module.scss';
+@import '/src/styles/_colors.module.scss';
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $space-md;
+  // remove all href styles
+  text-decoration: none !important;
+  color: $black-color;
+  gap: 5rem;
+
+  .image {
+    border-radius: 0.5rem;
+    object-fit: contain;
+  }
+  .titleAndPriceContainer {
+    display: flex;
+    text-align: center;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    .mainTitle {
+      font-size: $font-size-xxl;
+      font-weight: 800;
+    }
+    .title {
+      font-size: $font-size-lg;
+      font-weight: 800;
+    }
+    .text {
+      font-size: $font-size-md;
+      font-weight: 800;
+    }
+    span {
+      color: $grey-text-color;
+      font-weight: bold;
+    }
+  }
+  .rating {
+    align-self: flex-start;
+  }
+}
+
+@media (min-width: $breakpoint-sm) {
+  .container {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    .titleAndPriceContainer {
+      text-align: start;
+    }
+  }
+}

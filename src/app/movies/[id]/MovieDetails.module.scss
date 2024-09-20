@@ -1,0 +1,16 @@
+@import 'src/styles/_variables.module.scss';
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  @media (max-width: $breakpoint-lg) {
+    .container {
+      padding: $space-lg;
+    }
+    .title {
+      font-size: $font-size-xl;
+    }
+  }
+}
