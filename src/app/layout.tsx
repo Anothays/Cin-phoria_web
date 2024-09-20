@@ -1,3 +1,4 @@
+import Footer from '@/containers/Footer';
 import Header from '@/containers/Header';
 import LoginModal from '@/containers/LoginModal';
 import { GlobalContextHandler } from '@/context/globalContext';
@@ -30,6 +31,7 @@ export default function RootLayout({
           <LoginModal />
           <Header />
           {children}
+          <Footer />
         </GlobalContextHandler>
       </body>
     </html>

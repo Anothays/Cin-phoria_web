@@ -1,0 +1,60 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+.mainContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    padding: $space-lg;
+    border-top: 1px solid $light-grey-color;
+    max-width: $breakpoint-xl;
+    .logoContainer {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      // flex-direction: column;
+      width: 100%;
+    }
+    .linkContainer {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      .category {
+        font-weight: bold;
+        margin-bottom: $space-sm;
+      }
+      .list {
+        // remove default list style
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        list-style-type: none;
+
+        .listItem {
+          .link {
+            color: $grey-text-color;
+            text-decoration: none !important;
+            &:hover {
+              color: $primary-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .mainContainer {
+    .container {
+      grid-template-columns: repeat(1, 1fr);
+      font-size: $font-size-sm;
+    }
+  }
+}
