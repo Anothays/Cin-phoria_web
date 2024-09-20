@@ -50,7 +50,7 @@ export default function Header() {
           <Link className={styles.navLink} href="/movies">
             Films
           </Link>
-          <Link className={styles.navLink} href="/signup/customer">
+          <Link className={styles.navLink} href="/signup">
             Inscription
           </Link>
           {isLogged ? (
