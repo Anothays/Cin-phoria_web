@@ -1,3 +1,4 @@
+import { MUITheme } from '@/config/MUI/MUITheme';
 import Footer from '@/containers/Footer';
 import Header from '@/containers/Header';
 import LoginModal from '@/containers/LoginModal';
@@ -32,7 +33,9 @@ export default function RootLayout({
           <Providers>
             <LoginModal />
             <Header />
-            {children}
+            <MUITheme>
+              <main className={styles.main}>{children}</main>
+            </MUITheme>
             <Footer />
           </Providers>
         </GlobalContextHandler>
