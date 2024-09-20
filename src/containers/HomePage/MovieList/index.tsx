@@ -7,6 +7,8 @@ import styles from './MovieList.module.scss';
 
 export default function MovieList() {
   const movieData = useMovies();
+  console.log('movieData >> ', movieData.data);
+
   const movies = movieData.data?.['hydra:member'] as MovieType[];
 
   return (
