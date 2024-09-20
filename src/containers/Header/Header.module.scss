@@ -1,0 +1,46 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+.mainContainer {
+  width: 100%;
+  .placeHolder {
+    // height: 4.6rem;
+    width: 100%;
+    background: $gradient1;
+  }
+  .container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $space-lg;
+    z-index: 10;
+    background: $gradient1;
+    transition: 0.2s;
+    top: 0;
+    // position: fixed;
+    &.scrolledContainer {
+      box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+    }
+    .navContainer {
+      .navLink {
+        text-decoration: none !important;
+        color: $white-color;
+        padding: $space-md;
+        border-radius: 10rem;
+        transition: background-color 0.2s;
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-xl) {
+  .container {
+    padding: $space-md;
+    .navContainer {
+      display: none;
+    }
+  }
+}
