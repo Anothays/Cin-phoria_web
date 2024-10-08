@@ -1,9 +1,14 @@
 import { HydraMember } from "./ApiResponseType";
 import { MovieTheaterType } from "./MovieTheaterType";
 import { ProjectionFormatType } from "./ProjectionFormatType";
+import { ProjectionRoomSeatType } from "./ProjectionRoomSeatType";
 import { ProjectionRoomType } from "./ProjectionRoomType";
+import { ReservationType } from "./ReservationType";
 
 export interface ProjectionEventType extends HydraMember {
+  "@id": string;
+  "@type": string;
+  "@context": string;
   id: number;
   language: string;
   beginAt: string;
@@ -12,8 +17,9 @@ export interface ProjectionEventType extends HydraMember {
   projectionRoom: ProjectionRoomType;
   createdAt: Date;
   updatedAt: Date;
-  reservations: any[];
-  reservedSeats: any[];
+  reservations: ReservationType[];
+  allSeats: ProjectionRoomSeatType[];
+  reservedSeats: number[];
   endAt: string;
   movieTheater: MovieTheaterType;
   format: ProjectionFormatType;
