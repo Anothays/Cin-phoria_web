@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  padding: $space-xxl;
 
   @media (max-width: $breakpoint-lg) {
     .container {
