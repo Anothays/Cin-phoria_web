@@ -1,11 +1,13 @@
 'use server';
 
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-export const login = async (data: { email: string; password: string }) => {
+export const login = async (data: Record<"email" | "password", string> | undefined) => {
   const body = {
-    username: data.email,
-    password: data.password
+    username: data?.email,
+    password: data?.password
   };
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login_check`, {
     body: JSON.stringify(body),
@@ -15,22 +17,26 @@ export const login = async (data: { email: string; password: string }) => {
       'Content-Type': 'application/json',
     },
   });
-  if (!response.ok) return false;
-  const expires = new Date(Date.now() + 3600 * 1000);
+  if (!response.ok) throw new Error("Erreur d'authentification");
   const results = await response.json();
-  cookies().set({
-    name: 'jwt',
-    value: results.token,
-    httpOnly: true,
-    path: '/',
-    expires: expires
-  })
-  return true;
+  return results;
+
+
+  // const expires = new Date(Date.now() + 3600 * 1000);
+  // cookies().set({
+  //   name: 'jwt',
+  //   value: results.token,
+  //   httpOnly: true,
+  //   path: '/',
+  //   expires: expires
+  // })
+  // return true;
 };
 
 
-export const logout = () => {
+export const logout = async () => {
   cookies().delete('jwt');
-  return cookies().has('jwt');
+  revalidatePath('/');
+  redirect('/');
 }
 

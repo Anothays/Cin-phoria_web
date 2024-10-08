@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.scss';
+import { NextAuthProvider } from './NextAuthProvider';
 import styles from './page.module.css';
 import Providers from './Providers';
 
@@ -21,7 +22,7 @@ const font = Poppins({
   subsets: ['latin'],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -31,12 +32,14 @@ export default function RootLayout({
       <body className={classnames(font.className, styles.layoutContainer)}>
         <GlobalContextHandler>
           <Providers>
-            <LoginModal />
-            <Header />
-            <MUITheme>
-              <main className={styles.main}>{children}</main>
-            </MUITheme>
-            <Footer />
+            <NextAuthProvider>
+              <LoginModal />
+              <Header />
+              <MUITheme>
+                <main className={styles.main}>{children}</main>
+              </MUITheme>
+              <Footer />
+            </NextAuthProvider>
           </Providers>
         </GlobalContextHandler>
       </body>
