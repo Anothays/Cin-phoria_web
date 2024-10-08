@@ -16,7 +16,14 @@ export default function SearchArea() {
 
   const retriveMoviesTheaters = async () => {
     try {
-      const response: ApiJSONResponseType = await fetcher('/api/movie_theaters');
+      // const response = await fetch('/api/movie_theaters', {
+      //   mode: 'no-cors',
+      // });
+      const response: ApiJSONResponseType = await fetcher('/api/movie_theaters', {
+        mode: 'no-cors',
+      });
+      // console.log('response =+> ', await response.json());
+
       setTheaters(response['hydra:member'].map((item) => item['theaterName']));
       setIsLoading(false);
     } catch (error) {
