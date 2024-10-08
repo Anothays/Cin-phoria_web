@@ -1,12 +1,10 @@
-'use client';
 import { useGlobalContext } from '@/context/globalContext';
-import { login } from '@/services/authentication';
 import { zodResolver } from '@hookform/resolvers/zod';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { getSession, signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import styles from './LoginModal.module.scss';
@@ -22,8 +20,7 @@ const schema = z.object({
 });
 
 export default function LoginForm() {
-  const router = useRouter();
-  const { closeLoginModal, setIsLogged } = useGlobalContext();
+  const { closeLoginModal, loginFormProps } = useGlobalContext();
   const {
     register,
     setError,
@@ -34,16 +31,25 @@ export default function LoginForm() {
   });
 
   const onSubmit = async () => {
-    const response = await login(getValues());
+    // const response = await login(getValues());
+    const response = await signIn('credentials', {
+      ...getValues(),
+      redirect: false,
+    });
     if (!response) {
       setError('root', {
         message: 'Identifiants invalides',
       });
       return;
     }
+    const session = await getSession();
+    console.log('session?.token ==> ', session?.token);
+
+    if (session?.token) {
+      await loginFormProps.callbackAction(session.token);
+    }
     closeLoginModal();
-    setIsLogged(true);
-    router.push('/');
+    return;
   };
 
   return (
@@ -51,8 +57,8 @@ export default function LoginForm() {
       <div onClick={closeLoginModal} className={styles.closeIcon}>
         <CloseIcon />
       </div>
-      <h2 className={styles.title}>Content de vous revoir !</h2>
-      <p className={styles.subTitle}>Connectez-vous pour accéder à votre compte</p>
+      <h2 className={styles.title}>{loginFormProps.title}</h2>
+      <p className={styles.subTitle}>{loginFormProps.message}</p>
       <form className={styles.formContainer} action={onSubmit}>
         {errors.root && <p style={{ color: 'red', alignSelf: 'start' }}>{errors.root.message}</p>}
         <TextField
