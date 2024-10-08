@@ -4,9 +4,6 @@ import Link from 'next/link';
 import styles from './MovieCard.module.scss';
 
 export default function MovieCard(movie: MovieType) {
-  console.log('coucou');
-  console.log(process.env.NEXT_PUBLIC_BASE_URL);
-
   return (
     <Link href={`/movies/${movie.id}`} className={styles.container}>
       <Image
