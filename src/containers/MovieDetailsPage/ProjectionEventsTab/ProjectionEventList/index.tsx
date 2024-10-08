@@ -11,7 +11,3 @@ export default function ProjectionEventList(projectionEvents: ProjectionEventTyp
     </ul>
   );
 }
-
-// projectionEvent.movieTheater['@id'] === movieTheater['@id'] &&
-// new Date(projectionEvent.date).toLocaleDateString() === new Date().toLocaleDateString() ? (
-// ) : null,
