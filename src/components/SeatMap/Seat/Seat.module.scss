@@ -1,0 +1,28 @@
+@import '/src/styles/_variables.module.scss';
+@import '/src/styles/_colors.module.scss';
+
+.container {
+  // width: 100%;
+  // padding: $space-xs;
+  :hover {
+    cursor: pointer;
+  }
+  // .unselectedColor {
+  //   color: #f44848;
+  // }
+  // .unselectedStrokeColor {
+  //   color: #B71C1C;
+  // }
+  // .selectedColor {
+  //   color: #13e806;
+  // }
+  // .selectedStrokeColor {
+  //   color: #0d8705;
+  // }
+  // .wrapperColor {
+  //   color: #757575;
+  // }
+  // .accessibleColor {
+  //   color: #00000082;
+  // }
+}

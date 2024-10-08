@@ -1,0 +1,30 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+
+.container {
+  display: grid;
+  grid-template-columns: minmax(100px, 450px) minmax(100px, 100px) minmax(100px, 250px);
+  justify-items: start;
+  align-items: center;
+
+  .label {
+    font-size: $font-size-xl;
+  }
+
+  .price {
+    font-size: $font-size-xl;
+  }
+
+  .button {
+    background-color: $primary-color;
+    color: $white-color;
+    font-size: $font-size-xl;
+    padding: 0;
+    margin: 0;
+  }
+
+  .count {
+    font-size: $font-size-xl;
+    margin-inline: 1rem;
+  }
+}

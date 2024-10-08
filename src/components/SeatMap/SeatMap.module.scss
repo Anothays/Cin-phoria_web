@@ -1,0 +1,16 @@
+@import '/src/styles/_variables.module.scss';
+@import '/src/styles/_colors.module.scss';
+
+.container {
+  // padding: $space-3xl;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  .screen {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,12 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+
+.container {
+  display: grid;
+  width: 100%;
+  grid-template-rows: repeat(3, 100px);
+  .totalPrice {
+    font-size: $font-size-xxl;
+    text-align: end;
+  }
+}
