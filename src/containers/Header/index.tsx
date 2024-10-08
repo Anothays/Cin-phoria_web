@@ -1,10 +1,11 @@
 'use client';
 import HamburgerMenu from '@/containers/Header/HamburgerMenu';
 import { useGlobalContext } from '@/context/globalContext';
-import { logout } from '@/services/authentication';
 import classnames from 'classnames';
+import { getSession, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './Header.module.scss';
 
@@ -12,8 +13,10 @@ export default function Header() {
   // add background when scroll
   // add shadow when scroll
   const [hasScrolled, setHasScrolled] = useState(false);
+  const session = useSession();
+  const router = useRouter();
 
-  const { openLoginModal, isLogged, setIsLogged } = useGlobalContext();
+  const { openLoginModal, updateLoginProps } = useGlobalContext();
   useEffect(() => {
     const handleScroll = () => {
       setHasScrolled(window.scrollY > 0);
@@ -26,9 +29,19 @@ export default function Header() {
     };
   }, []);
 
-  const handleLogout = () => {
-    const response = logout();
-    if (response) setIsLogged(false);
+  const handleLogout = async (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    await signOut({ callbackUrl: '/' });
+  };
+
+  const handlelogin = () => {
+    updateLoginProps({
+      title: 'Connexion',
+      message: 'Connectez-vous pour accéder à votre compte',
+      redirectionUrl: '/',
+      callbackAction: () => {},
+    });
+    openLoginModal();
   };
 
   return (
@@ -53,15 +66,26 @@ export default function Header() {
           <Link className={styles.navLink} href="/signup">
             Inscription
           </Link>
-          {isLogged ? (
-            <Link className={styles.navLink} href={'/'} onClick={handleLogout}>
+          {session.data?.user ? (
+            <Link className={styles.navLink} href="" onClick={handleLogout}>
               Déconnexion
             </Link>
           ) : (
-            <Link className={styles.navLink} href={''} onClick={openLoginModal}>
+            <Link className={styles.navLink} href="" onClick={handlelogin}>
               Connexion
             </Link>
           )}
+          <Link
+            style={{ color: 'white' }}
+            href=""
+            onClick={async (e) => {
+              e.preventDefault();
+              const data = await getSession();
+              console.log(data);
+            }}
+          >
+            GetSession
+          </Link>
         </nav>
         <HamburgerMenu />
       </div>
