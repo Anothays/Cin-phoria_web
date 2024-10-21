@@ -1,3 +1,5 @@
+'use client';
+
 import { useGlobalContext } from '@/context/globalContext';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '@mui/material/Button';
