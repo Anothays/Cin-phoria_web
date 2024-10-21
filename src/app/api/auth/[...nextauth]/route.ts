@@ -5,12 +5,10 @@ import Credentials from "next-auth/providers/credentials";
 
 
 export const handlers = NextAuth({
-  session: { strategy: 'jwt' },
+  session: { strategy: 'jwt', maxAge: 86400 },
+
   callbacks: {
     async jwt({ token, user, account }) {
-      console.log("user ==> ", user);
-      // console.log("token ==> ", token);
-
       if (account) {
         token.accesstoken = user.token;
         token.user = user.user;
@@ -22,17 +20,26 @@ export const handlers = NextAuth({
       session.user = token.user;
       return session
     },
-    // signIn({ user, account, profile, credentials }) {
-    //   console.log("user ==> ", user);
-    //   console.log("account ==> ", account);
-    //   console.log("profile ==> ", profile);
-    //   console.log("profile ==> ", profile);
-    //   return true;
+    // async redirect({ url, baseUrl }) {
+    //   try {
+    //     console.log(baseUrl, url);
+    //     console.log("-------");
+
+    //     const params = new URLSearchParams(new URL(url).search);
+    //     const callbackUrl = params.get('callbackUrl');
+    //     if (!callbackUrl && callbackUrl !== '/') return baseUrl;
+    //     console.log("CALLBACK___URL ==> ", baseUrl + callbackUrl);
+    //     return baseUrl + callbackUrl;
+    //   } catch (error) {
+    //     console.log("ERRROOOOOOR => ", error);
+    //   }
+    //   return baseUrl;
     // },
+
+
   },
   providers: [
     Credentials({
-
       type: 'credentials',
       credentials: {
         email: { label: 'Email', type: 'email' },
@@ -40,15 +47,14 @@ export const handlers = NextAuth({
       },
       async authorize(credentials) {
         try {
-          const res = await login(credentials);
-          return res;
+          return login(credentials);
         } catch (error) {
           console.error("Erreur d'auhtentification : ", error);
           return false
         }
       },
     })
-  ]
+  ],
 }
 );
 
