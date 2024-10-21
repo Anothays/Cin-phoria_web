@@ -1,0 +1,14 @@
+@import '/src/styles/_variables.module.scss';
+@import '/src/styles/_colors.module.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: $space-xl;
+  padding-top: $space-xl;
+  box-shadow: $shadow-m;
+  border-radius: 1rem;
+}
