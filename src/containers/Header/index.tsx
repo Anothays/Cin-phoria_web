@@ -2,10 +2,10 @@
 import HamburgerMenu from '@/containers/Header/HamburgerMenu';
 import { useGlobalContext } from '@/context/globalContext';
 import classnames from 'classnames';
-import { getSession, signOut, useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './Header.module.scss';
 
@@ -15,6 +15,7 @@ export default function Header() {
   const [hasScrolled, setHasScrolled] = useState(false);
   const session = useSession();
   const router = useRouter();
+  const pathname = usePathname();
 
   const { openLoginModal, updateLoginProps } = useGlobalContext();
   useEffect(() => {
@@ -34,14 +35,37 @@ export default function Header() {
     await signOut({ callbackUrl: '/' });
   };
 
-  const handlelogin = () => {
+  const handlelogin = (e) => {
+    e.preventDefault();
+    if (pathname === '/login') return;
     updateLoginProps({
       title: 'Connexion',
       message: 'Connectez-vous pour accéder à votre compte',
       redirectionUrl: '/',
-      callbackAction: () => {},
+      callbackAction: undefined,
     });
     openLoginModal();
+  };
+
+  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (pathname === '/login') return;
+    const targetUrl = e.currentTarget.href;
+    if (session.status === 'unauthenticated') {
+      updateLoginProps({
+        title: 'Authentification requise',
+        message: 'Connectez-vous pour accéder à vos réservations',
+        redirectionUrl: targetUrl,
+        callbackAction: async () => {
+          router.push(targetUrl);
+        },
+      });
+      openLoginModal();
+      return;
+    }
+    if (session.status === 'authenticated') {
+      router.push(targetUrl);
+    }
   };
 
   return (
@@ -57,25 +81,34 @@ export default function Header() {
         </Link>
 
         <nav className={styles.navContainer}>
-          <Link className={styles.navLink} href="/movies-theaters">
-            Cinémas
+          <Link className={styles.navLink} href="/">
+            Accueil
           </Link>
+          {/* <Link className={styles.navLink} href="/movies-theaters">
+            Nos cinémas
+          </Link> */}
           <Link className={styles.navLink} href="/movies">
-            Films
+            Les films
           </Link>
-          <Link className={styles.navLink} href="/signup">
+          <Link className={styles.navLink} href="/my_reservations" onClick={handleClick}>
+            Mes réservations
+          </Link>
+          {/* <Link className={styles.navLink} href="/signup">
             Inscription
+          </Link> */}
+          <Link className={styles.navLink} href="/contact">
+            Contact
           </Link>
           {session.data?.user ? (
             <Link className={styles.navLink} href="" onClick={handleLogout}>
               Déconnexion
             </Link>
           ) : (
-            <Link className={styles.navLink} href="" onClick={handlelogin}>
+            <Link className={styles.navLink} href="/login" onClick={handlelogin}>
               Connexion
             </Link>
           )}
-          <Link
+          {/* <Link
             style={{ color: 'white' }}
             href=""
             onClick={async (e) => {
@@ -85,7 +118,7 @@ export default function Header() {
             }}
           >
             GetSession
-          </Link>
+          </Link> */}
         </nav>
         <HamburgerMenu />
       </div>
