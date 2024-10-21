@@ -1,0 +1,23 @@
+@import '/src/styles/_variables.module.scss';
+@import '/src/styles/_colors.module.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: $space-3xl;
+  .title {
+    font-size: $h1-font-size;
+    align-self: flex-start;
+  }
+  .movieList {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 1rem;
+    padding: 5rem;
+    justify-content: center;
+  }
+}
