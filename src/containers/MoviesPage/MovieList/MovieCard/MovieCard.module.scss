@@ -1,0 +1,63 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+.container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $space-md;
+  border-radius: 1rem;
+  cursor: pointer;
+  // remove all href styles
+  text-decoration: none !important;
+  color: $black-color;
+
+  &:hover {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  }
+
+  // .image {
+  //   border-radius: 0.5rem;
+  // }
+  .titleAndPriceContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    .text {
+      font-size: $font-size-xl;
+      font-weight: 800;
+    }
+  }
+  .rating {
+    align-self: flex-start;
+  }
+  .favorite {
+  }
+
+  .minimumAge {
+    &::before {
+      content: '';
+      display: inline;
+      position: absolute;
+      width: 7px;
+      height: 3px;
+      top: 16px;
+      left: 0px;
+      background-color: white;
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: white;
+    text-align: center;
+    font-size: $font-size-md;
+    background: $grey-text-color;
+    border-radius: 100%;
+    width: 35px;
+    height: 35px;
+    // padding: 8px;
+  }
+}

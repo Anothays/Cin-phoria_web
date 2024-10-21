@@ -1,0 +1,49 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: $space-md;
+  background: $white-color;
+  width: 100%;
+  padding: $space-lg $space-xxl;
+  border-radius: 10rem;
+  max-width: $breakpoint-xl;
+  .inputSection {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 200px;
+    gap: $space-lg;
+    justify-content: space-around;
+  }
+  .searchButton {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10rem;
+    padding: $space-md;
+    background-color: $primary-color;
+    color: $white-color;
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+@media (min-width: $breakpoint-md) {
+  .container {
+    padding: $space-md;
+    flex-direction: row;
+    border-radius: $space-md;
+    .inputSection {
+      flex-direction: row;
+      max-width: none;
+      gap: $space-lg;
+      justify-content: space-around;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+@import 'src/styles/_variables.module.scss';
+.container {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 7rem;
+  width: 100%;
+  max-width: $breakpoint-xl;
+  padding: $space-xxl;
+}
+.title {
+  font-size: $font-size-xxl;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  // text-align: center;
+  align-self: flex-start;
+  max-width: $breakpoint-md;
+}
+.movieList {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1rem;
+  padding: 5rem;
+  justify-content: center;
+}
+
+@media (max-width: $breakpoint-lg) {
+  .container {
+    padding: $space-lg;
+  }
+  .title {
+    font-size: $font-size-xl;
+  }
+  .jobberList {
+    &.mobileList {
+      display: none;
+    }
+  }
+}
