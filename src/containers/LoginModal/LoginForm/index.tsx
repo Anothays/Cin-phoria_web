@@ -86,7 +86,7 @@ export default function LoginForm() {
           error={!!errors.password}
           helperText={errors.password?.message}
         />
-        <Link className={styles.forgetPassword} href={'/forgot-password'}>
+        <Link className={styles.forgetPassword} href={'/forgot-password'} onClick={closeLoginModal}>
           Mot de passe oublié ?
         </Link>
         <Button type="submit" variant={'contained'} size={'large'}>
