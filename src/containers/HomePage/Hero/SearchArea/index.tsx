@@ -1,6 +1,5 @@
 'use client';
 
-import fetcher from '@/services/fetcher';
 import { ApiJSONResponseType } from '@/types/ApiResponseType';
 import { MovieTheaterType } from '@/types/MovieTheaterType';
 import SearchIcon from '@mui/icons-material/Search';
@@ -16,15 +15,13 @@ export default function SearchArea() {
 
   const retriveMoviesTheaters = async () => {
     try {
-      // const response = await fetch('/api/movie_theaters', {
+      // const response: ApiJSONResponseType = await fetcher('/api/movie_theaters', {
       //   mode: 'no-cors',
       // });
-      const response: ApiJSONResponseType = await fetcher('/api/movie_theaters', {
-        mode: 'no-cors',
-      });
-      // console.log('response =+> ', await response.json());
-
-      setTheaters(response['hydra:member'].map((item) => item['theaterName']));
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie_theaters`);
+      const data: ApiJSONResponseType = await response.json();
+      console.log('data ==> ', data);
+      setTheaters(data['hydra:member'].map((item) => item['theaterName']));
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -39,7 +36,9 @@ export default function SearchArea() {
         disablePortal
         id="combo-box-demo"
         options={theaters}
-        renderInput={(params) => <TextField {...params} label="Cinéma" variant={'standard'} />}
+        renderInput={(params) => (
+          <TextField {...params} label="Rechercher un cinéma" variant={'standard'} />
+        )}
         loading={isloading}
         loadingText={<CircularProgress color="inherit" size={20} />}
       />

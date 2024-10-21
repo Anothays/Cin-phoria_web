@@ -2,13 +2,20 @@
 .container {
   display: flex;
   align-items: center;
+  justify-self: center;
   justify-content: center;
   flex-direction: column;
   margin-top: 7rem;
   width: 100%;
+  height: auto;
   max-width: $breakpoint-xl;
-  padding: $space-xxl;
+  // padding: $space-xxl;
+  .image {
+    width: 100%;
+    height: auto;
+  }
 }
+
 .title {
   font-size: $font-size-xxl;
   font-weight: bold;
@@ -16,14 +23,6 @@
   // text-align: center;
   align-self: flex-start;
   max-width: $breakpoint-md;
-}
-.movieList {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-  gap: $space-lg;
-  padding: $space-md;
-  justify-content: center;
 }
 
 @media (max-width: $breakpoint-lg) {

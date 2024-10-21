@@ -1,20 +1,31 @@
 'use client';
 
-import MovieCard from '@/components/MovieCard';
-import { useMovies } from '@/services/movies';
 import { MovieType } from '@/types/MovieType';
+import Image from 'next/image';
+import Link from 'next/link';
+import Carousel from 'react-material-ui-carousel';
 import styles from './MovieList.module.scss';
+// import { useMovies } from '@/services/movies';
+// import { MovieType } from '@/types/MovieType';
 
-export default function MovieList() {
-  const movieData = useMovies();
-  const movies = movieData.data?.['hydra:member'] as MovieType[];
+export default function MovieList({ movies }: { movies: MovieType[] }) {
+  // const movieData = useMovies();
+  // const movies = movieData.data?.['hydra:member'] as MovieType[];
 
   return (
-    <section className={styles.container}>
-      <h2 className={styles.title}>Les films du moment</h2>
-      <div className={styles.movieList}>
-        {movies?.map((movie) => <MovieCard key={movie.id} {...movie} />)}
-      </div>
-    </section>
+    <Carousel className={styles.container}>
+      {movies?.map((movie) => (
+        // <MovieCard key={movie.id} {...movie} />
+        <Link href={`/movies/${movie.id}`} key={movie.id}>
+          <Image
+            className={styles.image}
+            width={400}
+            height={500}
+            src={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/images/${movie.coverImageName}`}
+            alt={`${movie.title}`}
+          />
+        </Link>
+      ))}
+    </Carousel>
   );
 }
