@@ -17,9 +17,10 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
   const createNewReservation = async (
     projectionId: string,
     token: string,
+    userId: string,
   ): Promise<ReservationType> => {
     const body = {
-      user: session.data?.user['@id'],
+      user: userId,
       projectionEvent: projectionId,
     };
     const response = await fetcher('/api/reservations', {
@@ -42,11 +43,14 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
         title: 'Authentification requise',
         message: 'Connectez-vous pour réserver une séance',
         redirectionUrl: targetUrl,
-        callbackAction: async (token: string) => {
-          const reservation = (await createNewReservation(projectionId!, token)) as ReservationType;
+        callbackAction: async (token: string, userId: string) => {
+          const reservation = (await createNewReservation(
+            projectionId!,
+            token,
+            userId,
+          )) as ReservationType;
           if (!reservation) throw new Error('Error during reservation creation');
           console.log('reservation => ', reservation);
-
           localStorage.setItem('currentReservation', JSON.stringify(reservation));
           router.push(`/reservations/${reservation.id}`);
         },
@@ -56,7 +60,11 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
     }
     if (session.status === 'authenticated') {
       if (!projectionId) throw new Error('No projection id provided');
-      const reservation = await createNewReservation(projectionId, session.data.token);
+      const reservation = await createNewReservation(
+        projectionId,
+        session.data.token,
+        session.data.user['@id'],
+      );
       if (!reservation) throw new Error('Error during reservation creation');
       localStorage.setItem('currentReservation', JSON.stringify(reservation));
       router.push(`/reservations/${reservation.id}`);
