@@ -1,3 +1,4 @@
+import CustomSnackbar from '@/components/CustomSnackbar';
 import { MUITheme } from '@/config/MUI/MUITheme';
 import Footer from '@/containers/Footer';
 import Header from '@/containers/Header';
@@ -7,8 +8,8 @@ import classnames from 'classnames';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.scss';
+import styles from './HomePage.module.scss';
 import { NextAuthProvider } from './NextAuthProvider';
-import styles from './page.module.css';
 import Providers from './Providers';
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ export default async function RootLayout({
           <Providers>
             <NextAuthProvider>
               <LoginModal />
+              <CustomSnackbar />
               <Header />
               <MUITheme>
                 <main className={styles.main}>{children}</main>
