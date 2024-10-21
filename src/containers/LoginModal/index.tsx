@@ -1,12 +1,15 @@
 'use client';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import { useGlobalContext } from '@/context/globalContext';
 import LoginForm from '@/containers/LoginModal/LoginForm';
+import { useGlobalContext } from '@/context/globalContext';
+import CloseIcon from '@mui/icons-material/Close';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import styles from './LoginModal.module.scss';
 
 const style = {
   display: 'flex',
-  position: 'absolute' as 'absolute',
+  flexDirection: 'column',
+  position: 'absolute' as const,
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
@@ -23,6 +26,9 @@ export default function LoginModal() {
   return (
     <Modal open={isLoginModalOpen} onClose={closeLoginModal}>
       <Box sx={style}>
+        <div onClick={closeLoginModal} className={styles.closeIcon}>
+          <CloseIcon />
+        </div>
         <LoginForm />
       </Box>
     </Modal>
