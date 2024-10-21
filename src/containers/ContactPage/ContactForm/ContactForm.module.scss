@@ -1,0 +1,24 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+  padding: $space-lg;
+  .textArea {
+    box-sizing: border-box;
+    width: 320px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 3px;
+  }
+  // .submitButton {
+  //   background: $secondary-color;
+  //   color: white;
+  //   font-size: $font-size-md;
+  // }
+}

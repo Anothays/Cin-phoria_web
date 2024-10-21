@@ -1,0 +1,12 @@
+@import '/src/styles/_variables.module.scss';
+@import '/src/styles/_colors.module.scss';
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: $space-xxl;
+  height: 95vh;
+  width: 100%;
+}
