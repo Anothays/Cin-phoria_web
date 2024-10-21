@@ -1,11 +1,12 @@
 'use client';
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { UserType } from '@/types/UserType';
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
 
 type loginFormProps = {
   title: string;
   message: string;
   redirectionUrl: string;
-  callbackAction: (...args: any[]) => any;
+  callbackAction: ((...args: any[]) => any) | undefined;
 };
 
 type GlobalContextType = {
@@ -13,23 +14,39 @@ type GlobalContextType = {
   openLoginModal: () => void;
   closeLoginModal: () => void;
   toggleLoginModal: () => void;
+  isSnackbarVisible: boolean;
+  openSnackbar: () => void;
+  closeSnackbar: () => void;
+  toggleSnackbar: () => void;
+  snackbarContent: string | null;
+  setSnackbarContent: Dispatch<SetStateAction<string | null>>;
   loginFormProps: loginFormProps;
   updateLoginProps: (props: Partial<loginFormProps>) => void;
+  user: UserType | undefined;
+  setUser: Dispatch<SetStateAction<undefined>>;
+
 };
 export const globalContext = createContext<GlobalContextType | undefined>(undefined);
 
 export const GlobalContextHandler = ({ children }: { children: ReactNode }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [loginFormProps, setLoginFormProps] = useState({
+  const [isSnackbarVisible, setIsSnackbarVisible] = useState(false);
+  const [snackbarContent, setSnackbarContent] = useState<string | null >(null);
+  const [loginFormProps, setLoginFormProps] = useState<loginFormProps>({
     title: 'Connexion',
     message: 'Connectez-vous pour accéder à votre compte',
     redirectionUrl: '/',
-    callbackAction: () => {},
+    callbackAction: undefined,
   });
+  const [user, setUser] = useState(undefined);
 
   const openLoginModal = () => setIsLoginModalOpen(true);
   const closeLoginModal = () => setIsLoginModalOpen(false);
   const toggleLoginModal = () => setIsLoginModalOpen((prev) => !prev);
+  const openSnackbar = () => setIsSnackbarVisible(true);
+  const closeSnackbar = () => setIsSnackbarVisible(false);
+  const toggleSnackbar = () => setIsSnackbarVisible((prev) => !prev);
+
   const updateLoginProps = (props: Partial<loginFormProps>) =>
     setLoginFormProps((prev) => ({ ...prev, ...props }));
 
@@ -42,6 +59,14 @@ export const GlobalContextHandler = ({ children }: { children: ReactNode }) => {
         toggleLoginModal,
         loginFormProps,
         updateLoginProps,
+        user,
+        setUser,
+        isSnackbarVisible,
+        openSnackbar,
+        closeSnackbar,
+        toggleSnackbar,
+        snackbarContent,
+        setSnackbarContent
       }}
     >
       {children}
