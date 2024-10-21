@@ -1,0 +1,66 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+
+.layoutContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 92vh;
+  width: 100%;
+  /* padding: 1rem; */
+  .page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .movieList {
+      display: flex;
+      justify-content: center;
+      width: 95%;
+    }
+    .title {
+      color: black;
+      font-size: $h1-font-size;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+      align-self: center;
+      padding: $space-lg;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-md) {
+  .layoutContainer {
+    .main {
+      .page {
+        .movieList {
+          width: 75%;
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-lg) {
+  .layoutContainer {
+    .main {
+      .page {
+        .movieList {
+          width: 70%;
+        }
+      }
+    }
+  }
+}
