@@ -1,0 +1,35 @@
+@import '/src/styles/_variables.module.scss';
+@import '/src/styles/_colors.module.scss';
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: $font-size-xs;
+  box-shadow: 5px 5px 5px lightgray;
+  background: whitesmoke;
+  padding: 0 $space-xl 0 0;
+  gap: $space-unit;
+  transition: 0.3s;
+  text-decoration: none;
+  :hover {
+    cursor: pointer;
+  }
+  .infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: $space-md;
+  }
+  .image {
+    border-radius: $font-size-xs 0 0 $font-size-xs;
+  }
+  .movieTitle {
+    font-size: $font-size-xl;
+  }
+  .tickets {
+    font-size: $font-size-xl;
+    color: $secondary-color;
+  }
+}
