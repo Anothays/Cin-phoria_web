@@ -1,3 +1,4 @@
+import Rating from '@/components/Rating';
 import { MovieType } from '@/types/MovieType';
 import { dateFormat } from '@/utils/utils';
 import Image from 'next/image';
@@ -31,8 +32,8 @@ export default function MovieCardDetailed({ movie }: { movie: MovieType }) {
           <span>Synopsis</span>
           <p className={styles.text}>{movie.synopsis}</p>
         </div>
-        <div>
-          <span>Note certifiée : </span> {movie.averageNote}/10
+        <div className={styles.rating}>
+          <span>Note certifiée : </span> <Rating rate={movie.averageNote} />
         </div>
       </div>
     </div>
