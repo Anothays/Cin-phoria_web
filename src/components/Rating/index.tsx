@@ -15,7 +15,7 @@ export default function Rating({ rate }: { rate: number }) {
   }
 
   return (
-    <span className={styles.container}>
+    <span className={styles.container} data-testid="starsContainer">
       {...fullStars}
       {...emptyStars}
     </span>
