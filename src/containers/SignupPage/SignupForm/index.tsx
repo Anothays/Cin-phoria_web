@@ -1,5 +1,6 @@
 'use client';
 
+import fetcher from '@/services/fetcher';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -42,8 +43,20 @@ export default function SignupForm() {
   } = useForm<CustomerSignupFormType>({
     resolver: zodResolver(schema),
   });
-  console.log('test error', errors);
-  const onSubmit: SubmitHandler<CustomerSignupFormType> = (data) => console.log(data);
+
+  const onSubmit: SubmitHandler<CustomerSignupFormType> = async (data) => {
+    const dataToSend = JSON.stringify(data);
+    const response = await fetcher('/api/users', {
+      method: 'POST',
+      body: dataToSend,
+      headers: {
+        ['Content-type']: 'application/ld+json',
+      },
+    });
+    if (!response.ok) return alert("Une erreur s'est produite");
+    const result = await response.json();
+    console.log(result);
+  };
 
   return (
     <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
