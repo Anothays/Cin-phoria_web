@@ -1,0 +1,13 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 20rem;
+  gap: $space-md;
+  margin: $space-xl 0;
+}
