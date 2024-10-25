@@ -4,10 +4,10 @@
 .formContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: $space-md;
+  padding: $space-lg;
+  margin: $space-xl 0;
   justify-content: center;
   width: 100%;
   max-width: 20rem;
-  gap: $space-md;
-  margin: $space-xl 0;
 }

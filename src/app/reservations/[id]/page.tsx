@@ -59,7 +59,6 @@ export default function ReservationPage({ params }: { params: { id: number } }) 
     };
     getReservation().then((res) => {
       console.log('res ==> ', res);
-
       setCurrentReservation(res);
     });
   }, [status]);

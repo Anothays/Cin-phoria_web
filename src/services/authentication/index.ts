@@ -9,17 +9,23 @@ export const login = async (data: Record<"email" | "password", string> | undefin
     username: data?.email,
     password: data?.password
   };
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login_check`, {
-    body: JSON.stringify(body),
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  if (!response.ok) throw new Error("Erreur d'authentification");
-  const results = await response.json();
-  return results;
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login_check`, {
+      body: JSON.stringify(body),
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) throw new Error("Erreur d'authentification");
+    const results = await response.json();
+    return results;
+  } catch (error) {
+    console.log(error);
+    throw error
+  }
 
 
   // const expires = new Date(Date.now() + 3600 * 1000);

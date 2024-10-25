@@ -18,11 +18,9 @@ export default function MyReservationsPage() {
         headers: {
           Authorization: `Bearer ${session.data?.token}`,
         },
-      })
-        .then((res) => res.json())
-        .then((res: ApiJSONResponseType) =>
-          setReservations(res['hydra:member'] as ReservationType[]),
-        );
+      }).then((res: ApiJSONResponseType) =>
+        setReservations(res['hydra:member'] as ReservationType[]),
+      );
     }
   }, [session.status]);
 

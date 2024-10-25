@@ -1,9 +1,13 @@
 'use client';
 
+import { useGlobalContext } from '@/context/globalContext';
 import fetcher from '@/services/fetcher';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { CircularProgress } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as z from 'zod';
 import styles from './SignupForm.module.scss';
@@ -36,6 +40,10 @@ const schema = z
   });
 
 export default function SignupForm() {
+  const { openSnackbar, setSnackbarContent } = useGlobalContext();
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -45,17 +53,26 @@ export default function SignupForm() {
   });
 
   const onSubmit: SubmitHandler<CustomerSignupFormType> = async (data) => {
-    const dataToSend = JSON.stringify(data);
-    const response = await fetcher('/api/users', {
-      method: 'POST',
-      body: dataToSend,
-      headers: {
-        ['Content-type']: 'application/ld+json',
-      },
-    });
-    if (!response.ok) return alert("Une erreur s'est produite");
-    const result = await response.json();
-    console.log(result);
+    setIsLoading(true);
+    try {
+      const dataToSend = JSON.stringify(data);
+      const response = await fetcher('/api/users', {
+        method: 'POST',
+        body: dataToSend,
+        headers: {
+          ['Content-type']: 'application/ld+json',
+        },
+      });
+      console.log(response);
+      setSnackbarContent(
+        `Un email de confirmation a été envoyé à l'adresse : ${data.email}. Veuillez cliquer sur le lien qu'il contient pour pouvoir vous authentifier`,
+      );
+      openSnackbar();
+      router.push('/');
+    } catch (error) {
+      return alert(`Une erreur s'est produite ${error}`);
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -104,7 +121,7 @@ export default function SignupForm() {
         helperText={errors.confirmPassword?.message}
       />
       <Button type="submit" variant={'contained'} size={'large'}>
-        Je m&apos;inscris
+        {isLoading ? <CircularProgress color={'info'} size={27} /> : <span>Je m&apos;inscris</span>}
       </Button>
     </form>
   );

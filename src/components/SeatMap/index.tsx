@@ -5,7 +5,6 @@ import { ProjectionRoomSeatType } from '@/types/ProjectionRoomSeatType';
 import { CircularProgress } from '@mui/material';
 import Seat from './Seat';
 import styles from './SeatMap.module.scss';
-import { useSession } from 'next-auth/react';
 
 type SeatMapProps = {
   projectionId: number;
@@ -14,6 +13,7 @@ type SeatMapProps = {
 
 export default function SeatMap({ projectionId, onSeatSelect }: SeatMapProps) {
   const projectionEvent = useProjectionEvents(projectionId);
+
   const { data, isLoading } = projectionEvent;
 
   if (isLoading) return <CircularProgress />;

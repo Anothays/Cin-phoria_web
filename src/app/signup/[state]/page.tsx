@@ -1,6 +1,5 @@
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import Link from 'next/link';
 import styles from './SignupState.module.scss';
 
 export default function page({ params }: { params: { state: 'success' | 'error' } }) {
@@ -10,7 +9,7 @@ export default function page({ params }: { params: { state: 'success' | 'error' 
         <Alert severity="success">
           <AlertTitle>Success</AlertTitle>
           <h1>Votre compte a bien été crée ! Bienvenue</h1>
-          <Link className={styles.link} href="/login">Se connecter</Link>
+          Vous pouvez maintenant vous connecter
         </Alert>
       ) : (
         <Alert severity="error">
