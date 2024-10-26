@@ -1,48 +1,137 @@
 'use client';
-import styles from './HamburgerMenu.module.scss';
-import { useState } from 'react';
-import Drawer from '@mui/material/Drawer';
+import { useGlobalContext } from '@/context/globalContext';
 import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import { useGlobalContext } from '@/context/globalContext';
+// import ListItemButton from '@mui/material/ListItemButton';
+// import ListItemText from '@mui/material/ListItemText';
+// import { useMemo, useState } from 'react';
+import styles from './HamburgerMenu.module.scss';
+// import { signOutAction } from '@/actions/signin';
+import { signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const DrawerList = ({ onClose }: { onClose: () => void }) => {
-  const links = [
-    {
-      href: '/signup/jobber',
-      title: 'Devenir prestataire',
-    },
-    {
-      href: '',
+  const { openLoginModal, updateLoginProps } = useGlobalContext();
+  const { status, data } = useSession();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // const links = useMemo(() => {
+  //   if (status === 'authenticated') {
+  //     return [
+  //       {
+  //         href: '/account',
+  //         title: 'Account',
+  //       },
+
+  //       {
+  //         onClick: () => {
+  //           // signOutAction();
+  //           onClose();
+  //         },
+  //         title: 'Déconnexion',
+  //       },
+  //     ];
+  //   }
+  //   return [
+  //     {
+  //       href: '/signup/jobber',
+  //       title: 'Devenir prestataire',
+  //     },
+  //     {
+  //       onClick: () => {
+  //         openLoginModal();
+  //         onClose();
+  //       },
+  //       title: 'Connexion',
+  //     },
+  //     {
+  //       href: '/signup',
+  //       title: 'Inscription',
+  //     },
+  //   ];
+  // }, [onClose, openLoginModal, status]);
+
+  const handleLogout = async (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    await signOut({ callbackUrl: '/' });
+  };
+
+  const handlelogin = (e) => {
+    e.preventDefault();
+    if (pathname === '/login') return;
+    updateLoginProps({
       title: 'Connexion',
-    },
-    {
-      href: '/signup',
-      title: 'Inscription',
-    },
-  ];
-  const { openLoginModal } = useGlobalContext();
+      message: 'Connectez-vous pour accéder à votre compte',
+      redirectionUrl: '/',
+      callbackAction: undefined,
+    });
+    openLoginModal();
+  };
+
+  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (pathname === '/login') return;
+    const targetUrl = e.currentTarget.href;
+    if (status === 'unauthenticated') {
+      updateLoginProps({
+        title: 'Authentification requise',
+        message: 'Connectez-vous pour accéder à vos réservations',
+        redirectionUrl: targetUrl,
+        callbackAction: async () => {
+          router.push(targetUrl);
+        },
+      });
+      openLoginModal();
+      return;
+    }
+    if (status === 'authenticated') {
+      router.push(targetUrl);
+    }
+  };
+
   return (
     <Box sx={{ width: 250 }} role="presentation">
-      <List>
-        {links.map((link) => (
-          <ListItem key={link.title} disablePadding>
-            <ListItemButton
-              href={link.href}
-              onClick={() => {
-                if (link.title === 'Connexion') {
-                  openLoginModal();
-                  onClose();
-                }
-              }}
-            >
-              <ListItemText primary={link.title} />
-            </ListItemButton>
+      <List className={styles.navContainer}>
+        <nav>
+          <ListItem>
+            <Link className={styles.navLink} href="/">
+              Accueil
+            </Link>
           </ListItem>
-        ))}
+          <ListItem>
+            <Link className={styles.navLink} href="/movies">
+              Les films
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link className={styles.navLink} href="/my_reservations" onClick={handleClick}>
+              Mes réservations
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link className={styles.navLink} href="/contact">
+              Contact
+            </Link>
+          </ListItem>
+          {data?.user ? (
+            <ListItem>
+              <Link className={styles.navLink} href="" onClick={handleLogout}>
+                Déconnexion
+              </Link>
+            </ListItem>
+          ) : (
+            <ListItem>
+              <Link className={styles.navLink} href="/login" onClick={handlelogin}>
+                Connexion
+              </Link>
+            </ListItem>
+          )}
+        </nav>
       </List>
     </Box>
   );

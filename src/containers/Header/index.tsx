@@ -79,23 +79,16 @@ export default function Header() {
         <Link href="/">
           <Image src="/cinephoria_logo.png" width={80} height={80} alt="logo of Cinéphoria" />
         </Link>
-
         <nav className={styles.navContainer}>
           <Link className={styles.navLink} href="/">
             Accueil
           </Link>
-          {/* <Link className={styles.navLink} href="/movies-theaters">
-            Nos cinémas
-          </Link> */}
           <Link className={styles.navLink} href="/movies">
             Les films
           </Link>
           <Link className={styles.navLink} href="/my_reservations" onClick={handleClick}>
             Mes réservations
           </Link>
-          {/* <Link className={styles.navLink} href="/signup">
-            Inscription
-          </Link> */}
           <Link className={styles.navLink} href="/contact">
             Contact
           </Link>
@@ -108,17 +101,6 @@ export default function Header() {
               Connexion
             </Link>
           )}
-          {/* <Link
-            style={{ color: 'white' }}
-            href=""
-            onClick={async (e) => {
-              e.preventDefault();
-              const data = await getSession();
-              console.log(data);
-            }}
-          >
-            GetSession
-          </Link> */}
         </nav>
         <HamburgerMenu />
       </div>

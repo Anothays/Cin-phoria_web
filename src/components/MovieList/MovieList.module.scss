@@ -1,0 +1,27 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+
+.container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  padding: $space-xxl;
+  background: $gradient1;
+  .image {
+    object-fit: cover;
+  }
+}
+
+.title {
+  font-size: $font-size-xxl;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  align-self: flex-start;
+  max-width: $breakpoint-md;
+}
+
+@media (max-width: $breakpoint-lg) {
+  .title {
+    font-size: $font-size-xl;
+  }
+}

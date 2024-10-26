@@ -1,5 +1,6 @@
+import MovieList from '@/components/MovieList';
+import SearchArea from '@/components/SearchArea';
 import Hero from '@/containers/HomePage/Hero';
-import MovieList from '@/containers/HomePage/MovieList';
 import getMovies from '@/services/movies/lib';
 import { MovieType } from '@/types/MovieType';
 import styles from './HomePage.module.scss';
@@ -7,14 +8,17 @@ import styles from './HomePage.module.scss';
 export default async function Home() {
   const moviesData = await getMovies('isStaffFavorite=true');
   const movies = moviesData['hydra:member'] as MovieType[];
+  const moviestaffFavorite = movies.filter((movie) => movie.staffFavorite);
 
   return (
     <div className={styles.page}>
-      <Hero />
-      <h2 className={styles.title}>Notre sélection</h2>
-      <section className={styles.movieList}>
-        <MovieList movies={movies} />
-      </section>
+      <div className={styles.searchContainer}>
+        <SearchArea />
+      </div>
+
+      <Hero movies={movies} />
+      <h2 className={styles.title}>Nos coups de coeur à l'affiche</h2>
+      <MovieList movies={moviestaffFavorite} />
     </div>
   );
 }

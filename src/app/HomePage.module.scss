@@ -16,26 +16,35 @@
   justify-content: flex-start;
   min-height: 92vh;
   width: 100%;
-  /* padding: 1rem; */
+
   .page {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
 
-    .movieList {
-      display: flex;
-      justify-content: center;
-      width: 95%;
-    }
     .title {
-      color: black;
+      color: white;
+      width: 100%;
+      background: $gradient1;
       font-size: $h1-font-size;
       font-weight: 700;
       line-height: 1.2;
       text-align: center;
       align-self: center;
-      padding: $space-lg;
+      // padding: $space-sm;
+    }
+
+    .searchContainer {
+      gap: $space-lg;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: $space-3xl;
+      margin-bottom: $space-3xl;
+      background: $gradient1;
     }
   }
 }
@@ -59,6 +68,9 @@
       .page {
         .movieList {
           width: 70%;
+        }
+        .title {
+          padding: $space-3xl;
         }
       }
     }
