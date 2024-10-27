@@ -6,6 +6,13 @@
   display: flex;
   flex-grow: 1;
   flex-direction: column;
+  .title {
+    width: 100%;
+    background: $gradient1;
+    color: white;
+    padding: $space-lg;
+    border-radius: 1rem;
+  }
   .MovieTheaterAndProjectionEventsItem {
     display: flex;
     flex-direction: column;

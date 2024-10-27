@@ -35,7 +35,12 @@ export default function ProjectionEventsTab({
       (item) => item.date === projectionEvent.date,
     );
   });
-  const days = Object.keys(projectionEventsOrderedByDate);
+
+  const days = Object.keys(projectionEventsOrderedByDate).sort((a, b) => {
+    const dateA = new Date(a.split('/').reverse().join('-'));
+    const dateB = new Date(b.split('/').reverse().join('-'));
+    return dateA - dateB;
+  }); // Retrier pour avoir un tableau de datestring dans l'ordre chronologique
   const formatter = dateFormatter();
   const [value, setValue] = useState(0);
 
@@ -88,7 +93,7 @@ export default function ProjectionEventsTab({
 
   return (
     <div className={styles.container}>
-      <h2>Les séances</h2>
+      <h2 className={styles.title}>Les séances</h2>
 
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
