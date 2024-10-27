@@ -1,4 +1,5 @@
 import { HydraMember } from "./ApiResponseType";
+import { CommentType } from "./CommentType";
 import { ProjectionEventType } from "./ProjectionEventType";
 
 export interface MovieType extends HydraMember {
@@ -23,4 +24,5 @@ export interface MovieType extends HydraMember {
   coverImageName: string;
   createdAt: Date;
   updatedAt: Date;
+  comments: CommentType[];
 }
