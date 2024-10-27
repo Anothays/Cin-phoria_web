@@ -1,0 +1,16 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  gap: $space-md;
+  .title {
+    background: $gradient1;
+    color: white;
+    padding: $space-lg;
+    border-radius: 1rem;
+  }
+}

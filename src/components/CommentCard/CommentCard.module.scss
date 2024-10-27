@@ -1,0 +1,18 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+
+.container {
+  border-radius: 1rem;
+  background-color: whitesmoke;
+  padding: $space-md;
+  .header {
+    gap: 1rem;
+    font-weight: bold;
+    .username {
+      font-weight: 800;
+    }
+  }
+  .body {
+    font-style: italic;
+  }
+}

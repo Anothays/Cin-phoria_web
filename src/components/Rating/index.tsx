@@ -1,7 +1,7 @@
 import StarTwoToneIcon from '@mui/icons-material/StarTwoTone';
 import styles from './Rating.module.scss';
 
-export default function Rating({ rate }: { rate: number }) {
+export default function Rating({ rate, withTotal }: { rate: number; withTotal: boolean }) {
   console.log('rate ==> ', rate);
 
   const fullStarsCount = Math.floor(rate);
@@ -19,7 +19,8 @@ export default function Rating({ rate }: { rate: number }) {
   return (
     <span className={styles.container} data-testid="starsContainer">
       {...fullStars}
-      {...emptyStars} / 5
+      {...emptyStars}
+      {withTotal ? '/ 5' : null}
     </span>
   );
 }

@@ -42,7 +42,7 @@ export default function SearchArea() {
         loading={isloading}
         loadingText={<CircularProgress color="inherit" size={20} />}
       />
-      <span className={styles.searchButton}>
+      <span className={styles.searchButton} onClick={() => alert('FEATURE EN DEVELOPPEMENT')}>
         <SearchIcon sx={{ fontSize: { sm: 16, lg: 30 } }} />
       </span>
     </div>

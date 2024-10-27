@@ -33,7 +33,7 @@ export default function MovieCardDetailed({ movie }: { movie: MovieType }) {
           <p className={styles.text}>{movie.synopsis}</p>
         </div>
         <div className={styles.rating}>
-          <span>Note certifiée : </span> <Rating rate={movie.averageNote} />
+          <span>Note certifiée : </span> <Rating rate={movie.averageNote} withTotal={true} />
         </div>
       </div>
     </div>
