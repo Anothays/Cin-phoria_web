@@ -24,14 +24,13 @@ type GlobalContextType = {
   updateLoginProps: (props: Partial<loginFormProps>) => void;
   user: UserType | undefined;
   setUser: Dispatch<SetStateAction<undefined>>;
-
 };
 export const globalContext = createContext<GlobalContextType | undefined>(undefined);
 
 export const GlobalContextHandler = ({ children }: { children: ReactNode }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isSnackbarVisible, setIsSnackbarVisible] = useState(false);
-  const [snackbarContent, setSnackbarContent] = useState<string | null >(null);
+  const [snackbarContent, setSnackbarContent] = useState<string | null>(null);
   const [loginFormProps, setLoginFormProps] = useState<loginFormProps>({
     title: 'Connexion',
     message: 'Connectez-vous pour accéder à votre compte',
@@ -66,7 +65,7 @@ export const GlobalContextHandler = ({ children }: { children: ReactNode }) => {
         closeSnackbar,
         toggleSnackbar,
         snackbarContent,
-        setSnackbarContent
+        setSnackbarContent,
       }}
     >
       {children}

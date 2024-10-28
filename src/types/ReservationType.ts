@@ -17,4 +17,5 @@ export interface ReservationType extends HydraMember {
   projectionEvent: ProjectionEventType;
   seats: ProjectionRoomSeatType[];
   paid: boolean;
+  rate: boolean;
 }

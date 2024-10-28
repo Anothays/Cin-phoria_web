@@ -1,0 +1,7 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+
+.button {
+  background: $secondary-color;
+  color: white;
+}
