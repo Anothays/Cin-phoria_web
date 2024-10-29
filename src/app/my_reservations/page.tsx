@@ -1,87 +1,62 @@
-'use client';
-
+import { auth } from '@/auth';
 import ReservationCard from '@/components/ReservationCard';
 import DenseTable from '@/containers/MyReservationPage/DenseTable';
 import fetcher from '@/services/fetcher';
 import { ApiJSONResponseType } from '@/types/ApiResponseType';
 import { ReservationType } from '@/types/ReservationType';
-import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
 import styles from './MyReservation.module.scss';
 
-export default function MyReservationsPage() {
-  const session = useSession();
-  const [reservations, setReservations] = useState<ReservationType[] | undefined>(undefined);
+export default async function MyReservationsPage() {
+  const session = await auth();
+  const reservations = (await fetcher('/api/reservations', {
+    headers: {
+      Authorization: `Bearer ${session?.token}`,
+    },
+  })) as ApiJSONResponseType;
 
-  useEffect(() => {
-    if (session.status === 'authenticated') {
-      fetcher('/api/reservations', {
-        headers: {
-          Authorization: `Bearer ${session.data?.token}`,
-        },
-      }).then((res: ApiJSONResponseType) => {
-        return setReservations(res['hydra:member'] as ReservationType[]);
-      });
-    }
-  }, [session.status]);
+  console.log('reservations =>', reservations);
 
-  if (session.status === 'loading') return <p>Chargement...</p>;
+  const today = new Date();
 
-  if (session.status === 'authenticated' && reservations) {
-    const today = new Date();
+  const incomingReservations = reservations['hydra:member'].filter(
+    (reservation) =>
+      new Date(
+        reservation.projectionEvent.date.split('/').reverse().join('-') +
+          'T' +
+          reservation.projectionEvent.beginAt,
+      ) >= today,
+  ) as ReservationType[];
+  const terminatedReservations = reservations['hydra:member'].filter(
+    (reservation) =>
+      new Date(
+        reservation.projectionEvent.date.split('/').reverse().join('-') +
+          'T' +
+          reservation.projectionEvent.beginAt,
+      ) < today,
+  ) as ReservationType[];
 
-    const incomingReservations = reservations.filter(
-      (reservation) =>
-        new Date(
-          reservation.projectionEvent.date.split('/').reverse().join('-') +
-            'T' +
-            reservation.projectionEvent.beginAt,
-        ) >= today,
-    );
-    const terminatedReservations = reservations.filter(
-      (reservation) =>
-        new Date(
-          reservation.projectionEvent.date.split('/').reverse().join('-') +
-            'T' +
-            reservation.projectionEvent.beginAt,
-        ) < today,
-    );
-    const lol = new Date(
-      reservations[1].projectionEvent.date.split('/').reverse().join('-') +
-        'T' +
-        reservations[1].projectionEvent.beginAt,
-    );
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.title}>Vos réservations</h1>
 
-    console.log(reservations[1].projectionEvent.movie.title);
-    console.log(lol);
-    console.log(today);
+      <h2>À venir</h2>
+      {incomingReservations?.length > 0 ? (
+        incomingReservations?.map((reservation) => (
+          <ReservationCard reservation={reservation} key={reservation.id} />
+        ))
+      ) : (
+        <p>Pas de réservation actuellement</p>
+      )}
 
-    // console.log('incomingReservations ==> ', incomingReservations.length);
-    // console.log('terminatedReservations ==> ', terminatedReservations.length);
-
-    return (
-      <div className={styles.container}>
-        <h1 className={styles.title}>Mes réservations</h1>
-
-        <h2 className={styles.title}>Mes séances à venir</h2>
-        {incomingReservations?.length > 0 ? (
-          incomingReservations?.map((reservation) => (
-            <ReservationCard reservation={reservation} key={reservation.id} />
-          ))
-        ) : (
-          <p>Pas de réservation actuellement</p>
-        )}
-
-        <h2 className={styles.title}>Mes séances passées</h2>
-        {/* {terminatedReservations?.length > 0 ? (
-          terminatedReservations?.map((reservation) => (
-            <ReservationCard reservation={reservation} key={reservation.id} />
-          ))
-        ) : (
-          <p>Pas de réservation actuellement</p>
-        )} */}
-        <DenseTable reservations={terminatedReservations} />
-      </div>
-    );
-  }
+      <h2>Vos dernières séances</h2>
+      {/* {terminatedReservations?.length > 0 ? (
+        terminatedReservations?.map((reservation) => (
+          <ReservationCard reservation={reservation} key={reservation.id} />
+        ))
+      ) : (
+        <p>Pas de réservation actuellement</p>
+      )} */}
+      <DenseTable reservations={terminatedReservations} />
+    </div>
+  );
 }

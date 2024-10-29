@@ -11,6 +11,11 @@
   gap: $space-lg;
   padding: $space-3xl;
   .title {
+    width: 100%;
     font-size: $h1-font-size;
+    background: $gradient1;
+    color: white;
+    padding: $space-lg;
+    border-radius: 1rem;
   }
 }

@@ -15,9 +15,6 @@ export default function MoviesPage() {
   const callbackAction = async (query: string) => {
     try {
       const response = await fetcher(query);
-      console.log('response ==> ', response);
-      console.log('data ==> ', data);
-
       mutate(response, false);
     } catch (error) {
       alert(error);
@@ -26,7 +23,7 @@ export default function MoviesPage() {
 
   if (isLoading) {
     return (
-      <div className={styles.container}>
+      <div className={styles.page}>
         <h1 className={styles.title}>Les films du moment</h1>
         <SearchArea callbackAction={callbackAction} />
         <CircularProgress color="inherit" size={50} />
@@ -36,7 +33,7 @@ export default function MoviesPage() {
 
   if (data) {
     return (
-      <div className={styles.container}>
+      <div className={styles.page}>
         <h1 className={styles.title}>Les films du moment</h1>
         <SearchArea callbackAction={callbackAction} />
         <MovieList movies={data?.['hydra:member'] as MovieType[]} />

@@ -4,7 +4,7 @@ import styles from './Contact.module.scss';
 export default function ContactPage() {
   return (
     <div className={styles.page}>
-      <h1>Contacter notre service</h1>
+      <h1 className={styles.title}>Contacter notre service</h1>
       <ContactForm />
     </div>
   );

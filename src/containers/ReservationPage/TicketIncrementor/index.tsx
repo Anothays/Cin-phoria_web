@@ -44,14 +44,13 @@ export default function TicketIncrementor({ limit, ticketCategories }: TicketInc
   };
 
   useEffect(() => {
-    setTotalPrice(() => {
-      console.log('ticketCounts ==>', ticketCounts);
-      let total = 0;
-      ticketCounts.forEach((count, index) => {
-        total += count * ticketCategories[index].price;
-      });
-      return total;
+    let total = 0;
+
+    ticketCounts.forEach((count, index) => {
+      total += count * ticketCategories[index].price;
     });
+
+    setTotalPrice(total);
     storeIntoLocalStorage(ticketCategories);
   }, [ticketCounts]);
 

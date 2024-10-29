@@ -1,0 +1,72 @@
+@import '/src/styles/_variables.module.scss';
+@import '/src/styles/_colors.module.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 50px;
+  padding: $space-3xl;
+  .submitButtonDisabled {
+    width: 100%;
+    // align-self: flex-end;
+    padding: $space-lg;
+    background: $primary-color;
+    color: white;
+    border-radius: 0.3rem;
+    opacity: 50%;
+    background: white;
+  }
+  .submitButtonEnabled {
+    width: 100%;
+    // align-self: flex-end;
+    padding: $space-lg;
+    background: $primary-color;
+    color: white;
+    border-radius: 0.3rem;
+    // font-size: xx;
+  }
+  .incrementor {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    .incrementorRow {
+      display: grid;
+      align-items: center;
+      grid-template-columns: repeat(3, minmax(100px, 1fr));
+      width: 100%;
+      min-height: 50px;
+      justify-content: space-between;
+      .counter {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 5px;
+        .rowCount {
+          width: 2rem;
+          padding: $space-md;
+          margin: $space-md;
+          text-align: center;
+        }
+        .button {
+          background-color: lightgray;
+          color: white;
+          padding: 0rem;
+          font-size: 1rem;
+
+          // border-radius: 50px;
+        }
+      }
+    }
+    .incrementorFooter {
+      width: 100%;
+      text-align: end;
+      .totalPrice {
+        font-size: x-large;
+      }
+    }
+  }
+}

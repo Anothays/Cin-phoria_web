@@ -7,7 +7,6 @@ import styles from './MovieDetails.module.scss';
 export default async function MovieDetail({ params }: { params: { id: string } }) {
   const movie = await fetcher(`/api/movies/${params.id}`, { cache: 'no-store' });
   const projectionEvents = movie.projectionEvents;
-  console.log('movie ==> ', movie);
 
   return (
     <main className={styles.main}>

@@ -1,7 +1,7 @@
 @import '/src/styles/_variables.module.scss';
 @import '/src/styles/_colors.module.scss';
 
-.container {
+.page {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -9,8 +9,12 @@
   width: 100%;
   padding: $space-3xl;
   .title {
+    width: 100%;
     font-size: $h1-font-size;
-    align-self: flex-start;
+    background: $gradient1;
+    color: white;
+    padding: $space-lg;
+    border-radius: 1rem;
   }
   .movieList {
     width: 100%;

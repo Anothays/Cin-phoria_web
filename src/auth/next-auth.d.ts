@@ -3,14 +3,8 @@ import { UserType } from "@/types/UserType";
 declare module 'next-auth' {
 
   interface User {
-    id: number;
-    email: string;
-    roles: string[];
-    password: string;
-    reservations: ReservationType[];
-    createdAt: Date;
-    updatedAt: Date;
-    userIdentifier: string;
+    user: UserType
+    token: string;
   }
 
   /**
