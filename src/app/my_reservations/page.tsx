@@ -32,12 +32,33 @@ export default function MyReservationsPage() {
 
     const incomingReservations = reservations.filter(
       (reservation) =>
-        new Date(reservation.projectionEvent.date.split('/').reverse().join('-')) > today,
+        new Date(
+          reservation.projectionEvent.date.split('/').reverse().join('-') +
+            'T' +
+            reservation.projectionEvent.beginAt,
+        ) >= today,
     );
-    const reservationOver = reservations.filter(
+    const terminatedReservations = reservations.filter(
       (reservation) =>
-        new Date(reservation.projectionEvent.date.split('/').reverse().join('-')) < today,
+        new Date(
+          reservation.projectionEvent.date.split('/').reverse().join('-') +
+            'T' +
+            reservation.projectionEvent.beginAt,
+        ) < today,
     );
+    const lol = new Date(
+      reservations[1].projectionEvent.date.split('/').reverse().join('-') +
+        'T' +
+        reservations[1].projectionEvent.beginAt,
+    );
+
+    console.log(reservations[1].projectionEvent.movie.title);
+    console.log(lol);
+    console.log(today);
+
+    // console.log('incomingReservations ==> ', incomingReservations.length);
+    // console.log('terminatedReservations ==> ', terminatedReservations.length);
+
     return (
       <div className={styles.container}>
         <h1 className={styles.title}>Mes réservations</h1>
@@ -52,14 +73,14 @@ export default function MyReservationsPage() {
         )}
 
         <h2 className={styles.title}>Mes séances passées</h2>
-        {/* {reservationOver?.length > 0 ? (
-          reservationOver?.map((reservation) => (
+        {/* {terminatedReservations?.length > 0 ? (
+          terminatedReservations?.map((reservation) => (
             <ReservationCard reservation={reservation} key={reservation.id} />
           ))
         ) : (
           <p>Pas de réservation actuellement</p>
         )} */}
-        <DenseTable reservations={reservationOver} />
+        <DenseTable reservations={terminatedReservations} />
       </div>
     );
   }
