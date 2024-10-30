@@ -30,10 +30,18 @@
       font-weight: 800;
     }
   }
+  .movieTitle {
+    font-size: 1rem;
+    text-align: start;
+  }
   .rating {
     align-self: flex-start;
   }
-  .favorite {
+  .movieInfos {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .minimumAge {

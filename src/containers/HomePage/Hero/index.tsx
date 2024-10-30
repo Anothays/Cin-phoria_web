@@ -10,8 +10,6 @@ import styles from './Hero.module.scss';
 export default function Hero({ movies }: { movies: MovieType[] }) {
   return (
     <section className={styles.container}>
-      <h1 className={styles.title}>Les dernières sorties</h1>
-
       <Carousel navButtonsAlwaysInvisible indicators={false}>
         {movies.map((movie) => (
           <Link href={`/movies/${movie.id}`} key={movie.id}>

@@ -1,6 +1,6 @@
-import Rating from '@/components/Rating';
 import { MovieType } from '@/types/MovieType';
 import { dateFormat } from '@/utils/utils';
+import Rating from '@mui/material/Rating';
 import Image from 'next/image';
 import styles from './MovieCardDetailed.module.scss';
 
@@ -33,7 +33,8 @@ export default function MovieCardDetailed({ movie }: { movie: MovieType }) {
           <p className={styles.text}>{movie.synopsis}</p>
         </div>
         <div className={styles.rating}>
-          <span>Note certifiée : </span> <Rating rate={movie.averageNote} withTotal={true} />
+          <span>Note certifiée : </span>{' '}
+          <Rating value={movie.averageNote} readOnly precision={0.5} /> /5
         </div>
       </div>
     </div>

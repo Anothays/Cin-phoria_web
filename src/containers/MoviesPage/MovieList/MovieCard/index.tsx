@@ -5,31 +5,14 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 // import Image from 'next/image';
 import RecommendTwoToneIcon from '@mui/icons-material/RecommendTwoTone';
+import Rating from '@mui/material/Rating';
 import Tooltip from '@mui/material/Tooltip';
 import Link from 'next/link';
-import Rating from '../../../../components/Rating';
 import styles from './MovieCard.module.scss';
 
 export default function MovieCard(movie: MovieType) {
   return (
     <Link href={`/movies/${movie.id}`} className={styles.container}>
-      {/* <Image
-        className={styles.image}
-        // src={movie.img}
-        src={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/images/${movie.coverImageName}`}
-        // alt={movie.name}
-        alt={`${movie.coverImageName}`}
-        width={290}
-        height={300}
-        sizes="100%"
-        style={{
-          width: '100%',
-          height: 'auto',
-        }}
-      />
-      <div className={styles.titleAndPriceContainer}>
-        <h3 className={styles.text}>{movie.title}</h3>
-      </div> */}
       <Card sx={{ height: 600 }}>
         <CardMedia
           component="img"
@@ -42,22 +25,30 @@ export default function MovieCard(movie: MovieType) {
             gutterBottom
             variant="h5"
             component="div"
-            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexDirection: 'column',
+            }}
           >
-            {movie.title}
-            {movie.staffFavorite ? (
-              <Tooltip title="Coup de coeur de l'équipe">
-                <RecommendTwoToneIcon
-                  sx={{
-                    width: 40,
-                    height: 40,
-                    color: 'orange',
-                  }}
-                  className={styles.favorite}
-                />
-              </Tooltip>
-            ) : null}
-            <span className={styles.minimumAge}>{movie.minimumAge}</span>
+            <h2 className={styles.movieTitle}>{movie.title}</h2>
+            <div className={styles.movieInfos}>
+              <Rating value={movie.averageNote} precision={0.5} readOnly />
+              {movie.staffFavorite ? (
+                <Tooltip title="Coup de coeur de l'équipe">
+                  <RecommendTwoToneIcon
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      color: 'orange',
+                    }}
+                    className={styles.favorite}
+                  />
+                </Tooltip>
+              ) : null}
+              <span className={styles.minimumAge}>{movie.minimumAge}</span>
+            </div>
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             {movie.synopsis.slice(0, 140)}...
@@ -65,9 +56,7 @@ export default function MovieCard(movie: MovieType) {
           <Typography
             variant="body2"
             sx={{ color: 'text.secondary', justifyContent: 'center', alignItems: 'center' }}
-          >
-            <Rating rate={movie.averageNote} />
-          </Typography>
+          ></Typography>
         </CardContent>
       </Card>
     </Link>
