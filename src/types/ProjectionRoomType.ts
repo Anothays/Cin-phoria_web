@@ -1,5 +1,6 @@
 import { HydraMember } from "./ApiResponseType";
 import { ProjectionEventType } from "./ProjectionEventType";
+import { ProjectionRoomSeatType } from "./ProjectionRoomSeatType";
 
 export interface ProjectionRoomType extends HydraMember {
   "@id": string;
@@ -9,7 +10,7 @@ export interface ProjectionRoomType extends HydraMember {
   titleRoom: string;
   createdAt: Date;
   updatedAt: Date;
-  projectionRoomSeats: ProjectionRoomType[];
+  projectionRoomSeats: ProjectionRoomSeatType[];
   movieTheater: string;
   projectionEvents: ProjectionEventType[]
 }

@@ -18,6 +18,7 @@ export interface ProjectionEventType extends HydraMember {
   updatedAt: Date;
   reservedSeats: number[];
   endAt: string;
+  seatsForReducedMobility: boolean;
   movie: MovieType;
   projectionRoom: ProjectionRoomType;
   reservations: ReservationType[];
