@@ -18,7 +18,7 @@ export default function MovieCard(movie: MovieType) {
           component="img"
           height="400"
           image={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/images/${movie.coverImageName}`}
-          alt=""
+          alt={`Affiche de "${movie.title}"`}
         />
         <CardContent>
           <Typography
