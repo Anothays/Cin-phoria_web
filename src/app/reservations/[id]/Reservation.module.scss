@@ -6,14 +6,25 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: $space-3xl;
+  padding: $space-xl;
   gap: 5rem;
-  .seatingConfirmationSection {
+  .submitButtonDisabled {
     width: 100%;
-    text-align: center;
-    padding: $space-3xl;
-    background: $gold-color;
-    border-radius: 1rem;
-    font-size: xx-large;
+    // align-self: flex-end;
+    padding: $space-lg;
+    background: $primary-color;
+    color: white;
+    border-radius: 0.3rem;
+    opacity: 50%;
+    background: white;
+  }
+  .submitButtonEnabled {
+    width: 100%;
+    // align-self: flex-end;
+    padding: $space-lg;
+    background: $primary-color;
+    color: white;
+    border-radius: 0.3rem;
+    // font-size: xx;
   }
 }
