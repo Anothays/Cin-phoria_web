@@ -99,6 +99,9 @@ export default function LoginForm() {
           Créez un compte
         </Link>
       </div>
+      <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}`} onClick={closeLoginModal} replace={true}>
+        Espace employé
+      </Link>
     </div>
   );
 }
