@@ -21,6 +21,11 @@ export default async function TicketChoicePage({ params }: { params: { id: numbe
 
   const limit = reservation.seats.length;
   const categories = (await getTarifs()) as ApiJSONResponseType;
+  const tariffs = categories['hydra:member'] as TicketCategoryType[];
+  const extraCharge = reservation.projectionEvent.format.extraCharge;
+  tariffs.forEach((tariff) => {
+    tariff.price += extraCharge ?? 0;
+  });
 
   return (
     <>
