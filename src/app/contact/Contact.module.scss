@@ -9,7 +9,7 @@
   padding-top: $space-xxl;
   height: 95vh;
   width: 100%;
-  padding: $space-3xl;
+  padding: $space-md;
   .title {
     width: 100%;
     font-size: $h1-font-size;
@@ -17,5 +17,13 @@
     color: white;
     padding: $space-lg;
     border-radius: 1rem;
+  }
+}
+
+@media (min-width: $breakpoint-lg) {
+  .page {
+    padding: $space-3xl;
+    .title {
+    }
   }
 }

@@ -9,19 +9,21 @@
   // remove all href styles
   text-decoration: none !important;
   color: $black-color;
-  gap: 5rem;
-
+  // gap: $space-md;
   .image {
-    border-radius: 0.5rem;
+    // border-radius: 0.5rem;
     object-fit: contain;
+    width: 100%;
   }
-  .titleAndPriceContainer {
+  .MovieInfos {
     display: flex;
     text-align: center;
-    gap: 1rem;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
     width: 100%;
+    padding: $space-lg;
     .mainTitle {
       font-size: $font-size-xxl;
       font-weight: 800;
@@ -46,11 +48,49 @@
 
 @media (min-width: $breakpoint-sm) {
   .container {
+    display: flex;
     flex-direction: row;
     align-items: flex-start;
-    justify-content: center;
-    .titleAndPriceContainer {
+    justify-content: flex-start;
+    padding: $space-xl;
+    // remove all href styles
+    text-decoration: none !important;
+    color: $black-color;
+    // gap: 5rem;
+
+    .image {
+      // width: 100%;
+      border-radius: 0.5rem;
+      object-fit: contain;
+      flex: 2;
+    }
+    .MovieInfos {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
       text-align: start;
+      gap: 1rem;
+      width: 100%;
+      .mainTitle {
+        font-size: $font-size-xxl;
+        font-weight: 800;
+      }
+      .title {
+        font-size: $font-size-lg;
+        font-weight: 800;
+      }
+      .text {
+        font-size: $font-size-md;
+        font-weight: 800;
+      }
+      span {
+        color: $grey-text-color;
+        font-weight: bold;
+      }
+    }
+    .rating {
+      display: flex;
     }
   }
 }

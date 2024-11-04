@@ -91,7 +91,7 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
         </div>
         <div></div>
         <p className={styles.room}>Salle {projectionEvent.projectionRoom.titleRoom}</p>
-        {projectionEvent.seatsForReducedMobility ? Fauteuil() : null}
+        {/* {projectionEvent.seatsForReducedMobility ? Fauteuil() : null} */}
       </div>
     </Link>
   );

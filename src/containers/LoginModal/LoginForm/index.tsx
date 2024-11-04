@@ -89,7 +89,7 @@ export default function LoginForm() {
         <Link className={styles.forgetPassword} href={'/forgot-password'} onClick={closeLoginModal}>
           Mot de passe oublié ?
         </Link>
-        <Button type="submit" variant={'contained'} size={'large'}>
+        <Button className={styles.submitButton} type="submit" variant={'contained'} size={'large'}>
           Se connecter
         </Button>
       </form>

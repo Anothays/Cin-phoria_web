@@ -55,45 +55,43 @@ export default function ContactForm() {
   };
 
   return (
-    <>
-      <form className={styles.container} action={handleSubmit(onSubmit)}>
-        {errors.root && <p style={{ color: 'red', alignSelf: 'start' }}>{errors.root.message}</p>}
-        <TextField
-          {...register('username', { required: false })}
-          label="Votre nom d'utilisateur"
-          variant={'outlined'}
-          type={'text'}
-          fullWidth={true}
-          error={!!errors.username}
-          helperText={errors.username?.message}
-        />
-        <TextField
-          {...register('email', { required: false })}
-          label="Votre adresse e-mail"
-          variant={'outlined'}
-          type={'email'}
-          fullWidth={true}
-          error={!!errors.email}
-          helperText={errors.email?.message}
-        />
-        <TextField
-          {...register('object', { required: true })}
-          label="Intitulé de votre demande"
-          variant={'outlined'}
-          type={'text'}
-          fullWidth={true}
-          error={!!errors.object}
-          helperText={errors.object?.message}
-        />
-        <TextareaAutosize
-          {...register('message', { required: true })}
-          className={styles.textArea}
-          minRows={10}
-        />
-        <Button type="submit" variant={'contained'} size={'large'} color="primary">
-          {isLoading ? <CircularProgress color={'info'} size={27} /> : <span>Envoyer</span>}
-        </Button>
-      </form>
-    </>
+    <form className={styles.container} action={handleSubmit(onSubmit)}>
+      {errors.root && <p style={{ color: 'red', alignSelf: 'start' }}>{errors.root.message}</p>}
+      <TextField
+        {...register('username', { required: false })}
+        label="Votre nom d'utilisateur"
+        variant={'outlined'}
+        type={'text'}
+        fullWidth={true}
+        error={!!errors.username}
+        helperText={errors.username?.message}
+      />
+      <TextField
+        {...register('email', { required: false })}
+        label="Votre adresse e-mail"
+        variant={'outlined'}
+        type={'email'}
+        fullWidth={true}
+        error={!!errors.email}
+        helperText={errors.email?.message}
+      />
+      <TextField
+        {...register('object', { required: true })}
+        label="Intitulé de votre demande"
+        variant={'outlined'}
+        type={'text'}
+        fullWidth={true}
+        error={!!errors.object}
+        helperText={errors.object?.message}
+      />
+      <TextareaAutosize
+        {...register('message', { required: true })}
+        className={styles.textArea}
+        minRows={10}
+      />
+      <Button type="submit" variant={'contained'} size={'large'} color="primary">
+        {isLoading ? <CircularProgress color={'info'} size={27} /> : <span>Envoyer</span>}
+      </Button>
+    </form>
   );
 }

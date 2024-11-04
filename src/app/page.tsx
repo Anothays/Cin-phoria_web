@@ -1,5 +1,4 @@
 import MovieList from '@/components/MovieList';
-import SearchArea from '@/components/SearchArea';
 import Hero from '@/containers/HomePage/Hero';
 import getMovies from '@/services/movies/lib';
 import { MovieType } from '@/types/MovieType';
@@ -15,9 +14,10 @@ export default async function Home() {
   return (
     <div className={styles.page}>
       <div className={styles.searchContainer}>
-        <SearchArea />
+        <h1 className={styles.title}>Bienvenue !</h1>
+        {/* <SearchArea /> */}
       </div>
-      <h1 className={styles.title}>Les dernières sorties de ce mercredi</h1>
+      <h2 className={styles.title}>Les dernières sorties de ce mercredi</h2>
       <Hero movies={movies} />
       <h2 className={styles.title}>Nos coups de coeur à l'affiche</h2>
       <MovieList movies={moviestaffFavorite} />

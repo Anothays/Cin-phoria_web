@@ -3,10 +3,10 @@
 
 .projectionEventList {
   display: grid;
-  grid-template-columns: repeat(2, minmax(100px, 150px));
+  grid-template-columns: repeat(2, minmax(100px, 100px));
   gap: 0.5rem;
   align-self: center;
-  // padding: $space-md;
+  padding: $space-md;
 }
 
 @media (min-width: $breakpoint-sm) {

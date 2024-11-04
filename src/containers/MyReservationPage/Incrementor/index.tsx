@@ -124,7 +124,7 @@ export default function Incrementor({
         onClick={handleSubmit}
         disabled={buttonDisabled}
       >
-        {isLoading ? <CircularProgress sx={{ color: 'white' }} size={24} /> : 'Accéder au paiment'}
+        {isLoading ? <CircularProgress sx={{ color: 'white' }} size={24} /> : 'Accéder au paiement'}
       </Button>
     </div>
   );

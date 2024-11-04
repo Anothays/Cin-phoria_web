@@ -15,7 +15,7 @@ export default function MovieCardDetailed({ movie }: { movie: MovieType }) {
         height={400}
         // sizes="100%"
       />
-      <div className={styles.titleAndPriceContainer}>
+      <div className={styles.MovieInfos}>
         <h1 className={styles.mainTitle}>{movie.title}</h1>
         <div>
           <h2 className={styles.title}></h2>

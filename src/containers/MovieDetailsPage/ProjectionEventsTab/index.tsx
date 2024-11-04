@@ -95,9 +95,21 @@ export default function ProjectionEventsTab({
     <div className={styles.container}>
       <h2 className={styles.title}>Les séances</h2>
 
-      <Box sx={{ width: '100%' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+      <Box>
+        <Box
+          sx={{
+            maxWidth: { xs: 320, sm: 640, md: 640, lg: 640 },
+            borderBottom: 1,
+            borderColor: 'divider',
+          }}
+        >
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+            variant="scrollable"
+            scrollButtons="auto"
+          >
             {renderedTabs}
           </Tabs>
         </Box>

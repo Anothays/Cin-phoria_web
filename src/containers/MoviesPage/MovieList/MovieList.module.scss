@@ -8,7 +8,7 @@
   margin-top: 7rem;
   width: 100%;
   max-width: $breakpoint-xl;
-  padding: $space-xxl;
+  padding: $space-sm;
 }
 .title {
   font-size: $font-size-xxl;
@@ -23,7 +23,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
   gap: 1rem;
-  padding: 5rem;
+  padding: $space-sm;
   justify-content: center;
 }
 
