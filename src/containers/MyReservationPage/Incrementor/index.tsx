@@ -80,7 +80,9 @@ export default function Incrementor({
       }
       const { url } = await response.json();
       router.replace(url);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
     setIsLoading(false);
   };
 

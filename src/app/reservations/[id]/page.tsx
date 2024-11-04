@@ -98,7 +98,7 @@ export default function ReservationPage({ params }: { params: { id: number } }) 
           Séance du {currentProjection?.date} à {currentProjection?.beginAt}
         </p>
         <p>
-          Cinéma "{currentProjection?.movieTheater.theaterName}" - salle{' '}
+          Cinéma &quot;{currentProjection?.movieTheater.theaterName}&quot; - salle{' '}
           {currentProjection?.projectionRoom.titleRoom}
         </p>
       </h1>

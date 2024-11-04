@@ -6,7 +6,7 @@ type loginFormProps = {
   title: string;
   message: string;
   redirectionUrl: string;
-  callbackAction: ((...args: any[]) => any) | undefined;
+  callbackAction: ((...args: unknown[]) => unknown) | undefined;
 };
 
 type GlobalContextType = {

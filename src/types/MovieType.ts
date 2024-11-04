@@ -12,7 +12,7 @@ export interface MovieType extends HydraMember {
   synopsis: string;
   casting: string[];
   releasedOn: Date;
-  posters: any[];
+  posters: unknown[];
   minimumAge: number;
   notesTotalPoints: number;
   noteTotalVotes: number;

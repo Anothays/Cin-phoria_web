@@ -12,9 +12,9 @@ import styles from './HamburgerMenu.module.scss';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const DrawerList = ({ onClose }: { onClose: () => void }) => {
+const DrawerList = () => {
   const { openLoginModal, updateLoginProps } = useGlobalContext();
   const { status, data } = useSession();
   const router = useRouter();
@@ -61,8 +61,8 @@ const DrawerList = ({ onClose }: { onClose: () => void }) => {
     await signOut({ callbackUrl: '/' });
   };
 
-  const handlelogin = (e) => {
-    e.preventDefault();
+  const handlelogin = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
     if (pathname === '/login') return;
     updateLoginProps({
       title: 'Connexion',
@@ -73,10 +73,10 @@ const DrawerList = ({ onClose }: { onClose: () => void }) => {
     openLoginModal();
   };
 
-  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
+  const handleClick = async (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
     if (pathname === '/login') return;
-    const targetUrl = e.currentTarget.href;
+    const targetUrl = event.currentTarget.href;
     if (status === 'unauthenticated') {
       updateLoginProps({
         title: 'Authentification requise',
@@ -154,7 +154,7 @@ export default function HamburgerMenu() {
         <span className={styles.line} />
       </label>
       <Drawer open={opened} onClose={() => setOpened(false)} anchor={'right'}>
-        <DrawerList onClose={() => setOpened(false)} />
+        <DrawerList />
       </Drawer>
     </div>
   );

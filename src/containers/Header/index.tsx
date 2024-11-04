@@ -10,8 +10,6 @@ import { useEffect, useState } from 'react';
 import styles from './Header.module.scss';
 
 export default function Header() {
-  // add background when scroll
-  // add shadow when scroll
   const [hasScrolled, setHasScrolled] = useState(false);
   const session = useSession();
   const router = useRouter();
@@ -35,8 +33,8 @@ export default function Header() {
     await signOut({ callbackUrl: '/' });
   };
 
-  const handlelogin = (e) => {
-    e.preventDefault();
+  const handlelogin = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
     if (pathname === '/login') return;
     updateLoginProps({
       title: 'Connexion',

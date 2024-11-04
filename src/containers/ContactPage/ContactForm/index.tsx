@@ -4,7 +4,7 @@ import { useGlobalContext } from '@/context/globalContext';
 import fetcher from '@/services/fetcher';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, CircularProgress, TextField, TextareaAutosize } from '@mui/material';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -27,6 +27,7 @@ const schema = z.object({
 export default function ContactForm() {
   const { openSnackbar, setSnackbarContent } = useGlobalContext();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -42,20 +43,21 @@ export default function ContactForm() {
       setIsLoading(false);
     }, 2000);
 
-    const response = await fetcher('/email-contact', {
-      body: JSON.stringify(data),
-      method: 'POST',
-    });
-    if (!response.ok) return alert('Erreur');
-    const result = await response.json();
-    setSnackbarContent(result.message);
-
-    openSnackbar();
-    redirect('/');
+    try {
+      const response = await fetcher('/email-contact', {
+        body: JSON.stringify(data),
+        method: 'POST',
+      });
+      setSnackbarContent(response.message);
+      openSnackbar();
+      router.push('/');
+    } catch (error) {
+      return alert(`Erreur: ${error}`);
+    }
   };
 
   return (
-    <form className={styles.container} action={handleSubmit(onSubmit)}>
+    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       {errors.root && <p style={{ color: 'red', alignSelf: 'start' }}>{errors.root.message}</p>}
       <TextField
         {...register('username', { required: false })}

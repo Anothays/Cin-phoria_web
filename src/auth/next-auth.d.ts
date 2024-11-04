@@ -1,4 +1,5 @@
 import { UserType } from "@/types/UserType";
+import "next-auth/jwt";
 
 declare module 'next-auth' {
 
@@ -14,8 +15,10 @@ declare module 'next-auth' {
     user: UserType;
     token: string;
   }
+}
 
 
+declare module "next-auth/jwt" {
   interface JWT {
     accessToken: string;
     iat: number;

@@ -39,7 +39,7 @@ export default function ProjectionEventsTab({
   const days = Object.keys(projectionEventsOrderedByDate).sort((a, b) => {
     const dateA = new Date(a.split('/').reverse().join('-'));
     const dateB = new Date(b.split('/').reverse().join('-'));
-    return dateA - dateB;
+    return dateA.getTime() - dateB.getTime();
   }); // Retrier pour avoir un tableau de datestring dans l'ordre chronologique
   const formatter = dateFormatter();
   const [value, setValue] = useState(0);

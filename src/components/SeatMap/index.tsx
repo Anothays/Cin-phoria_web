@@ -21,10 +21,10 @@ export default function SeatMap({ projectionId, onSeatSelect }: SeatMapProps) {
   if (data) {
     const { allSeats } = data;
 
-    const allSeatsOrdered = {};
+    const allSeatsOrdered: { [key: string]: ProjectionRoomSeatType[] } = {};
 
     allSeats.forEach((seat) => {
-      if (!allSeatsOrdered[seat.seatRow]) allSeatsOrdered[seat.seatRow] = [];
+      if (!(seat.seatRow in allSeatsOrdered)) allSeatsOrdered[seat.seatRow] = [];
       allSeatsOrdered[seat.seatRow].push(seat);
     });
 

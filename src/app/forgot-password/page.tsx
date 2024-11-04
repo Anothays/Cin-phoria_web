@@ -6,8 +6,8 @@ export default function page() {
     <div className={styles.container}>
       <h1>Réinitialisation du mot de passe</h1>
       <p>
-        Renseignez l'adresse email à laquelle doit être envoyé le lien de réinitialisation du mot de
-        passe
+        Renseignez l&apos;adresse email à laquelle doit être envoyé le lien de réinitialisation du
+        mot de passe
       </p>
       <PasswordForgotForm />
     </div>

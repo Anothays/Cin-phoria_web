@@ -3,7 +3,7 @@ import { CommentType } from '@/types/CommentType';
 import styles from './MovieComments.module.scss';
 
 export default function MovieComments({ comments }: { comments: CommentType[] }) {
-  if (comments.length === 0) return <p>Pas d'avis pour le moment</p>;
+  if (comments.length === 0) return <p>Pas d&apos;avis pour le moment</p>;
 
   return (
     <div className={styles.container}>

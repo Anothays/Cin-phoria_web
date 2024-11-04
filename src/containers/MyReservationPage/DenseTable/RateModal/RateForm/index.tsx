@@ -39,7 +39,6 @@ export default function RateForm({
   const [rate, setRate] = useState<number | null>(null);
   const {
     register,
-    setError,
     handleSubmit,
     formState: { errors },
   } = useForm<RateForm>({
@@ -53,7 +52,7 @@ export default function RateForm({
     setReservationState(reservationsStateCopy);
   };
 
-  const onSubmit = async (formdata) => {
+  const onSubmit = async (formdata: RateForm) => {
     if (!reservationId) return;
     const body = {
       points: rate,
@@ -85,8 +84,8 @@ export default function RateForm({
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Votre avis</h2>
-      <p className={styles.subTitle}>Partagez-nous votre avis d'après séance</p>
-      <form className={styles.formContainer} action={handleSubmit(onSubmit)}>
+      <p className={styles.subTitle}>Partagez-nous votre avis d&apos;après séance</p>
+      <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
         {errors.root && <p style={{ color: 'red', alignSelf: 'start' }}>{errors.root.message}</p>}
         <Rating
           name="Rate"

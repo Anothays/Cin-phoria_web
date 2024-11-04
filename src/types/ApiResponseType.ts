@@ -4,7 +4,7 @@ export interface ApiJSONResponseType {
   "@id": string;
   "@type": string;
   "hydra:totalItems": number;
-  "hydra:member": (HydraMember & { [key: string]: any })[];
+  "hydra:member": (HydraMember & { [key: string]: unknown })[];
 }
 
 export interface HydraMember {

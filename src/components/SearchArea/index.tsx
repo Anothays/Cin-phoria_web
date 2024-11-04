@@ -20,8 +20,8 @@ export default function SearchArea() {
       // });
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie_theaters`);
       const data: ApiJSONResponseType = await response.json();
-      console.log('data ==> ', data);
-      setTheaters(data['hydra:member'].map((item) => item['theaterName']));
+      const theaters = data['hydra:member'] as unknown as MovieTheaterType[];
+      setTheaters(theaters);
       setIsLoading(false);
     } catch (error) {
       console.log(error);

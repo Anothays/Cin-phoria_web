@@ -54,7 +54,7 @@ export default function PasswordForgotForm() {
   };
 
   return (
-    <form className={styles.container} action={handleSubmit(onSubmit)}>
+    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       {errors.root && <p style={{ color: 'red', alignSelf: 'start' }}>{errors.root.message}</p>}
       <TextField
         {...register('email', { required: false })}
@@ -67,7 +67,7 @@ export default function PasswordForgotForm() {
       />
       {email ? (
         <p className={styles.buttonLink} onClick={submitAgain}>
-          Vous n'avez rien reçu ? Renvoyer de nouveau
+          Vous n&apos;avez rien reçu ? Renvoyer de nouveau
         </p>
       ) : null}
       <Button

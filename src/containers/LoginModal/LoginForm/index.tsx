@@ -33,7 +33,7 @@ export default function LoginForm() {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: LoginForm) => {
     const response = await signIn('credentials', {
       ...data,
       // redirect: loginFormProps.callbackAction === undefined,
@@ -66,7 +66,7 @@ export default function LoginForm() {
     <div className={styles.container}>
       <h2 className={styles.title}>{loginFormProps.title}</h2>
       <p className={styles.subTitle}>{loginFormProps.message}</p>
-      <form className={styles.formContainer} action={handleSubmit(onSubmit)}>
+      <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
         {errors.root && <p style={{ color: 'red', alignSelf: 'start' }}>{errors.root.message}</p>}
         <TextField
           {...register('email', { required: true })}

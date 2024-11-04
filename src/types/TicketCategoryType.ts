@@ -9,5 +9,5 @@ export interface TicketCategoryType extends HydraMember {
   price: number;
   createdAt: Date;
   updatedAt: Date;
-  tickets: any[];
+  tickets: unknown[];
 }

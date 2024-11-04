@@ -16,8 +16,8 @@ type SearchAreaProps = {
 };
 
 export default function SearchArea({ callbackAction }: SearchAreaProps) {
-  const [theaters, setTheaters] = useState<readonly MovieTheaterType[]>([]);
-  const [categories, setCategories] = useState<readonly MovieCategory[]>([]);
+  const [theaters, setTheaters] = useState<readonly string[]>([]);
+  const [categories, setCategories] = useState<readonly string[]>([]);
   const [isloading, setIsLoading] = useState(true);
   // const [queryParams, setQueryParams] = useState<URLSearchParams>(new URLSearchParams('?'));
 
@@ -31,7 +31,8 @@ export default function SearchArea({ callbackAction }: SearchAreaProps) {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie_theaters`);
       const data: ApiJSONResponseType = await response.json();
-      setTheaters(data['hydra:member'].map((item) => item['theaterName']));
+      const theaters = data['hydra:member'] as unknown as MovieTheaterType[];
+      setTheaters(theaters.map((item) => item['theaterName']));
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -42,7 +43,8 @@ export default function SearchArea({ callbackAction }: SearchAreaProps) {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie_categories`);
       const data: ApiJSONResponseType = await response.json();
-      setCategories(data['hydra:member'].map((item) => item['categoryName']));
+      const movieCategories = data['hydra:member'] as unknown as MovieCategory[];
+      setCategories(movieCategories.map((item) => item['categoryName']));
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -71,7 +73,7 @@ export default function SearchArea({ callbackAction }: SearchAreaProps) {
         <Autocomplete
           // value={choosenTheaterName}
           onChange={(event, value) =>
-            handleChange('projectionEvents.projectionRoom.movieTheater.theaterName', value)
+            handleChange('projectionEvents.projectionRoom.movieTheater.theaterName', value ?? '')
           }
           onOpen={retrieveMovieTheaters}
           fullWidth={true}
@@ -86,7 +88,7 @@ export default function SearchArea({ callbackAction }: SearchAreaProps) {
         />
         <Autocomplete
           // value={choosenCategory}
-          onChange={(event, value) => handleChange('movieCategories.categoryName', value)}
+          onChange={(event, value) => handleChange('movieCategories.categoryName', value ?? '')}
           onOpen={retrieveMovieCategories}
           fullWidth={true}
           disablePortal
@@ -100,7 +102,7 @@ export default function SearchArea({ callbackAction }: SearchAreaProps) {
           <DatePicker
             // value={choosenDate}
             onChange={(event) =>
-              handleChange('projectionEvents.beginAt', event?.format('YYYY-MM-DD'))
+              handleChange('projectionEvents.beginAt', event!.format('YYYY-MM-DD'))
             }
             className={styles.datePicker}
             sx={{ width: { xs: 200, sm: 200, md: 400, lg: 400 } }}

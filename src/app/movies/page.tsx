@@ -36,7 +36,7 @@ export default function MoviesPage() {
       <div className={styles.page}>
         <h1 className={styles.title}>Les films du moment</h1>
         <SearchArea callbackAction={callbackAction} />
-        <MovieList movies={data?.['hydra:member'] as MovieType[]} />
+        <MovieList movies={data?.['hydra:member'] as unknown as MovieType[]} />
       </div>
     );
   }

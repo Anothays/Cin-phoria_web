@@ -64,7 +64,7 @@ export default function NewPasswordForm({ token }: { token: string }) {
   };
 
   return (
-    <form className={styles.container} action={handleSubmit(onSubmit)}>
+    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       {errors.root && <p style={{ color: 'red', alignSelf: 'start' }}>{errors.root.message}</p>}
       <TextField
         {...register('password', { required: false })}

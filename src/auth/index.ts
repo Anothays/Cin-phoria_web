@@ -49,9 +49,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       return token;
     },
     async session({ session, token }) {
-      // @ts-ignore
+
       session.token = token.accesstoken as string;
-      session.user = token.user;
+      // session.user = token.user as UserType;
 
       return session;
     },

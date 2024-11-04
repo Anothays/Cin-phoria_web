@@ -14,7 +14,7 @@ export default function page({ params }: { params: { state: 'success' | 'error' 
       ) : (
         <Alert severity="error">
           <AlertTitle>Error</AlertTitle>
-          <h1>Une erreur s'est produite</h1>
+          <h1>Une erreur s&apos;est produite</h1>
         </Alert>
       )}
     </div>

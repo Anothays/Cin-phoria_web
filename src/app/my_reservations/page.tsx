@@ -17,23 +17,24 @@ export default async function MyReservationsPage() {
   console.log('reservations =>', reservations);
 
   const today = new Date();
+  const allReservations = reservations['hydra:member'] as unknown as ReservationType[];
 
-  const incomingReservations = reservations['hydra:member'].filter(
+  const incomingReservations = allReservations.filter(
     (reservation) =>
       new Date(
         reservation.projectionEvent.date.split('/').reverse().join('-') +
           'T' +
           reservation.projectionEvent.beginAt,
       ) >= today,
-  ) as ReservationType[];
-  const terminatedReservations = reservations['hydra:member'].filter(
+  );
+  const terminatedReservations = allReservations.filter(
     (reservation) =>
       new Date(
         reservation.projectionEvent.date.split('/').reverse().join('-') +
           'T' +
           reservation.projectionEvent.beginAt,
       ) < today,
-  ) as ReservationType[];
+  );
 
   return (
     <div className={styles.container}>
