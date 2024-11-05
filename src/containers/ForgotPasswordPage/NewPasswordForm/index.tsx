@@ -46,7 +46,6 @@ export default function NewPasswordForm({ token }: { token: string }) {
   });
 
   const onSubmit = async (data: NewPasswordForm) => {
-    console.log(data);
     setIsLoading(true);
     setTimeout(async () => {
       const response = await fetcher(`/reset-password/reset/${token}`, {

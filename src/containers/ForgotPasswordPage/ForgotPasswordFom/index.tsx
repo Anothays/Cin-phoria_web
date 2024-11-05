@@ -40,7 +40,6 @@ export default function PasswordForgotForm() {
       });
       if (!response.ok) throw new Error('Error');
       const result = await response.json();
-      console.log(result);
       setIsLoading(false);
       setIsDisabled(true);
       setSnackbarContent(result.message);
@@ -50,7 +49,7 @@ export default function PasswordForgotForm() {
   };
 
   const submitAgain = () => {
-    console.log(`submitAgain ${email}`);
+    alert('Feature en développement');
   };
 
   return (

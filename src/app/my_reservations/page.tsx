@@ -14,8 +14,6 @@ export default async function MyReservationsPage() {
     },
   })) as ApiJSONResponseType;
 
-  console.log('reservations =>', reservations);
-
   const today = new Date();
   const allReservations = reservations['hydra:member'] as unknown as ReservationType[];
 

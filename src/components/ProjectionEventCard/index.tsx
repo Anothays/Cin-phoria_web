@@ -50,7 +50,6 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
             userId as string,
           )) as ReservationType;
           if (!reservation) throw new Error('Error during reservation creation');
-          console.log('reservation => ', reservation);
           localStorage.setItem('currentReservation', JSON.stringify(reservation));
           router.push(`/reservations/${reservation.id}`);
         },

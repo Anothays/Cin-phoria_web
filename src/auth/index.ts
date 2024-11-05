@@ -35,7 +35,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             throw error
           }
         } catch (error) {
-          console.error("Erreur d'auhtentification : ", error);
+          console.error(error);
           return false
         }
       },

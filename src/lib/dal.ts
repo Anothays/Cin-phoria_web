@@ -13,11 +13,9 @@ export const verifySession = () => {
 
   const publicKeyPath = path.join(process.cwd(), process.env.JWT_PUBLIC_KEY!);
   const publicKey = readFileSync(publicKeyPath, 'utf8');
-  // console.log(publicKey);
 
   try {
     const decoded = jwt.verify(token.value, publicKey, { algorithms: ['RS256'] });
-    // console.log(decoded);
     if (!decoded) return false;
     return true;
 

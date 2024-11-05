@@ -53,7 +53,6 @@ export default function LoginForm() {
       } else {
         const url = new URLSearchParams(new URL(window.location.href).search);
         const callbackUrl = url.get('callbackUrl');
-        console.log('callbackUrl ==> ', callbackUrl);
         if (callbackUrl) router.push(callbackUrl);
       }
     }

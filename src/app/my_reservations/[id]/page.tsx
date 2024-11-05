@@ -18,7 +18,6 @@ export default function ReservationPage({ params }: { params: { id: number } }) 
           Authorization: `Bearer ${session.data?.token}`,
         },
       }).then((data) => {
-        console.log('reservation ==> ', data);
         setReservation(data);
       });
     }

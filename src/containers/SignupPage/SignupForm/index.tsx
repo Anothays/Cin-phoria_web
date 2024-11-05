@@ -56,14 +56,13 @@ export default function SignupForm() {
     setIsLoading(true);
     try {
       const dataToSend = JSON.stringify(data);
-      const response = await fetcher('/api/users', {
+      await fetcher('/api/users', {
         method: 'POST',
         body: dataToSend,
         headers: {
           ['Content-type']: 'application/ld+json',
         },
       });
-      console.log(response);
       setSnackbarContent(
         `Un email de confirmation a été envoyé à l'adresse : ${data.email}. Veuillez cliquer sur le lien qu'il contient pour pouvoir vous authentifier`,
       );

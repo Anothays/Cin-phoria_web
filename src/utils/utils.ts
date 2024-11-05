@@ -15,8 +15,6 @@ export const dateFormatter = (options: Intl.DateTimeFormatOptions = { weekday: '
 export const getLastWednesday = () => {
   const today = new Date();
   const dayOfWeek = today.getDay();
-  console.log(dayOfWeek);
-
   const lastWednesday = new Date();
   lastWednesday.setDate(today.getDate() - ((dayOfWeek + 4) % 7));
   return lastWednesday.toISOString().split('T')[0]; // Format 'YYYY-MM-DD'

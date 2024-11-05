@@ -48,7 +48,6 @@ export default function ReservationPage({ params }: { params: { id: number } }) 
         Authorization: `Bearer ${data?.token}`,
       },
     });
-    console.log('response ==> ', response);
     if (!response.projectionEvent) {
       alert(
         'Vous avez dépassé les 5 minutes. Votre réservations a été annulée. Veuillez recommencer',
@@ -70,14 +69,12 @@ export default function ReservationPage({ params }: { params: { id: number } }) 
       }
     };
     getReservation().then((res) => {
-      console.log('res ==> ', res);
       setCurrentReservation(res);
     });
   }, [status]);
 
   useEffect(() => {
     if (currentReservation?.projectionEvent) {
-      console.log('currentReservation ==> ', currentReservation);
       setCurrentProjection(currentReservation.projectionEvent);
     }
   }, [currentReservation?.projectionEvent]);
