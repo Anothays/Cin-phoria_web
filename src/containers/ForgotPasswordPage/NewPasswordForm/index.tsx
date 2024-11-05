@@ -48,12 +48,10 @@ export default function NewPasswordForm({ token }: { token: string }) {
   const onSubmit = async (data: NewPasswordForm) => {
     setIsLoading(true);
     setTimeout(async () => {
-      const response = await fetcher(`/reset-password/reset/${token}`, {
+      const result = await fetcher(`/reset-password/reset/${token}`, {
         body: JSON.stringify(data),
         method: 'POST',
       });
-      if (!response.ok) throw new Error('Error');
-      const result = await response.json();
       setIsLoading(false);
       setIsDisabled(true);
       setSnackbarContent(result.message);

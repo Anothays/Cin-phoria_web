@@ -33,19 +33,15 @@ export default function PasswordForgotForm() {
 
   const onSubmit = async (data: ContactForm) => {
     setIsLoading(true);
-    setTimeout(async () => {
-      const response = await fetcher('/reset-password', {
-        body: JSON.stringify(data),
-        method: 'POST',
-      });
-      if (!response.ok) throw new Error('Error');
-      const result = await response.json();
-      setIsLoading(false);
-      setIsDisabled(true);
-      setSnackbarContent(result.message);
-      openSnackbar();
-      setEmail(data.email);
-    }, 1000);
+    const result = await fetcher('/reset-password', {
+      body: JSON.stringify(data),
+      method: 'POST',
+    });
+    setIsLoading(false);
+    setIsDisabled(true);
+    setSnackbarContent(result.message);
+    openSnackbar();
+    setEmail(data.email);
   };
 
   const submitAgain = () => {
