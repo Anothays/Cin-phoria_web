@@ -3,13 +3,12 @@
 import { useMovies } from '@/services/movies';
 import { ApiJSONResponseType } from '@/types/ApiResponseType';
 import { MovieType } from '@/types/MovieType';
-import { getLastWednesday } from '@/utils/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './MovieList.module.scss';
 
 export default function MovieList() {
-  const moviesData = useMovies(`isStaffFavorite=&createdAt[after]=${getLastWednesday()}`);
+  const moviesData = useMovies(`staffFavorite=true`);
 
   if (moviesData.isLoading) return <p>Chargement...</p>;
 
