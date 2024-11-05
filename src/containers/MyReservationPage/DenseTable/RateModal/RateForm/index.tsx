@@ -60,7 +60,7 @@ export default function RateForm({
       reservationId,
     };
     try {
-      const response = await fetch('http://localhost:8000/api/movies/rate', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movies/rate`, {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
