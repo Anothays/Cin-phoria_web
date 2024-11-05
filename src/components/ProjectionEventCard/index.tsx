@@ -58,12 +58,12 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
       openLoginModal();
       return;
     }
-    if (session.status === 'authenticated') {
+    if (session.status === 'authenticated' && session.data.userInfos) {
       if (!projectionId) throw new Error('No projection id provided');
       const reservation = await createNewReservation(
         projectionId,
         session.data.token,
-        session.data.user['@id'],
+        session.data.userInfos['@id'],
       );
       if (!reservation) throw new Error('Error during reservation creation');
       localStorage.setItem('currentReservation', JSON.stringify(reservation));

@@ -1,3 +1,4 @@
+import { UserType } from "@/types/UserType";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 
@@ -51,7 +52,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     async session({ session, token }) {
 
       session.token = token.accesstoken as string;
-      // session.user = token.user as UserType;
+      session.userInfos = token.user as UserType;
 
       return session;
     },

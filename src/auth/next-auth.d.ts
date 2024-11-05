@@ -1,10 +1,11 @@
 import { UserType } from "@/types/UserType";
+import "next-auth";
 import "next-auth/jwt";
 
 declare module 'next-auth' {
 
   interface User {
-    user: UserType
+    user: UserType;
     token: string;
   }
 
@@ -12,7 +13,7 @@ declare module 'next-auth' {
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
   interface Session {
-    user: UserType;
+    userInfos: UserType;
     token: string;
   }
 }
@@ -21,6 +22,7 @@ declare module 'next-auth' {
 declare module "next-auth/jwt" {
   interface JWT {
     accessToken: string;
+    userInfos: UserType;
     iat: number;
     exp: number;
     jti: string;

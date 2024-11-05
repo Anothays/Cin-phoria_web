@@ -49,7 +49,7 @@ export default function LoginForm() {
     const session = await getSession();
     if (session?.token && session?.user) {
       if (loginFormProps.callbackAction !== undefined) {
-        loginFormProps.callbackAction(session.token, session.user['@id']);
+        loginFormProps.callbackAction(session.token, session.userInfos['@id']);
       } else {
         const url = new URLSearchParams(new URL(window.location.href).search);
         const callbackUrl = url.get('callbackUrl');
