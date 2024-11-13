@@ -40,7 +40,8 @@
 
   .image {
     // position: relative;
-    filter: blur(15px);
+    object-fit: cover;
+    filter: blur(30px);
   }
   .image2 {
     width: 100%;
