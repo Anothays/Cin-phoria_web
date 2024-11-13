@@ -3,6 +3,7 @@
 import { useMovies } from '@/services/movies';
 import { ApiJSONResponseType } from '@/types/ApiResponseType';
 import { MovieType } from '@/types/MovieType';
+import { CircularProgress } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './MovieList.module.scss';
@@ -10,7 +11,7 @@ import styles from './MovieList.module.scss';
 export default function MovieList() {
   const moviesData = useMovies(`staffFavorite=true`);
 
-  if (moviesData.isLoading) return <p>Chargement...</p>;
+  if (moviesData.isLoading) return <CircularProgress size={60} sx={{ marginY: '17rem' }} />;
 
   if (moviesData.data) {
     const data = moviesData.data as ApiJSONResponseType;

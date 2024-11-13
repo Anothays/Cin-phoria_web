@@ -5,6 +5,7 @@ import { useMovies } from '@/services/movies';
 import { ApiJSONResponseType } from '@/types/ApiResponseType';
 import { MovieType } from '@/types/MovieType';
 import { getLastWednesday } from '@/utils/utils';
+import { CircularProgress } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import Carousel from 'react-material-ui-carousel';
@@ -13,7 +14,7 @@ import styles from './Hero.module.scss';
 export default function Hero() {
   const moviesData = useMovies(`createdAt[after]=${getLastWednesday()}`);
 
-  if (moviesData.isLoading) return <p>Chargement...</p>;
+  if (moviesData.isLoading) return <CircularProgress size={60} sx={{ marginY: '17rem' }} />;
 
   if (moviesData.data) {
     const data = moviesData.data as ApiJSONResponseType;
