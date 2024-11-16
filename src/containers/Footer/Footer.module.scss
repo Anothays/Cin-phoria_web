@@ -3,9 +3,36 @@
 .mainContainer {
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  .container {
+  color: $grey-text-color;
+  h3 {
+    color: $primary-color;
+  }
+  .infoSection {
+    display: flex;
+    gap: $space-3xl;
+    padding: $space-lg;
+    .contactSection {
+      display: flex;
+      flex-direction: column;
+      gap: $space-md;
+      a {
+        color: $secondary-color;
+      }
+    }
+    .horaireSection {
+      display: flex;
+      flex-direction: column;
+      gap: $space-md;
+      .horaireContent {
+        display: flex;
+        gap: $space-3xl;
+      }
+    }
+  }
+  .legalSection {
     width: 100%;
     display: flex;
     flex-direction: column;
