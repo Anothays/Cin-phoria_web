@@ -1,0 +1,30 @@
+@import '/src/styles/_variables.module.scss';
+@import '/src/styles/_colors.module.scss';
+
+.projectionEventList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(100px, 100px));
+  gap: 0.5rem;
+  align-self: center;
+  padding: $space-md;
+}
+
+@media (min-width: $breakpoint-sm) {
+  .projectionEventList {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 130px));
+    gap: 0.5rem;
+    // padding: $space-md;
+  }
+}
+
+@media (min-width: $breakpoint-md) {
+  .projectionEventList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    align-self: flex-end;
+
+    // padding: $space-md;
+  }
+}

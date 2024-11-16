@@ -1,9 +1,9 @@
 'use client';
 
-import { ProjectionEventType } from '@/types/ProjectionEventType';
+import { MovieType } from '@/types/MovieType';
 import { dateFormatter } from '@/utils/utils';
+import { Tab } from '@mui/material';
 import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { useState } from 'react';
 import MovieTheater from './MovieTheater';
@@ -19,77 +19,42 @@ interface TabPanelProps {
 export default function ProjectionEventsTab({
   projectionEvents,
 }: {
-  projectionEvents: ProjectionEventType[];
+  projectionEvents: MovieType['projectionEventsSortedByDateAndGroupedByTheater'];
 }) {
-  const movieTheaters = projectionEvents
-    .map((projectionEvent) => projectionEvent.movieTheater)
-    .filter(
-      (theater, index, self) =>
-        index ===
-        self.findIndex((t) => t['@id'] === theater['@id'] && t.theaterName === theater.theaterName),
-    );
   const now = Date.now();
-  const projectionEventsOrderedByDate: { [key: string]: ProjectionEventType[] } = {};
-  projectionEvents.forEach((projectionEvent) => {
-    projectionEventsOrderedByDate[projectionEvent.date] = projectionEvents.filter(
-      (item) => item.date === projectionEvent.date,
-    );
-  });
-
-  const days = Object.keys(projectionEventsOrderedByDate).sort((a, b) => {
-    const dateA = new Date(a.split('/').reverse().join('-'));
-    const dateB = new Date(b.split('/').reverse().join('-'));
-    return dateA.getTime() - dateB.getTime();
-  }); // Retrier pour avoir un tableau de datestring dans l'ordre chronologique
   const formatter = dateFormatter();
   const [value, setValue] = useState(0);
-
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  const projectionEventsOrderedByMovieTheater: { [key: string]: ProjectionEventType[] } = {};
-  movieTheaters.forEach((movieTheater) => {
-    projectionEventsOrderedByMovieTheater[movieTheater['@id']] = projectionEvents.filter(
-      (projectionEvent) => projectionEvent.movieTheater['@id'] === movieTheater['@id'],
-    );
-  });
-
-  const renderedItems = [];
-  for (let i = 0; i < days.length; i++) {
+  const datesKeys = Object.keys(projectionEvents);
+  const renderedItems: JSX.Element[] = [];
+  datesKeys.forEach((date, i) => {
+    const moviesTheatersKeys = Object.keys(projectionEvents[date]);
     renderedItems.push(
       <CustomTabPanel value={value} index={i} key={i}>
-        {movieTheaters.map((movieTheater) => (
-          <div className={styles.MovieTheaterAndProjectionEventsItem} key={movieTheater['@id']}>
-            <MovieTheater {...movieTheater} />
+        {moviesTheatersKeys.map((movieTheaterKey, y) => (
+          <div className={styles.MovieTheaterAndProjectionEventsItem} key={y}>
+            <MovieTheater movieTheater={projectionEvents[date][movieTheaterKey].movieTheater} />
             <ProjectionEventList
-              {...projectionEventsOrderedByMovieTheater[movieTheater['@id']].filter(
-                (item) => item.date === days[i],
-              )}
+              projectionEvents={projectionEvents[date][movieTheaterKey].projectionEvents}
             />
           </div>
         ))}
       </CustomTabPanel>,
     );
-  }
+  });
 
-  const renderedTabs = [];
-  for (let i = 0; i < days.length; i++) {
-    if (i === 0) {
-      renderedTabs.push(<Tab value={i} label="Aujourd'hui" {...a11yProps(i)} key={i} />);
-    } else if (i === 1) {
-      renderedTabs.push(<Tab value={i} label="Demain" {...a11yProps(i)} key={i} />);
-    } else {
-      renderedTabs.push(
-        <Tab
-          value={i}
-          label={formatter.format(now + 1000 * 3600 * 24 * i)}
-          {...a11yProps(i)}
-          key={i}
-        />,
-      );
-    }
-  }
+  const renderedTabsKeys = datesKeys;
+  const renderedTabs: JSX.Element[] = [];
+  renderedTabsKeys.forEach((key, i) => {
+    const timestamp = Date.parse(key);
+    let label = formatter.format(timestamp);
+    if (formatter.format(timestamp) === formatter.format(now)) label = "Aujourd'hui";
+    if (formatter.format(timestamp) === formatter.format(now + 1000 * 3600 * 24)) label = 'Demain';
+    renderedTabs.push(<Tab value={i} label={label} {...a11yProps(i)} key={i} />);
+  });
 
   return (
     <div className={styles.container}>

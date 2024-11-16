@@ -12,10 +12,10 @@ export default async function MyReservationsPage() {
     headers: {
       Authorization: `Bearer ${session?.token}`,
     },
-  })) as ApiJSONResponseType;
+  })) as ApiJSONResponseType<ReservationType>;
 
   const today = new Date();
-  const allReservations = reservations['hydra:member'] as unknown as ReservationType[];
+  const allReservations = reservations['hydra:member'];
 
   const incomingReservations = allReservations.filter(
     (reservation) =>

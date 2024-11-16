@@ -19,7 +19,7 @@ export default function SearchArea() {
       //   mode: 'no-cors',
       // });
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie_theaters`);
-      const data: ApiJSONResponseType = await response.json();
+      const data: ApiJSONResponseType<MovieTheaterType> = await response.json();
       const theaters = data['hydra:member'] as unknown as MovieTheaterType[];
       setTheaters(theaters);
       setIsLoading(false);

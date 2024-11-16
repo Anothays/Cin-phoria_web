@@ -4,8 +4,8 @@ import { useGlobalContext } from '@/context/globalContext';
 import fetcher from '@/services/fetcher';
 import { ProjectionEventType } from '@/types/ProjectionEventType';
 import { ReservationType } from '@/types/ReservationType';
+import { Button } from '@mui/material';
 import { useSession } from 'next-auth/react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import styles from './ProjectionEventCard.module.scss';
 
@@ -13,6 +13,14 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
   const { openLoginModal, updateLoginProps } = useGlobalContext();
   const router = useRouter();
   const session = useSession();
+  const beginAt = projectionEvent.beginAt;
+  const dateStart = projectionEvent.date.split('/').reverse().join('-');
+  const now = Date.now();
+  const disabled = Date.parse(`${dateStart} ${beginAt}`) - now < 0;
+  const disabledStyle = {
+    opacity: disabled ? '50%' : '100%',
+    cursor: disabled ? 'not-allowed' : 'pointer',
+  };
 
   const createNewReservation = async (
     projectionId: string,
@@ -35,6 +43,7 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
   };
 
   const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (disabled) return;
     e.preventDefault();
     const projectionId = e.currentTarget.getAttribute('data-id');
     const targetUrl = e.currentTarget.href;
@@ -71,13 +80,15 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
   };
 
   return (
-    <Link
-      // href={`/movie_theaters/${projectionEvent.movieTheater.id}/projection_events/${projectionEvent.id}`}
-      href={''}
+    <Button
+      href=""
+      className={styles.container}
+      style={disabledStyle}
       onClick={handleClick}
+      disabled={disabled}
       data-id={projectionEvent['@id']}
     >
-      <div className={styles.container}>
+      <div className={styles.container} style={disabledStyle}>
         <span>
           {projectionEvent.beginAt} - {projectionEvent.language}
         </span>
@@ -92,7 +103,7 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
         <p className={styles.room}>Salle {projectionEvent.projectionRoom.titleRoom}</p>
         {/* {projectionEvent.seatsForReducedMobility ? Fauteuil() : null} */}
       </div>
-    </Link>
+    </Button>
   );
 }
 

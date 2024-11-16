@@ -14,8 +14,8 @@ export default function MovieList() {
   if (moviesData.isLoading) return <CircularProgress size={60} sx={{ marginY: '17rem' }} />;
 
   if (moviesData.data) {
-    const data = moviesData.data as ApiJSONResponseType;
-    const movies = data['hydra:member'] as unknown as MovieType[];
+    const data = moviesData.data as ApiJSONResponseType<MovieType>;
+    const movies = data['hydra:member'];
 
     return (
       <div className={styles.container}>
@@ -32,25 +32,6 @@ export default function MovieList() {
           </Link>
         ))}
       </div>
-      // <Carousel
-      //   className={styles.container}
-      //   animation={'slide'}
-      //   indicators={false}
-      //   navButtonsAlwaysInvisible
-      // >
-      //   {movies?.map((movie) => (
-      //     <Link href={`/movies/${movie.id}`} key={movie.id}>
-      //       <Image
-      //         className={styles.image}
-      //         width={500}
-      //         height={500}
-      //         // fill={true}
-      //         src={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/images/${movie.coverImageName}`}
-      //         alt={`Image du film ${movie.title}`}
-      //       />
-      //     </Link>
-      //   ))}
-      // </Carousel>
     );
   }
 }

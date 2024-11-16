@@ -30,8 +30,8 @@ export default function SearchArea({ callbackAction }: SearchAreaProps) {
   const retrieveMovieTheaters = async () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie_theaters`);
-      const data: ApiJSONResponseType = await response.json();
-      const theaters = data['hydra:member'] as unknown as MovieTheaterType[];
+      const data: ApiJSONResponseType<MovieTheaterType> = await response.json();
+      const theaters = data['hydra:member'];
       setTheaters(theaters.map((item) => item['theaterName']));
       setIsLoading(false);
     } catch (error) {
@@ -42,8 +42,8 @@ export default function SearchArea({ callbackAction }: SearchAreaProps) {
   const retrieveMovieCategories = async () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie_categories`);
-      const data: ApiJSONResponseType = await response.json();
-      const movieCategories = data['hydra:member'] as unknown as MovieCategory[];
+      const data: ApiJSONResponseType<MovieCategory> = await response.json();
+      const movieCategories = data['hydra:member'];
       setCategories(movieCategories.map((item) => item['categoryName']));
       setIsLoading(false);
     } catch (error) {

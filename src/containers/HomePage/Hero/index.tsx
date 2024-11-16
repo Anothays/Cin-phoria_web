@@ -17,8 +17,9 @@ export default function Hero() {
   if (moviesData.isLoading) return <CircularProgress size={60} sx={{ marginY: '17rem' }} />;
 
   if (moviesData.data) {
-    const data = moviesData.data as ApiJSONResponseType;
-    const movies = data['hydra:member'] as unknown as MovieType[];
+    const data = moviesData.data as ApiJSONResponseType<MovieType>;
+    const movies = data['hydra:member'];
+    console.log(movies);
 
     return (
       <section className={styles.container}>

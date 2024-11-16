@@ -32,6 +32,8 @@ export default function MoviesPage() {
   }
 
   if (data) {
+    console.log('data =< ', data);
+
     return (
       <div className={styles.page}>
         <h1 className={styles.title}>Les films du moment</h1>

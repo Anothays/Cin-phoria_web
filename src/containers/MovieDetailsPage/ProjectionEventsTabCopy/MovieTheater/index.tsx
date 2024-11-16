@@ -2,7 +2,7 @@ import { MovieTheaterType } from '@/types/MovieTheaterType';
 import Image from 'next/image';
 import styles from './MovieTheater.module.scss';
 
-export default function MovieTheater({ movieTheater }: { movieTheater: MovieTheaterType }) {
+export default function MovieTheater(movieTheater: MovieTheaterType) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>

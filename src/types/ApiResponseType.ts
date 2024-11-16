@@ -1,10 +1,10 @@
 
-export interface ApiJSONResponseType {
+export interface ApiJSONResponseType<T> {
   "@context": string;
   "@id": string;
   "@type": string;
   "hydra:totalItems": number;
-  "hydra:member": (HydraMember & { [key: string]: unknown })[];
+  "hydra:member": (HydraMember & T)[];
 }
 
 export interface HydraMember {

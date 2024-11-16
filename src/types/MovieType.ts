@@ -1,5 +1,6 @@
 import { HydraMember } from "./ApiResponseType";
 import { CommentType } from "./CommentType";
+import { MovieTheaterType } from "./MovieTheaterType";
 import { ProjectionEventType } from "./ProjectionEventType";
 
 export interface MovieType extends HydraMember {
@@ -25,4 +26,7 @@ export interface MovieType extends HydraMember {
   createdAt: Date;
   updatedAt: Date;
   comments: CommentType[];
+  projectionEventsSortedByDateAndGroupedByTheater: ProjectionEventsSorted;
 }
+
+interface ProjectionEventsSorted { [key: string]: { [key: string]: { movieTheater: MovieTheaterType; projectionEvents: ProjectionEventType[] } } }
