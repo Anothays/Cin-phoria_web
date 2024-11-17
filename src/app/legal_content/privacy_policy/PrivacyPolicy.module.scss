@@ -1,0 +1,42 @@
+@import '/src/styles/_variables.module.scss';
+@import '/src/styles/_colors.module.scss';
+
+.container {
+  margin: 0 auto;
+  padding: $space-xxl;
+  text-align: justify;
+  margin-bottom: $space-xxl;
+  .title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .introduction {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-top: 30px;
+    color: #333;
+  }
+
+  p,
+  ul {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+  }
+
+  ul {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+}

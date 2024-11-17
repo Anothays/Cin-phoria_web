@@ -48,17 +48,17 @@ export default function Footer() {
               </Link>
             </li>
             <li className={styles.listItem}>
-              <Link className={styles.link} href="/">
+              <Link className={styles.link} href="/legal_content/privacy_policy">
                 Politique de confidentialité
               </Link>
             </li>
             <li className={styles.listItem}>
-              <Link className={styles.link} href="/">
+              <Link className={styles.link} href="/legal_content/conditions_of_sales">
                 Conditions générales
               </Link>
             </li>
             <li className={styles.listItem}>
-              <Link className={styles.link} href="/">
+              <Link className={styles.link} href="/legal_content/legal_notices">
                 Mentions légales
               </Link>
             </li>
