@@ -1,5 +1,7 @@
 # STUDI - ECF fin 2024 - Cinéphoria
 
+Ce projet front-end est lié à l'api suivante ==> https://github.com/Anothays/Cin-phoria_api.git
+
 ## Lien vers le site déployé
 
 https://cinephoria-web.vercel.app
