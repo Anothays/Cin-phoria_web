@@ -56,9 +56,12 @@ export default function ProjectionEventsTab({
     renderedTabs.push(<Tab value={i} label={label} {...a11yProps(i)} key={i} />);
   });
 
+
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Les séances</h2>
+      {renderedItems.length === 0 ? <p className='notFoundMessage'>Pas de séance prévue pour l&apos;instant</p> : (
 
       <Box>
         <Box
@@ -80,6 +83,7 @@ export default function ProjectionEventsTab({
         </Box>
         {renderedItems}
       </Box>
+      )}
     </div>
   );
 }

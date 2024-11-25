@@ -9,6 +9,13 @@
 html,
 body {
   min-height: 100vh;
+  .notFoundMessage {
+    text-align: center;
+    color: $grey-text-color;
+    font-weight: bolder;
+    width: 100%;
+    padding: $space-3xl;
+  }
 }
 
 a {
