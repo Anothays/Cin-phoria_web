@@ -99,7 +99,7 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
     >
       <div className={styles.container} style={disabledStyle}>
         <div>
-          <p>{projectionEvent.id}</p>
+          {/*<p>{projectionEvent.id}</p>*/}
           <p className={styles.language}>{projectionEvent.language}</p>
           {projectionEvent.format.projectionFormatName !== 'STANDARD' ? (
             <p className={styles.projectionFormatName}>
