@@ -1,0 +1,20 @@
+@import '../../../styles/variables.module';
+@import '../../../styles/colors.module';
+
+.closeIcon {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -1rem;
+  margin-top: -1rem;
+  margin-right: -4rem;
+  cursor: pointer;
+}
+
+@media (max-width: $breakpoint-sm) {
+  .container {
+    .closeIcon {
+      margin-right: -2rem;
+    }
+  }
+}

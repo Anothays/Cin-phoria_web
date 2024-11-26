@@ -9,6 +9,8 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import styles from './ProjectionEventCard.module.scss';
 import AccessibleIcon from '@mui/icons-material/Accessible';
+import { useReservationModalContext } from '@/context/ReservationModalContext';
+import ReservationForm from '@/containers/MovieDetailsPage/ReservationModal/ReservationForm';
 
 export default function ProjectionEventCard(projectionEvent: ProjectionEventType) {
   const { openLoginModal, updateLoginProps } = useGlobalContext();
@@ -22,6 +24,8 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
     opacity: disabled ? '50%' : '100%',
     cursor: disabled ? 'not-allowed' : 'pointer',
   };
+  const { setIsLoginModalOpen, setContentModal } = useReservationModalContext();
+
   const createNewReservation = async (
     projectionId: string,
     token: string,
@@ -79,17 +83,23 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
     }
   };
 
+  const handleClickModal = () => {
+    setContentModal(<ReservationForm projectionEvent={projectionEvent} />);
+    setIsLoginModalOpen(true);
+  };
   return (
     <Button
       href=""
       className={styles.container}
       style={disabledStyle}
-      onClick={handleClick}
+      // onClick={handleClick}
+      onClick={handleClickModal}
       disabled={disabled}
       data-id={projectionEvent['@id']}
     >
       <div className={styles.container} style={disabledStyle}>
         <div>
+          <p>{projectionEvent.id}</p>
           <p className={styles.language}>{projectionEvent.language}</p>
           {projectionEvent.format.projectionFormatName !== 'STANDARD' ? (
             <p className={styles.projectionFormatName}>
