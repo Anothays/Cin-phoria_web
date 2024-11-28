@@ -10,7 +10,11 @@ const theme = createTheme({
       main: colors.primaryColor,
     },
   },
+  typography: {
+    fontFamily: '',
+  },
 });
+
 export function MUITheme({ children }: Readonly<{ children: ReactNode }>) {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }
