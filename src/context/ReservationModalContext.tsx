@@ -6,8 +6,8 @@ import { useMovie } from '@/services/movies';
 import { SWRResponse } from 'swr';
 
 type reservationModalContextType = {
-  isLoginModalOpen: boolean;
-  setIsLoginModalOpen: Dispatch<SetStateAction<boolean>>;
+  isReservationModalOpen: boolean;
+  setReservationModalOpen: Dispatch<SetStateAction<boolean>>;
   contentModal: ReactNode;
   setContentModal: Dispatch<SetStateAction<ReactNode | undefined>>;
   movieData: SWRResponse<MovieType>;
@@ -24,15 +24,15 @@ export const ReservationContextHandler = ({
   children: ReactNode;
   movieId: string;
 }) => {
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isReservationModalOpen, setReservationModalOpen] = useState(false);
   const [contentModal, setContentModal] = useState<ReactNode | undefined>(undefined);
   const movieData = useMovie(`${movieId}`);
 
   return (
     <reservationModalContext.Provider
       value={{
-        isLoginModalOpen,
-        setIsLoginModalOpen,
+        isReservationModalOpen,
+        setReservationModalOpen,
         contentModal,
         setContentModal,
         movieData,

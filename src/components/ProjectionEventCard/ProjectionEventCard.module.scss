@@ -9,9 +9,7 @@
   justify-content: center;
   align-items: flex-start;
   padding: $space-sm;
-  border-radius: 1rem;
-  // remove all href styles
-  text-decoration: none !important;
+  border-radius: 0.5rem;
   color: $white-color;
   background: $secondary-color;
   cursor: pointer;
@@ -48,6 +46,7 @@
 
   &:hover {
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.4);
+    background: $secondary-color;
   }
 
   .tiny {

@@ -1,3 +1,5 @@
+import Alert from '@mui/material/Alert';
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -5,10 +7,10 @@ export default async function RootLayout({
 }>) {
   return (
     <div>
-      {children}
-      <p style={{ paddingTop: '1rem', textAlign: 'center' }}>
+      <Alert sx={{ marginTop: '1rem' }} severity="info">
         Passé 5 minutes, vous devrez recommencer votre réservation
-      </p>
+      </Alert>
+      {children}
     </div>
   );
 }

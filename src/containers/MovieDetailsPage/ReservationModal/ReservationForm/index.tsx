@@ -1,3 +1,5 @@
+'use client';
+
 import { ProjectionEventType } from '@/types/ProjectionEventType';
 import AccessibleIcon from '@mui/icons-material/Accessible';
 import { Button, CircularProgress } from '@mui/material';
@@ -6,6 +8,12 @@ import styles from './ReservationForm.module.scss';
 import Image from 'next/image';
 import { useState } from 'react';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import { useSession } from 'next-auth/react';
+import { useGlobalContext } from '@/context/globalContext';
+import { ReservationType } from '@/types/ReservationType';
+import fetcher from '@/services/fetcher';
+import { useRouter } from 'next/navigation';
+import { getSessionOrLogIn } from '@/auth/hook';
 
 export default function ReservationForm({
   projectionEvent,
@@ -13,13 +21,66 @@ export default function ReservationForm({
   projectionEvent: ProjectionEventType;
 }) {
   const movieTheater = projectionEvent.movieTheater;
+  const router = useRouter();
+  const session = useSession();
   const { movieData } = useReservationModalContext();
+  const { openLoginModal, updateLoginProps, closeLoginModal } = useGlobalContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const movie = movieData.data;
 
+  const createNewReservation = async (
+    projectionId: string,
+    token: string,
+    userId: string,
+  ): Promise<ReservationType> => {
+    const body = {
+      user: userId,
+      projectionEvent: projectionId,
+    };
+    const response = await fetcher('/api/reservations', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/ld+json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  };
+
   const handleClick = async () => {
     setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 2000);
+    try {
+      if (session.status === 'authenticated') {
+        const reservation = (await createNewReservation(
+          projectionEvent['@id'],
+          session.data.token,
+          session.data.userInfos['@id'],
+        )) as ReservationType;
+        if (!reservation) throw new Error('Error during reservation creation');
+        router.push(`/reservations/${reservation.id}`);
+        return;
+      } else {
+        updateLoginProps({
+          title: 'Authentification requise',
+          message: 'Connectez-vous pour réserver une séance',
+          callbackAction: async (token: unknown, userId: unknown) => {
+            const reservation = (await createNewReservation(
+              projectionEvent['@id'],
+              token as string,
+              userId as string,
+            )) as ReservationType;
+            if (!reservation) throw new Error('Error during reservation creation');
+            router.push(`/reservations/${reservation.id}`);
+          },
+        });
+        openLoginModal();
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (movie) {
@@ -66,7 +127,7 @@ export default function ReservationForm({
         </div>
         <Button className={styles.button} onClick={handleClick}>
           {isLoading ? (
-            <CircularProgress size={25} style={{ color: 'white' }} />
+            <CircularProgress size={24} style={{ color: 'white' }} />
           ) : (
             <span className={styles.buttonLabel}>
               <ConfirmationNumberIcon /> Réserver maintenant

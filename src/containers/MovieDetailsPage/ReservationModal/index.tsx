@@ -22,11 +22,12 @@ const style = {
   maxWidth: '30rem',
 };
 export default function ReservationModal() {
-  const { setIsLoginModalOpen, isLoginModalOpen, contentModal } = useReservationModalContext();
+  const { setReservationModalOpen, isReservationModalOpen, contentModal } =
+    useReservationModalContext();
   return (
-    <Modal open={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)}>
+    <Modal open={isReservationModalOpen} onClose={() => setReservationModalOpen(false)}>
       <Box sx={style}>
-        <div onClick={() => setIsLoginModalOpen(false)} className={styles.closeIcon}>
+        <div onClick={() => setReservationModalOpen(false)} className={styles.closeIcon}>
           <CloseIcon />
         </div>
         {contentModal}

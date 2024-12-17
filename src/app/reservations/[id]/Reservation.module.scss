@@ -8,23 +8,5 @@
   justify-content: space-between;
   padding: $space-xl;
   gap: 5rem;
-  .submitButtonDisabled {
-    width: 100%;
-    // align-self: flex-end;
-    padding: $space-lg;
-    background: $primary-color;
-    color: white;
-    border-radius: 0.3rem;
-    opacity: 50%;
-    background: white;
-  }
-  .submitButtonEnabled {
-    width: 100%;
-    // align-self: flex-end;
-    padding: $space-lg;
-    background: $primary-color;
-    color: white;
-    border-radius: 0.3rem;
-    // font-size: xx;
-  }
+
 }

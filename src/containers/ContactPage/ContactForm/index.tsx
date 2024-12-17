@@ -39,10 +39,6 @@ export default function ContactForm() {
 
   const onSubmit = async (data: ContactForm) => {
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
     try {
       const response = await fetcher('/email-contact', {
         body: JSON.stringify(data),
@@ -53,6 +49,8 @@ export default function ContactForm() {
       router.push('/');
     } catch (error) {
       return alert(`Erreur: ${error}`);
+    } finally {
+      setIsLoading(false);
     }
   };
 

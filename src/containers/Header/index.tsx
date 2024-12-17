@@ -6,31 +6,18 @@ import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import styles from './Header.module.scss';
+import { Button } from '@mui/material';
 
 export default function Header() {
-  const [hasScrolled, setHasScrolled] = useState(false);
-  const session = useSession();
+  const { status, data, update } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-
   const { openLoginModal, updateLoginProps } = useGlobalContext();
-  useEffect(() => {
-    const handleScroll = () => {
-      setHasScrolled(window.scrollY > 0);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   const handleLogout = async (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    await signOut({ callbackUrl: '/' });
+    return signOut({ callbackUrl: '/' });
   };
 
   const handlelogin = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -49,7 +36,7 @@ export default function Header() {
     e.preventDefault();
     if (pathname === '/login') return;
     const targetUrl = e.currentTarget.href;
-    if (session.status === 'unauthenticated') {
+    if (status === 'unauthenticated') {
       updateLoginProps({
         title: 'Authentification requise',
         message: 'Connectez-vous pour accéder à vos réservations',
@@ -61,19 +48,21 @@ export default function Header() {
       openLoginModal();
       return;
     }
-    if (session.status === 'authenticated') {
+    if (status === 'authenticated') {
       router.push(targetUrl);
     }
+  };
+
+  const test = async () => {
+    // const lol = await update();
+    console.log(status, data);
+    // console.log(lol);
   };
 
   return (
     <header className={styles.mainContainer}>
       <div className={styles.placeHolder} />
-      <div
-        className={classnames(styles.container, {
-          [styles.scrolledContainer]: hasScrolled,
-        })}
-      >
+      <div className={classnames(styles.container)}>
         <Link href="/">
           <Image src="/cinephoria_logo.png" width={80} height={80} alt="logo of Cinéphoria" />
         </Link>
@@ -90,7 +79,8 @@ export default function Header() {
           <Link className={styles.navLink} href="/contact">
             Contact
           </Link>
-          {session.data?.user ? (
+          <Button onClick={test}>CKICK</Button>
+          {data ? (
             <Link className={styles.navLink} href="" onClick={handleLogout}>
               Déconnexion
             </Link>

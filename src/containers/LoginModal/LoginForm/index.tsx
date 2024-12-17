@@ -34,30 +34,37 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data: LoginForm) => {
-    const response = await signIn('credentials', {
-      ...data,
-      // redirect: loginFormProps.callbackAction === undefined,
-      redirect: false,
-    });
-
-    if (response && !response.ok) {
-      setError('root', {
-        message: 'Identifiants invalides',
+    try {
+      const response = await signIn('credentials', {
+        ...data,
+        // redirect: loginFormProps.callbackAction === undefined,
+        redirect: false,
       });
-      return;
-    }
-    const session = await getSession();
-    if (session?.token && session?.user) {
-      if (loginFormProps.callbackAction !== undefined) {
-        loginFormProps.callbackAction(session.token, session.userInfos['@id']);
-      } else {
-        const url = new URLSearchParams(new URL(window.location.href).search);
-        const callbackUrl = url.get('callbackUrl');
-        if (callbackUrl) router.push(callbackUrl);
+      console.log(response);
+      if (response && response.error) {
+        setError('root', {
+          message: 'Identifiants invalides',
+        });
+        return;
       }
-    }
+      const session = await getSession();
+      if (session?.token && session?.user) {
+        if (loginFormProps.callbackAction !== undefined) {
+          loginFormProps.callbackAction(session.token, session.userInfos['@id']);
+        } else {
+          const url = new URLSearchParams(new URL(window.location.href).search);
+          const callbackUrl = url.get('callbackUrl');
+          if (callbackUrl) router.push(callbackUrl);
+        }
+      }
 
-    closeLoginModal();
+      closeLoginModal();
+    } catch (error) {
+      setError('root', {
+        message: 'Une erreur est survenue',
+      });
+      console.log('ERROOOOR', error);
+    }
     return;
   };
 

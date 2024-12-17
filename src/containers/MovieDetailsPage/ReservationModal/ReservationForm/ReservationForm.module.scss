@@ -28,11 +28,12 @@
 
     .movieInfos {
       display: flex;
+      gap: $space-md;
       flex-direction: column;
       padding-inline: $space-md;
 
       .title {
-        font-size: $font-size-xxl;
+        font-size: $font-size-xl;
         font-weight: 900;
         padding-right: $space-md;
       }
@@ -40,8 +41,8 @@
       .minimumAge {
         background: $grey-text-color;
         font-weight: bold;
-        font-size: $font-size-lg;
-        padding: $space-sm;
+        font-size: $font-size-sm;
+        padding: $space-xs;
         border-radius: 50%;
         color: $white-color;
       }

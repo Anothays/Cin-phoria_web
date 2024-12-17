@@ -6,8 +6,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 export const verifySession = () => {
-
-  if (!cookies().has('jwt')) return false
+  if (!cookies().has('jwt')) return false;
   const token = cookies().get('jwt');
   if (!token) return false;
 
@@ -18,9 +17,8 @@ export const verifySession = () => {
     const decoded = jwt.verify(token.value, publicKey, { algorithms: ['RS256'] });
     if (!decoded) return false;
     return true;
-
   } catch (error) {
-    console.error("Erreur de vérification du token : ", error);
+    console.error('Erreur de vérification du token : ', error);
     return false;
   }
-}
+};
