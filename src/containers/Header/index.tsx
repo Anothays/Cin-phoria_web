@@ -17,7 +17,15 @@ export default function Header() {
 
   const handleLogout = async (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
+    await revokeAccessToken();
     return signOut({ callbackUrl: '/' });
+  };
+
+  const revokeAccessToken = async () => {
+    return fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/logout`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${data?.token}` },
+    });
   };
 
   const handlelogin = (event: React.MouseEvent<HTMLAnchorElement>) => {

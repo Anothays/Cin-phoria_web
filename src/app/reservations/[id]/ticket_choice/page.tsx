@@ -3,10 +3,10 @@ import Incrementor from '@/containers/MyReservationPage/Incrementor';
 import fetcher from '@/services/fetcher';
 import getTarifs from '@/services/Tarifs/lib';
 import { ApiJSONResponseType } from '@/types/ApiResponseType';
-
 import { ReservationType } from '@/types/ReservationType';
 import { TicketCategoryType } from '@/types/TicketCategoryType';
 import { redirect } from 'next/navigation';
+import Alert from '@mui/material/Alert';
 
 export default async function TicketChoicePage({ params }: { params: { id: number } }) {
   const session = await auth();
@@ -21,14 +21,19 @@ export default async function TicketChoicePage({ params }: { params: { id: numbe
 
   const limit = reservation.seats.length;
   const categories = (await getTarifs()) as ApiJSONResponseType<TicketCategoryType>;
-  const tariffs = categories['hydra:member'];
   const extraCharge = reservation.projectionEvent.format.extraCharge;
-  tariffs.forEach((tariff) => {
+  categories['hydra:member'].forEach((tariff) => {
     tariff.price += extraCharge ?? 0;
   });
 
   return (
     <>
+      {extraCharge > 0 ? (
+        <Alert sx={{ marginTop: '1rem' }} severity="info">
+          Projection {reservation.projectionEvent.format.projectionFormatName} : supplément de{' '}
+          {extraCharge / 100} euros sur les tarifs initiaux
+        </Alert>
+      ) : null}
       <Incrementor
         ticketCategories={categories['hydra:member'] as unknown as TicketCategoryType[]}
         limit={limit}

@@ -33,9 +33,7 @@ export default function ContactForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ContactForm>({
-    resolver: zodResolver(schema),
-  });
+  } = useForm<ContactForm>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: ContactForm) => {
     setIsLoading(true);

@@ -4,7 +4,7 @@ import { useGlobalContext } from '@/context/globalContext';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { getSession, signIn } from 'next-auth/react';
+import { getSession, signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -40,7 +40,6 @@ export default function LoginForm() {
         // redirect: loginFormProps.callbackAction === undefined,
         redirect: false,
       });
-      console.log(response);
       if (response && response.error) {
         setError('root', {
           message: 'Identifiants invalides',
@@ -57,7 +56,6 @@ export default function LoginForm() {
           if (callbackUrl) router.push(callbackUrl);
         }
       }
-
       closeLoginModal();
     } catch (error) {
       setError('root', {

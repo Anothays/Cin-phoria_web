@@ -32,17 +32,18 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           if (!response.ok) return null;
           return response.json();
         } catch (error) {
+          console.log(error);
           return null;
         }
       },
     }),
   ],
   pages: {
-    signIn: '/login',
+    signIn: '/fullrefresh',
   },
   callbacks: {
     async jwt({ token, user }) {
-      console.log('TOKEN', token);
+      console.log('TOKEN');
       if (user) {
         // USER CONTIENT LA REPONSE DE L'API
         token.accesstoken = user.token;
@@ -54,7 +55,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       console.log('SESSION');
       const payload = jwt.decode(token.accesstoken as string) as JwtPayloadType;
       const now = Date.now();
-      if (payload.exp * 1000 < now) return null;
+      if (payload.exp * 1000 < now) {
+        console.log('Expired token');
+        return null;
+      }
       session.token = token.accesstoken as string;
       session.userInfos = token.user as UserType;
       return session;
@@ -63,12 +67,15 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       console.log('AUTH');
       const now = Date.now();
       const token = auth?.token ?? null;
-      if (!token) return false;
+      if (!token) {
+        console.log('AUTH TOKEN DANS LE IF');
+        return false;
+      }
       const payload = jwt.decode(token) as JwtPayloadType;
       return payload.exp * 1000 >= now;
     },
-    async signIn({ credentials }) {
-      console.log('SIGNIN', credentials);
+    async signIn() {
+      console.log('SIGNIN');
       return true;
     },
     async redirect({ url }) {

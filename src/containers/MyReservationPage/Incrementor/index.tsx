@@ -5,6 +5,7 @@ import { Button, CircularProgress } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { MouseEvent, useEffect, useMemo, useState } from 'react';
 import styles from './TicketChoice.module.scss';
+import { useSession } from 'next-auth/react';
 
 type IncrementorPropsType = {
   ticketCategories: TicketCategoryType[];
@@ -18,6 +19,7 @@ export default function Incrementor({
   reservationId,
 }: IncrementorPropsType) {
   const router = useRouter();
+  const session = useSession();
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [ticketsCount, setTicketCount] = useState(
@@ -63,20 +65,28 @@ export default function Incrementor({
 
   const handleSubmit = async () => {
     setIsLoading(true);
-    const body = {
-      tickets: ticketsCount,
-      reservationId: reservationId,
-    };
+    const body = { tickets: ticketsCount };
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/checkout`, {
-        method: 'POST',
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/reservations/checkout/${reservationId}`,
+        {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/ld+json',
+            Authorization: `Bearer ${session.data?.token}`,
+          },
+        },
+      );
+
       if (response.status === 410) {
         const data = await response.json();
         alert(data.message);
         router.replace('/');
         return;
+      }
+      if (!response.ok) {
+        alert("Une erreur s'est produite");
       }
       const { url } = await response.json();
       router.replace(url);
