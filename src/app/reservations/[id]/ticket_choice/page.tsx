@@ -3,7 +3,6 @@ import Incrementor from '@/containers/MyReservationPage/Incrementor';
 import fetcher from '@/services/fetcher';
 import getTarifs from '@/services/Tarifs/lib';
 import { ApiJSONResponseType } from '@/types/ApiResponseType';
-import { ReservationType } from '@/types/ReservationType';
 import { TicketCategoryType } from '@/types/TicketCategoryType';
 import { redirect } from 'next/navigation';
 import Alert from '@mui/material/Alert';
@@ -13,11 +12,11 @@ export default async function TicketChoicePage({ params }: { params: { id: numbe
 
   if (!session) redirect('/');
 
-  const reservation = (await fetcher(`/api/reservations/${params.id}`, {
-    headers: {
-      Authorization: `Bearer ${session?.token}`,
-    },
-  })) as ReservationType;
+  const reservation = await fetcher(`/api/reservations/${params.id}`, {
+    headers: { Authorization: `Bearer ${session?.token}` },
+  });
+
+  if (reservation.status && reservation.status === 404) redirect('/');
 
   const limit = reservation.seats.length;
   const categories = (await getTarifs()) as ApiJSONResponseType<TicketCategoryType>;
@@ -35,7 +34,7 @@ export default async function TicketChoicePage({ params }: { params: { id: numbe
         </Alert>
       ) : null}
       <Incrementor
-        ticketCategories={categories['hydra:member'] as unknown as TicketCategoryType[]}
+        ticketCategories={categories['hydra:member'] as TicketCategoryType[]}
         limit={limit}
         reservationId={reservation.id}
       />
