@@ -5,15 +5,11 @@
   display: grid;
   width: 100%;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  // grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   padding: $space-sm;
   background: $gradient1;
+
   .image {
     object-fit: cover;
-  }
-  .image {
-    // width: 100%;
-    // height: auto;
   }
 }
 

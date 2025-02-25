@@ -1,13 +1,13 @@
 @import 'src/styles/_variables.module.scss';
+
 .main {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  // // gap: $space-xl;
-  padding: $space-xxl;
+  padding: $space-xs;
 
-  @media (max-width: $breakpoint-lg) {
+  @media (min-width: $breakpoint-lg) {
     .container {
       padding: $space-lg;
     }
