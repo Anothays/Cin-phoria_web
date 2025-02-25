@@ -7,8 +7,7 @@ import { JwtPayloadType } from '@/types/JwtPayloadType';
 export const { auth, handlers, signIn, signOut } = NextAuth({
   session: {
     strategy: 'jwt',
-    // maxAge: 86400,
-    maxAge: 2,
+    maxAge: 86400,
   },
   providers: [
     Credentials({
