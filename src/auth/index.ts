@@ -17,22 +17,17 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       authorize: async (credentials) => {
-        const body = {
-          username: credentials.email,
-          password: credentials.password,
-        };
+        const body = { username: credentials.email, password: credentials.password };
         try {
           const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login_check`, {
             body: JSON.stringify(body),
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
           });
           if (!response.ok) return null;
           return response.json();
         } catch (error) {
-          console.log(error);
+          console.log('ERROR', error);
           return null;
         }
       },
@@ -79,7 +74,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       return true;
     },
     async redirect({ url }) {
-      console.log('REDIRECT');
+      console.log('REDIRECT', url);
       return url;
     },
   },
