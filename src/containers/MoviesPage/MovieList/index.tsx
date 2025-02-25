@@ -8,8 +8,7 @@ import fetcher from '@/services/fetcher';
 import { CircularProgress } from '@mui/material';
 
 export default function MovieList() {
-  const movieData = useMovies();
-  const { data, isLoading, mutate } = movieData;
+  const { data, isLoading, mutate } = useMovies();
 
   const callbackAction = async (query: string) => {
     try {
