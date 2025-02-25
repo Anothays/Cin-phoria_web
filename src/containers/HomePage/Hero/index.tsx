@@ -42,11 +42,6 @@ export default function Hero() {
             </Link>
           ))}
         </Carousel>
-
-        {/* <div className={styles.searchContainer}>
-          <SearchArea />
-        </div> */}
-        {/* <MovieList movies={movies} /> */}
       </section>
     );
   }

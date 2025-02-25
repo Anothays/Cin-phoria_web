@@ -2,10 +2,10 @@
 
 import { TicketCategoryType } from '@/types/TicketCategoryType';
 import { Button, CircularProgress } from '@mui/material';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { MouseEvent, useEffect, useMemo, useState } from 'react';
 import styles from './TicketChoice.module.scss';
-import { useSession } from 'next-auth/react';
 
 type IncrementorPropsType = {
   ticketCategories: TicketCategoryType[];
@@ -79,14 +79,12 @@ export default function Incrementor({
         },
       );
 
-      if (response.status === 410) {
+      if (!response.ok) {
         const data = await response.json();
         alert(data.message);
+        return; // A ELNEVER
         router.replace('/');
         return;
-      }
-      if (!response.ok) {
-        alert("Une erreur s'est produite");
       }
       const { url } = await response.json();
       router.replace(url);

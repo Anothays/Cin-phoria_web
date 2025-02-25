@@ -4,12 +4,15 @@ import { useGlobalContext } from '@/context/globalContext';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { getSession, signIn, useSession } from 'next-auth/react';
+import { getSession, signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import styles from './LoginForm.module.scss';
+import { authenticate } from '@/lib/authenticate';
+import { useState } from 'react';
+import { CircularProgress } from '@mui/material';
 
 type LoginForm = {
   email: string;
@@ -23,29 +26,53 @@ const schema = z.object({
 
 export default function LoginForm() {
   const { closeLoginModal, loginFormProps } = useGlobalContext();
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const {
     register,
     setError,
-    handleSubmit,
     formState: { errors },
   } = useForm<LoginForm>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = async (data: LoginForm) => {
+  // const onSubmit = async (data: LoginForm) => {
+  //   try {
+  //     const response = await signIn('credentials', {
+  //       ...data,
+  //       // redirect: loginFormProps.callbackAction === undefined,
+  //       redirect: false,
+  //     });
+  //     console.log('signIn response ==> ', response);
+  //     if (response && response.error) {
+  //       setError('root', {
+  //         message: 'Identifiants invalidess',
+  //       });
+  //       return;
+  //     }
+  //     const session = await getSession();
+  //     if (session?.token && session?.user) {
+  //       if (loginFormProps.callbackAction !== undefined) {
+  //         loginFormProps.callbackAction(session.token, session.userInfos['@id']);
+  //       } else {
+  //         const url = new URLSearchParams(new URL(window.location.href).search);
+  //         const callbackUrl = url.get('callbackUrl');
+  //         if (callbackUrl) router.push(callbackUrl);
+  //       }
+  //     }
+  //     closeLoginModal();
+  //   } catch (error) {
+  //     setError('root', {
+  //       message: 'Une erreur est survenue',
+  //     });
+  //     console.log(error);
+  //   }
+  //   return;
+  // };
+
+  const onSubmit = async (e: FormData) => {
     try {
-      const response = await signIn('credentials', {
-        ...data,
-        // redirect: loginFormProps.callbackAction === undefined,
-        redirect: false,
-      });
-      if (response && response.error) {
-        setError('root', {
-          message: 'Identifiants invalides',
-        });
-        return;
-      }
+      await authenticate(e);
       const session = await getSession();
       if (session?.token && session?.user) {
         if (loginFormProps.callbackAction !== undefined) {
@@ -58,19 +85,18 @@ export default function LoginForm() {
       }
       closeLoginModal();
     } catch (error) {
-      setError('root', {
-        message: 'Une erreur est survenue',
-      });
-      console.log('ERROOOOR', error);
+      setError('root', { message: 'Identifiants invalides' });
+      return;
+    } finally {
+      setIsLoading(false);
     }
-    return;
   };
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{loginFormProps.title}</h2>
       <p className={styles.subTitle}>{loginFormProps.message}</p>
-      <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.formContainer} action={onSubmit}>
         {errors.root && <p style={{ color: 'red', alignSelf: 'start' }}>{errors.root.message}</p>}
         <TextField
           {...register('email', { required: true })}
@@ -93,8 +119,14 @@ export default function LoginForm() {
         <Link className={styles.forgetPassword} href={'/forgot-password'} onClick={closeLoginModal}>
           Mot de passe oublié ?
         </Link>
-        <Button className={styles.submitButton} type="submit" variant={'contained'} size={'large'}>
-          Se connecter
+        <Button
+          className={styles.submitButton}
+          type="submit"
+          variant={'contained'}
+          size={'large'}
+          onClick={() => setIsLoading(true)}
+        >
+          {isLoading ? <CircularProgress sx={{ color: 'white' }} size={24} /> : 'Se connecter'}
         </Button>
       </form>
       <div className={styles.connectLink}>
@@ -103,7 +135,11 @@ export default function LoginForm() {
           Créez un compte
         </Link>
       </div>
-      <Link href={`${process.env.NEXT_PUBLIC_BASE_URL}`} onClick={closeLoginModal} replace={true}>
+      <Link
+        href={`${process.env.NEXT_PUBLIC_BASE_URL}/admin`}
+        onClick={closeLoginModal}
+        replace={true}
+      >
         Espace employé
       </Link>
     </div>

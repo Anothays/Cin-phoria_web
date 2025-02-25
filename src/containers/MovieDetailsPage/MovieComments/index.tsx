@@ -7,7 +7,6 @@ import { CircularProgress } from '@mui/material';
 
 export default function MovieComments() {
   const { movieData } = useReservationModalContext();
-
   if (movieData.isLoading) return <CircularProgress />;
 
   if (movieData.data) {

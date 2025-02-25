@@ -10,12 +10,6 @@ import ProjectionEventList from './ProjectionEventList';
 import styles from './ProjectionEventsTab.module.scss';
 import { useReservationModalContext } from '@/context/ReservationModalContext';
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
 export default function ProjectionEventsTab() {
   const now = Date.now();
   const formatter = dateFormatter();
@@ -26,30 +20,47 @@ export default function ProjectionEventsTab() {
 
   if (movieData.data) {
     const movie = movieData.data;
-
-    const projectionEvents = movie.projectionEventsSortedByDateAndGroupedByTheater;
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
       setValue(newValue);
     };
 
+    /**
+     *  Generate all Items of tabs
+     */
+    const projectionEvents = movie.projectionEventsSortedByDateAndGroupedByTheater;
     const datesKeys = Object.keys(projectionEvents);
     const renderedItems: JSX.Element[] = [];
     datesKeys.forEach((date, i) => {
       const moviesTheatersKeys = Object.keys(projectionEvents[date]);
       renderedItems.push(
-        <CustomTabPanel value={value} index={i} key={i}>
-          {moviesTheatersKeys.map((movieTheaterKey, y) => (
-            <div className={styles.MovieTheaterAndProjectionEventsItem} key={y}>
-              <MovieTheater movieTheater={projectionEvents[date][movieTheaterKey].movieTheater} />
-              <ProjectionEventList
-                projectionEvents={projectionEvents[date][movieTheaterKey].projectionEvents}
-              />
-            </div>
-          ))}
-        </CustomTabPanel>,
+        <div
+          role="tabpanel"
+          hidden={value !== i}
+          id={`simple-tabpanel-${i}`}
+          key={`simple-tabpanel-${i}`}
+          aria-labelledby={`simple-tab-${i}`}
+        >
+          {value === i && (
+            <Box sx={{ p: 3 }}>
+              {moviesTheatersKeys.map((movieTheaterKey, y) => (
+                <div className={styles.MovieTheaterAndProjectionEventsItem} key={y}>
+                  <MovieTheater
+                    movieTheater={projectionEvents[date][movieTheaterKey].movieTheater}
+                  />
+                  <ProjectionEventList
+                    projectionEvents={projectionEvents[date][movieTheaterKey].projectionEvents}
+                  />
+                </div>
+              ))}
+            </Box>
+          )}
+        </div>,
       );
     });
 
+    /**
+     * Generate Tabs for date selection
+     */
     const renderedTabsKeys = datesKeys;
     const renderedTabs: JSX.Element[] = [];
     renderedTabsKeys.forEach((key, i) => {
@@ -58,7 +69,15 @@ export default function ProjectionEventsTab() {
       if (formatter.format(timestamp) === formatter.format(now)) label = "Aujourd'hui";
       if (formatter.format(timestamp) === formatter.format(now + 1000 * 3600 * 24))
         label = 'Demain';
-      renderedTabs.push(<Tab value={i} label={label} {...a11yProps(i)} key={i} />);
+      renderedTabs.push(
+        <Tab
+          value={i}
+          label={label}
+          id={`simple-tab-${i}`}
+          aria-controls={`simple-tabpanel-${i}`}
+          key={i}
+        />,
+      );
     });
 
     return (
@@ -91,26 +110,4 @@ export default function ProjectionEventsTab() {
       </div>
     );
   }
-}
-
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
 }

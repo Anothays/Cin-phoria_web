@@ -13,7 +13,6 @@ import { useGlobalContext } from '@/context/globalContext';
 import { ReservationType } from '@/types/ReservationType';
 import fetcher from '@/services/fetcher';
 import { useRouter } from 'next/navigation';
-import { getSessionOrLogIn } from '@/auth/hook';
 
 export default function ReservationForm({
   projectionEvent,
@@ -24,8 +23,8 @@ export default function ReservationForm({
   const router = useRouter();
   const session = useSession();
   const { movieData } = useReservationModalContext();
-  const { openLoginModal, updateLoginProps, closeLoginModal } = useGlobalContext();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { openLoginModal, updateLoginProps } = useGlobalContext();
+  const [isLoading, setIsLoading] = useState(false);
   const movie = movieData.data;
 
   const createNewReservation = async (
@@ -78,8 +77,6 @@ export default function ReservationForm({
       }
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 

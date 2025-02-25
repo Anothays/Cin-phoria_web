@@ -8,9 +8,10 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from './Header.module.scss';
 import { Button } from '@mui/material';
+import { useEffect } from 'react';
 
 export default function Header() {
-  const { status, data, update } = useSession();
+  const { status, data } = useSession();
   const router = useRouter();
   const pathname = usePathname();
   const { openLoginModal, updateLoginProps } = useGlobalContext();
@@ -61,11 +62,9 @@ export default function Header() {
     }
   };
 
-  const test = async () => {
-    // const lol = await update();
-    console.log(status, data);
-    // console.log(lol);
-  };
+  useEffect(() => {
+    console.log(status);
+  }, [status]);
 
   return (
     <header className={styles.mainContainer}>
@@ -87,11 +86,12 @@ export default function Header() {
           <Link className={styles.navLink} href="/contact">
             Contact
           </Link>
-          <Button onClick={test}>CKICK</Button>
-          {data ? (
+          {status === 'authenticated' ? (
             <Link className={styles.navLink} href="" onClick={handleLogout}>
               Déconnexion
             </Link>
+          ) : status === 'loading' ? (
+            <span className={styles.navLink}>Chargement</span>
           ) : (
             <Link className={styles.navLink} href="/login" onClick={handlelogin}>
               Connexion

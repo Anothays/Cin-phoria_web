@@ -19,13 +19,7 @@ export default function SearchArea({ callbackAction }: SearchAreaProps) {
   const [theaters, setTheaters] = useState<readonly string[]>([]);
   const [categories, setCategories] = useState<readonly string[]>([]);
   const [isloading, setIsLoading] = useState(true);
-  // const [queryParams, setQueryParams] = useState<URLSearchParams>(new URLSearchParams('?'));
-
   const [url, setUrl] = useState(new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movies`));
-
-  // const [choosenTheaterName, setChoosenTheaterName] = useState('');
-  // const [choosenCategory, setChoosenCategory] = useState('');
-  // const [choosenDate, setChoosenDate] = useState('');
 
   const retrieveMovieTheaters = async () => {
     try {
@@ -71,7 +65,6 @@ export default function SearchArea({ callbackAction }: SearchAreaProps) {
     <div className={styles.container}>
       <form className={styles.inputSection}>
         <Autocomplete
-          // value={choosenTheaterName}
           onChange={(event, value) =>
             handleChange('projectionEvents.projectionRoom.movieTheater.theaterName', value ?? '')
           }
@@ -87,7 +80,6 @@ export default function SearchArea({ callbackAction }: SearchAreaProps) {
           loadingText={<CircularProgress color="inherit" size={20} />}
         />
         <Autocomplete
-          // value={choosenCategory}
           onChange={(event, value) => handleChange('movieCategories.categoryName', value ?? '')}
           onOpen={retrieveMovieCategories}
           fullWidth={true}
@@ -100,20 +92,15 @@ export default function SearchArea({ callbackAction }: SearchAreaProps) {
         />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
-            // value={choosenDate}
             onChange={(event) =>
               handleChange('projectionEvents.beginAt', event!.format('YYYY-MM-DD'))
             }
             className={styles.datePicker}
             sx={{ width: { xs: 200, sm: 200, md: 400, lg: 400 } }}
             format="YYYY-MM-DD"
-            label="Date"
+            label="Date de la séance"
           />
         </LocalizationProvider>
-
-        {/* <button className={styles.searchButton}>
-          <SearchIcon sx={{ fontSize: { sm: 16, lg: 30 } }} />
-        </button> */}
       </form>
     </div>
   );
