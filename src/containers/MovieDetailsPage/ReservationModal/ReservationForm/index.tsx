@@ -53,8 +53,8 @@ export default function ReservationForm({
       if (session.status === 'authenticated') {
         const reservation = (await createNewReservation(
           projectionEvent['@id'],
-          session.data.token,
-          session.data.userInfos['@id'],
+          session.data.token!,
+          session.data.userInfos!['@id'],
         )) as ReservationType;
         if (!reservation) throw new Error('Error during reservation creation');
         router.push(`/reservations/${reservation.id}`);
