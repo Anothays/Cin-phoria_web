@@ -5,7 +5,6 @@ import { Button, CircularProgress } from '@mui/material';
 import Seat from './Seat';
 import styles from './SeatMap.module.scss';
 import { useEffect, useState } from 'react';
-import fetcher from '@/services/fetcher';
 import { useRouter } from 'next/navigation';
 import { ReservationType } from '@/types/ReservationType';
 import { useSession } from 'next-auth/react';

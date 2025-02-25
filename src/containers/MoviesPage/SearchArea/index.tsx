@@ -59,7 +59,7 @@ export default function SearchArea({ callbackAction }: SearchAreaProps) {
 
   useEffect(() => {
     callbackAction(url.pathname + url.search);
-  }, [url]);
+  }, [callbackAction, url]);
 
   return (
     <div className={styles.container}>

@@ -7,7 +7,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from './Header.module.scss';
-import { Button } from '@mui/material';
 import { useEffect } from 'react';
 
 export default function Header() {

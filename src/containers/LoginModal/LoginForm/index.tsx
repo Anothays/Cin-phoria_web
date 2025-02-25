@@ -4,7 +4,7 @@ import { useGlobalContext } from '@/context/globalContext';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { getSession, signIn } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -36,47 +36,13 @@ export default function LoginForm() {
     resolver: zodResolver(schema),
   });
 
-  // const onSubmit = async (data: LoginForm) => {
-  //   try {
-  //     const response = await signIn('credentials', {
-  //       ...data,
-  //       // redirect: loginFormProps.callbackAction === undefined,
-  //       redirect: false,
-  //     });
-  //     console.log('signIn response ==> ', response);
-  //     if (response && response.error) {
-  //       setError('root', {
-  //         message: 'Identifiants invalidess',
-  //       });
-  //       return;
-  //     }
-  //     const session = await getSession();
-  //     if (session?.token && session?.user) {
-  //       if (loginFormProps.callbackAction !== undefined) {
-  //         loginFormProps.callbackAction(session.token, session.userInfos['@id']);
-  //       } else {
-  //         const url = new URLSearchParams(new URL(window.location.href).search);
-  //         const callbackUrl = url.get('callbackUrl');
-  //         if (callbackUrl) router.push(callbackUrl);
-  //       }
-  //     }
-  //     closeLoginModal();
-  //   } catch (error) {
-  //     setError('root', {
-  //       message: 'Une erreur est survenue',
-  //     });
-  //     console.log(error);
-  //   }
-  //   return;
-  // };
-
   const onSubmit = async (e: FormData) => {
     try {
       await authenticate(e);
       const session = await getSession();
       if (session?.token && session?.user) {
         if (loginFormProps.callbackAction !== undefined) {
-          loginFormProps.callbackAction(session.token, session.userInfos['@id']);
+          loginFormProps.callbackAction(session.token, session.userInfos?.['@id']);
         } else {
           const url = new URLSearchParams(new URL(window.location.href).search);
           const callbackUrl = url.get('callbackUrl');
@@ -85,6 +51,7 @@ export default function LoginForm() {
       }
       closeLoginModal();
     } catch (error) {
+      console.log('Identifiants invalides ==> ', error);
       setError('root', { message: 'Identifiants invalides' });
       return;
     } finally {

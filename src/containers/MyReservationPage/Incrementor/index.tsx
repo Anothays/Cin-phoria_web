@@ -47,7 +47,7 @@ export default function Incrementor({
   useEffect(() => {
     if (limit === total.count) return setButtonDisabled(false);
     return setButtonDisabled(true);
-  }, [total]);
+  }, [limit, total]);
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     const categoryId = e.currentTarget.getAttribute('data-id');
