@@ -47,18 +47,21 @@ export default function SeatMap({ reservation }: SeatMapProps) {
       seats: selectedSeats.map((seatId) => `/api/projection_room_seats/${seatId}`),
     };
     try {
-      const response = await fetcher(`/api/reservations/${reservation.id}`, {
-        method: 'PATCH',
-        body: JSON.stringify(body),
-        headers: {
-          'Content-Type': 'application/merge-patch+json',
-          Authorization: `Bearer ${session.data?.token}`,
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/reservations/${reservation.id}`,
+        {
+          method: 'PATCH',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/merge-patch+json',
+            Authorization: `Bearer ${session.data?.token}`,
+          },
         },
-      });
-      if (!response.projectionEvent) {
-        alert(
-          'Vous avez dépassé les 5 minutes. Votre réservations a été annulée. Veuillez recommencer',
-        );
+      );
+      console.log(response);
+      if (!response.ok) {
+        const data = await response.json();
+        alert(data.detail);
         return router.replace(`/`);
       }
       return router.push(`/reservations/${reservation.id}/ticket_choice`);

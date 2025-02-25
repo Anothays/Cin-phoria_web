@@ -23,7 +23,6 @@ export default function Seat({
   const selectedColor = '#13e806';
   const selectedStrokeColor = '#0d8705';
   const wrapperColor = '#757575';
-  const accessibleColor = '#00000082';
   const notSelectable = '#d9d3d3';
 
   return (

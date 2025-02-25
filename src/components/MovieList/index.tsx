@@ -25,7 +25,6 @@ export default function MovieList() {
               className={styles.image}
               width={350}
               height={500}
-              // fill={true}
               src={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/images/${movie.coverImageName}`}
               alt={`Image du film ${movie.title}`}
             />
