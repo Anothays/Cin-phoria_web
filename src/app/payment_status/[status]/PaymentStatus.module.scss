@@ -1,0 +1,9 @@
+@import 'src/styles/_variables.module.scss';
+@import 'src/styles/_colors.module.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  padding-top: $space-3xl;
+}

@@ -1,0 +1,130 @@
+@import '/src/styles/variables.module';
+@import '/src/styles/_colors.module.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: $space-lg;
+
+  .date {
+    font-size: $font-size-xl;
+  }
+
+  .beginAt {
+    font-size: $font-size-3xl;
+    font-weight: 900;
+  }
+
+  .movie {
+    text-align: start;
+    display: flex;
+    justify-content: space-between;
+    background: whitesmoke;
+    border-radius: 0.3rem;
+    align-items: center;
+    gap: $space-md;
+    overflow: hidden;
+
+    .movieInfos {
+      display: flex;
+      gap: $space-md;
+      flex-direction: column;
+      padding-inline: $space-md;
+
+      .title {
+        font-size: $font-size-xl;
+        font-weight: 900;
+        padding-right: $space-md;
+      }
+
+      .minimumAge {
+        background: $grey-text-color;
+        font-weight: bold;
+        font-size: $font-size-sm;
+        padding: $space-xs;
+        border-radius: 50%;
+        color: $white-color;
+      }
+
+      .durationInMinutes {
+        color: $grey-text-color;
+        font-size: $font-size-md;
+      }
+    }
+
+
+    .image {
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .language {
+    font-weight: bold;
+    color: $grey-text-color;
+    font-size: $font-size-xl;
+  }
+
+  .movieTheater {
+    text-align: start;
+    padding: $space-md;
+    display: flex;
+    justify-content: space-between;
+    background: whitesmoke;
+    border-radius: 0.3rem;
+    align-items: center;
+    gap: $space-md;
+    overflow: hidden;
+
+    .movieTheaterInfos {
+      display: flex;
+      flex-direction: column;
+      text-align: start;
+
+      .movieTheaterName {
+        font-size: $font-size-xl;
+        font-weight: bolder;
+      }
+
+      .movieTheaterCity {
+        color: $grey-text-color;
+      }
+    }
+
+  }
+
+  .pmrContainer {
+    text-align: start;
+    padding: $space-xl $space-md;
+    display: flex;
+    justify-content: flex-start;
+    background: whitesmoke;
+    border-radius: 0.3rem;
+    align-items: center;
+    gap: $space-md;
+    overflow: hidden;
+
+    .pmr {
+      display: flex;
+      justify-content: center;
+      gap: $space-sm;
+
+    }
+  }
+
+  .button {
+    padding: $space-xl;
+    margin-top: $space-xl;
+    background: $primary-color;
+    color: $white-color;
+
+    .buttonLabel {
+      display: flex;
+      gap: $space-md;
+      justify-content: center;
+      align-items: center;
+
+    }
+  }
+}

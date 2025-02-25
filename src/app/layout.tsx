@@ -9,7 +9,7 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.scss';
 import styles from './HomePage.module.scss';
-import { NextAuthProvider } from './NextAuthProvider';
+import { SessionProvider } from 'next-auth/react';
 import Providers from './Providers';
 
 export const metadata: Metadata = {
@@ -33,7 +33,7 @@ export default async function RootLayout({
       <body className={classnames(font.className, styles.layoutContainer)}>
         <GlobalContextHandler>
           <Providers>
-            <NextAuthProvider>
+            <SessionProvider>
               <LoginModal />
               <CustomSnackbar />
               <Header />
@@ -41,7 +41,7 @@ export default async function RootLayout({
                 <main className={styles.main}>{children}</main>
               </MUITheme>
               <Footer />
-            </NextAuthProvider>
+            </SessionProvider>
           </Providers>
         </GlobalContextHandler>
       </body>

@@ -6,6 +6,28 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
+  .submitButtonDisabled {
+    width: 100%;
+    // align-self: flex-end;
+    padding: $space-lg;
+    background: $primary-color;
+    color: white;
+    border-radius: 0.3rem;
+    opacity: 50%;
+    background: white;
+  }
+
+  .submitButtonEnabled {
+    width: 100%;
+    // align-self: flex-end;
+    padding: $space-lg;
+    background: $primary-color;
+    color: white;
+    border-radius: 0.3rem;
+    // font-size: xx;
+  }
+
   .screen {
     display: flex;
     text-align: center;

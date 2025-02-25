@@ -7,7 +7,7 @@ export default function CommentCard({ comment }: { comment: CommentType }) {
     <div className={styles.container}>
       <div className={styles.header}>
         <p className={styles.username}>
-          Par {comment.user.firstname} {comment.user.lastname}
+          Par {comment.user?.firstname} {comment.user?.lastname}
         </p>
       </div>
       <div className={styles.body}>

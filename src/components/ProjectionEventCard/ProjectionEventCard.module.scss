@@ -3,28 +3,52 @@
 
 .container {
   display: flex;
-  height: 100px;
-  width: 100px;
+  gap: $space-sm;
   font-size: $font-size-xs;
   text-align: center;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  padding: $space-md;
-  border-radius: 1rem;
-  // remove all href styles
-  text-decoration: none !important;
+  align-items: flex-start;
+  padding: $space-sm;
+  border-radius: 0.5rem;
   color: $white-color;
   background: $secondary-color;
   cursor: pointer;
   transition: 0.2s;
+
+  .language {
+    font-weight: bolder;
+    font-size: $font-size-sm;
+    color: $white-color;
+  }
+
+  .projectionFormatName {
+    font-weight: bolder;
+    font-size: $font-size-sm;
+    color: $white-color;
+  }
+
+  .beginAt {
+    font-size: $font-size-xl;
+    //padding-inline: $space-lg;
+  }
+
+  .endAt {
+    color: $light-grey-color;
+  }
+
+  .date {
+    color: $grey-text-color;
+  }
+
   .image {
     border-radius: 0.5rem;
   }
 
   &:hover {
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.4);
+    background: $secondary-color;
   }
+
   .tiny {
     font-size: 0.5rem;
   }
@@ -32,6 +56,7 @@
   .hidden {
     display: none;
   }
+
   .room {
     // display: flex;
     // flex-direction: column;

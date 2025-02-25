@@ -1,91 +1,21 @@
-'use client';
-
 import SeatMap from '@/components/SeatMap';
-import fetcher from '@/services/fetcher';
-import { ProjectionEventType } from '@/types/ProjectionEventType';
-import { ReservationType } from '@/types/ReservationType';
-import { Button } from '@mui/material';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import styles from './Reservation.module.scss';
+import { auth } from '@/auth';
+import fetcher from '@/services/fetcher';
+import { redirect } from 'next/navigation';
 
-export default function ReservationPage({ params }: { params: { id: number } }) {
-  const { status, data } = useSession();
-  const router = useRouter();
-  const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
-  const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [currentReservation, setCurrentReservation] = useState<ReservationType | undefined>(
-    undefined,
-  );
-  const [currentProjection, setCurrentProjection] = useState<ProjectionEventType | undefined>(
-    undefined,
-  );
+export default async function ReservationPage({ params }: { params: { id: number } }) {
+  const session = await auth();
+  const response = await fetcher(`/api/reservations/${params.id}`, {
+    headers: { Authorization: `Bearer ${session?.token}` },
+  });
 
-  const handleSeatSelect = (seatId: number) => {
-    setSelectedSeats(
-      (prevSelectedSeats) =>
-        prevSelectedSeats.includes(seatId)
-          ? prevSelectedSeats.filter((id) => id !== seatId) // Désélection
-          : [...prevSelectedSeats, seatId], // Sélection
-    );
-  };
+  if (response.status && response.status === 404) return redirect('/');
 
-  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    e.preventDefault();
+  const reservation = response;
+  if (reservation.paid) return redirect('/');
 
-    if (selectedSeats.length <= 0) return alert('Vous devez choisir au moins une place');
-
-    const body = {
-      seats: selectedSeats.map((seatId) => `/api/projection_room_seats/${seatId}`),
-    };
-
-    const response = await fetcher(`/api/reservations/${currentReservation?.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/merge-patch+json',
-        Authorization: `Bearer ${data?.token}`,
-      },
-    });
-    if (!response.projectionEvent) {
-      alert(
-        'Vous avez dépassé les 5 minutes. Votre réservations a été annulée. Veuillez recommencer',
-      );
-      router.replace(`/`);
-      return;
-    }
-    router.push(`/reservations/${params.id}/ticket_choice`);
-  };
-
-  useEffect(() => {
-    const getReservation = async () => {
-      if (data?.token) {
-        return await fetcher(`/api/reservations/${params.id}`, {
-          headers: {
-            Authorization: `Bearer ${data.token}`,
-          },
-        });
-      }
-    };
-    getReservation().then((res) => {
-      setCurrentReservation(res);
-    });
-  }, [status]);
-
-  useEffect(() => {
-    if (currentReservation?.projectionEvent) {
-      setCurrentProjection(currentReservation.projectionEvent);
-    }
-  }, [currentReservation?.projectionEvent]);
-
-  useEffect(() => {
-    if (selectedSeats.length > 0) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [selectedSeats]);
+  const currentProjection = reservation.projectionEvent;
 
   return (
     <div className={styles.container}>
@@ -99,18 +29,7 @@ export default function ReservationPage({ params }: { params: { id: number } }) 
           {currentProjection?.projectionRoom.titleRoom}
         </p>
       </h1>
-      {currentProjection?.id ? (
-        <SeatMap projectionId={currentProjection?.id} onSeatSelect={handleSeatSelect} />
-      ) : null}
-
-      <Button
-        disabled={buttonDisabled}
-        className={buttonDisabled ? styles.submitButtonDisabled : styles.submitButtonEnabled}
-        href={''}
-        onClick={handleClick}
-      >
-        Réserver ma place
-      </Button>
+      {currentProjection?.id ? <SeatMap reservation={reservation} /> : null}
     </div>
   );
 }

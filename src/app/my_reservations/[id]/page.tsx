@@ -21,7 +21,7 @@ export default function ReservationPage({ params }: { params: { id: number } }) 
         setReservation(data);
       });
     }
-  }, [session?.status]);
+  }, [params.id, session.data?.token, session.status]);
 
   if (reservation === undefined) return <p>Chargement...</p>;
 
