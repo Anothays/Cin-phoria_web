@@ -7,7 +7,8 @@ import { JwtPayloadType } from '@/types/JwtPayloadType';
 export const { auth, handlers, signIn, signOut } = NextAuth({
   session: {
     strategy: 'jwt',
-    maxAge: 86400,
+    // maxAge: 86400,
+    maxAge: 2,
   },
   providers: [
     Credentials({
@@ -51,8 +52,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       const payload = jwt.decode(token.accesstoken as string) as JwtPayloadType;
       const now = Date.now();
       if (payload.exp * 1000 < now) {
-        console.log('Expired token');
-        return null;
+        console.log('EXPIRED TOKEN');
+        session.token = null;
+        session.userInfos = null;
+        return session;
       }
       session.token = token.accesstoken as string;
       session.userInfos = token.user as UserType;
