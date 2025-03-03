@@ -11,6 +11,8 @@ import './globals.scss';
 import styles from './HomePage.module.scss';
 import { SessionProvider } from 'next-auth/react';
 import Providers from './Providers';
+import CookieConsent from '@/components/CookieConsent';
+import { getUserCookieConsent } from '@/lib/cookie';
 
 export const metadata: Metadata = {
   title: 'Cinéphoria',
@@ -28,6 +30,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookie_consent = await getUserCookieConsent();
+
   return (
     <html lang="fr">
       <body className={classnames(font.className, styles.layoutContainer)}>
@@ -35,6 +39,7 @@ export default async function RootLayout({
           <Providers>
             <SessionProvider>
               <LoginModal />
+              <CookieConsent cookie_consent={cookie_consent} />
               <CustomSnackbar />
               <Header />
               <MUITheme>
