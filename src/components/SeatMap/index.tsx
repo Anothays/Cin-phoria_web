@@ -4,7 +4,7 @@ import { ProjectionRoomSeatType } from '@/types/ProjectionRoomSeatType';
 import { Button, CircularProgress } from '@mui/material';
 import Seat from './Seat';
 import styles from './SeatMap.module.scss';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ReservationType } from '@/types/ReservationType';
 import { useSession } from 'next-auth/react';
@@ -20,7 +20,7 @@ export default function SeatMap({ reservation }: SeatMapProps) {
   const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
   const router = useRouter();
   const projectionEvent = reservation.projectionEvent;
-
+  console.log('MAP');
   useEffect(() => {
     if (selectedSeats.length > 0) {
       setButtonDisabled(false);
@@ -29,14 +29,14 @@ export default function SeatMap({ reservation }: SeatMapProps) {
     }
   }, [selectedSeats]);
 
-  const onSeatSelect = (seatId: number) => {
+  const onSeatSelect = useCallback((seatId: number) => {
     setSelectedSeats(
       (prevSelectedSeats) =>
         prevSelectedSeats.includes(seatId)
           ? prevSelectedSeats.filter((id) => id !== seatId) // Désélection
           : [...prevSelectedSeats, seatId], // Sélection
     );
-  };
+  }, []);
 
   const handleClick = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
@@ -71,36 +71,34 @@ export default function SeatMap({ reservation }: SeatMapProps) {
     }
   };
 
-  const allSeats = projectionEvent.allSeats;
+  const { allSeats } = projectionEvent;
 
-  const allSeatsOrdered: { [key: string]: ProjectionRoomSeatType[] } = {};
-
-  allSeats.forEach((seat) => {
-    if (!(seat.seatRow in allSeatsOrdered)) allSeatsOrdered[seat.seatRow] = [];
-    allSeatsOrdered[seat.seatRow].push(seat);
-  });
+  const seatsList = useMemo(() => {
+    const allSeatsOrdered: { [key: string]: ProjectionRoomSeatType[] } = {};
+    allSeats.forEach((seat) => {
+      if (!(seat.seatRow in allSeatsOrdered)) allSeatsOrdered[seat.seatRow] = [];
+      allSeatsOrdered[seat.seatRow].push(seat);
+    });
+    return Object.keys(allSeatsOrdered).map((seatRow) => (
+      <tr key={seatRow}>
+        {allSeatsOrdered[seatRow].map((seat: ProjectionRoomSeatType) => (
+          <td key={seat.id} className={styles.td}>
+            <Seat
+              seatId={seat.id}
+              isForRedecedMobilityPerson={seat.forReducedMobility}
+              isNotSelectable={!!projectionEvent.reservedSeats.find((item) => item === seat.id)}
+              onSeatSelect={onSeatSelect}
+            />
+          </td>
+        ))}
+      </tr>
+    ));
+  }, [projectionEvent.reservedSeats, onSeatSelect]);
 
   return (
     <div className={styles.container}>
       <table>
-        <tbody>
-          {Object.keys(allSeatsOrdered).map((seatRow) => (
-            <tr key={seatRow}>
-              {allSeatsOrdered[seatRow].map((seat: ProjectionRoomSeatType) => (
-                <td key={seat.id} className={styles.td}>
-                  <Seat
-                    seatId={seat.id}
-                    isForRedecedMobilityPerson={seat.forReducedMobility}
-                    isNotSelectable={
-                      !!projectionEvent.reservedSeats.find((item) => item === seat.id)
-                    }
-                    onSeatSelect={onSeatSelect}
-                  />
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
+        <tbody>{seatsList}</tbody>
       </table>
       <div className={styles.screen}>
         <p>Écran</p>

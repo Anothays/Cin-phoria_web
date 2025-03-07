@@ -24,7 +24,7 @@ export default function Seat({
   const selectedStrokeColor = '#0d8705';
   const wrapperColor = '#757575';
   const notSelectable = '#d9d3d3';
-
+  console.log('SEAT');
   return (
     <svg
       onClick={() => {
