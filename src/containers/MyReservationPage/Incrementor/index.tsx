@@ -62,20 +62,16 @@ export default function Incrementor({ limit, reservationId, extraCharge }: Incre
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     const categoryId = e.currentTarget.getAttribute('data-id');
-    const operator = e.currentTarget.innerText;
+    const operator = e.currentTarget.getAttribute('data-operator');
     const ticketsCountCopy = [...ticketsCount!];
     const itemToUpdate = ticketsCountCopy.find((item) => item.id === +categoryId!);
     if (operator === '+') {
-      alert('operator === +');
       if (total!.count >= limit) return;
     } else if (operator === '-') {
-      alert('operator === -');
       if (itemToUpdate!.count <= 0) return;
     } else {
-      alert('ELSE');
       return;
     }
-    alert(operator);
     itemToUpdate!.count += operator === '+' ? 1 : -1;
     setTicketCount(ticketsCountCopy);
   };
@@ -128,6 +124,7 @@ export default function Incrementor({ limit, reservationId, extraCharge }: Incre
                 className={styles.button}
                 onClick={handleClick}
                 data-id={ticketsCount![index].id}
+                data-operator="-"
               >
                 -
               </Button>
@@ -136,6 +133,7 @@ export default function Incrementor({ limit, reservationId, extraCharge }: Incre
                 className={styles.button}
                 onClick={handleClick}
                 data-id={ticketsCount![index].id}
+                data-operator="+"
               >
                 +
               </Button>
