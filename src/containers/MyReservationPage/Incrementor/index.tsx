@@ -66,10 +66,16 @@ export default function Incrementor({ limit, reservationId, extraCharge }: Incre
     const ticketsCountCopy = [...ticketsCount!];
     const itemToUpdate = ticketsCountCopy.find((item) => item.id === +categoryId!);
     if (operator === '+') {
+      alert('operator === +');
       if (total!.count >= limit) return;
     } else if (operator === '-') {
+      alert('operator === -');
       if (itemToUpdate!.count <= 0) return;
-    } else return;
+    } else {
+      alert('ELSE');
+      return;
+    }
+    alert(operator);
     itemToUpdate!.count += operator === '+' ? 1 : -1;
     setTicketCount(ticketsCountCopy);
   };
