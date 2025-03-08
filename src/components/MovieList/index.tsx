@@ -22,11 +22,12 @@ export default function MovieList() {
         {movies?.map((movie) => (
           <Link href={`/movies/${movie.id}`} key={movie.id}>
             <Image
-              className={styles.image}
-              width={350}
-              height={500}
               src={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/images/${movie.coverImageName}`}
               alt={`Image du film ${movie.title}`}
+              className={styles.image}
+              layout="responsive"
+              width={375}
+              height={500}
             />
           </Link>
         ))}

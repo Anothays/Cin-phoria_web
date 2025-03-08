@@ -3,12 +3,15 @@
 
 .container {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
   width: 100%;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   padding: $space-sm;
   background: $gradient1;
 
   .image {
+    width: 100%;
+    height: auto;
     object-fit: cover;
   }
 }
@@ -21,9 +24,11 @@
   max-width: $breakpoint-md;
 }
 
-@media (min-width: $breakpoint-lg) {
+@media (min-width: $breakpoint-sm) {
   .container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     padding: $space-xxl;
+
   }
   .title {
     font-size: $font-size-xl;
