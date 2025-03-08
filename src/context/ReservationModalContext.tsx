@@ -17,7 +17,7 @@ export const reservationModalContext = createContext<reservationModalContextType
   undefined,
 );
 
-export const ReservationContextHandler = ({
+export const ReservationModalContextHandler = ({
   children,
   movieId,
 }: {
@@ -45,8 +45,7 @@ export const ReservationContextHandler = ({
 
 export const useReservationModalContext = () => {
   const context = useContext(reservationModalContext);
-  if (context === undefined) {
+  if (context === undefined)
     throw new Error('useReservationModalContext must be used within a GlobalContextProvider');
-  }
   return context;
 };

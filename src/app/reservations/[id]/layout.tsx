@@ -1,16 +1,27 @@
-import Alert from '@mui/material/Alert';
+import { ReactNode } from 'react';
+import { ReservationContextHandler } from '@/context/ReservationContext';
+import { auth } from '@/auth';
+import fetcher from '@/services/fetcher';
+import { redirect } from 'next/navigation';
 
-export default async function RootLayout({
+export default async function Layout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  params,
+}: {
+  children: ReactNode;
+  params: { id: number };
+}) {
+  const session = await auth();
+
+  const response = await fetcher(`/api/reservations/${params.id}`, {
+    headers: { Authorization: `Bearer ${session?.token}` },
+  });
+  if (response.status && response.status === 404) return redirect('/');
+  if (response.paid) return redirect('/');
+
   return (
-    <div>
-      <Alert sx={{ marginTop: '1rem' }} severity="info">
-        Passé 5 minutes, vous devrez recommencer votre réservation
-      </Alert>
-      {children}
-    </div>
+    <ReservationContextHandler reservationProps={response}>
+      <div>{children}</div>
+    </ReservationContextHandler>
   );
 }

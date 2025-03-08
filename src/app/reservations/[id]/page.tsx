@@ -1,3 +1,6 @@
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
+
 import SeatMap from '@/components/SeatMap';
 import styles from './Reservation.module.scss';
 import { auth } from '@/auth';
@@ -29,7 +32,7 @@ export default async function ReservationPage({ params }: { params: { id: number
           {currentProjection?.projectionRoom.titleRoom}
         </p>
       </h1>
-      {currentProjection?.id ? <SeatMap reservation={reservation} /> : null}
+      {currentProjection?.id ? <SeatMap /> : null}
     </div>
   );
 }

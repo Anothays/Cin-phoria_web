@@ -6,21 +6,17 @@ import Seat from './Seat';
 import styles from './SeatMap.module.scss';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ReservationType } from '@/types/ReservationType';
 import { useSession } from 'next-auth/react';
+import { useReservationContext } from '@/context/ReservationContext';
 
-type SeatMapProps = {
-  reservation: ReservationType;
-};
-
-export default function SeatMap({ reservation }: SeatMapProps) {
+export default function SeatMap() {
+  const router = useRouter();
+  const { reservation, setReservation } = useReservationContext();
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const session = useSession();
   const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
-  const router = useRouter();
-  const projectionEvent = reservation.projectionEvent;
-  console.log('MAP');
+  const projectionEvent = reservation!.projectionEvent;
   useEffect(() => {
     if (selectedSeats.length > 0) {
       setButtonDisabled(false);
@@ -47,7 +43,7 @@ export default function SeatMap({ reservation }: SeatMapProps) {
     };
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/reservations/${reservation.id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/reservations/${reservation!.id}`,
         {
           method: 'PATCH',
           body: JSON.stringify(body),
@@ -57,13 +53,13 @@ export default function SeatMap({ reservation }: SeatMapProps) {
           },
         },
       );
-      console.log(response);
+      const data = await response.json();
       if (!response.ok) {
-        const data = await response.json();
         alert(data.detail);
         return router.replace(`/`);
       }
-      return router.push(`/reservations/${reservation.id}/ticket_choice`);
+      setReservation(data);
+      return router.push(`/reservations/${reservation!.id}/ticket_choice`);
     } catch (err) {
       console.error(err);
     } finally {
