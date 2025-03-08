@@ -71,9 +71,8 @@ export default function SeatMap({ reservation }: SeatMapProps) {
     }
   };
 
-  const { allSeats } = projectionEvent;
-
   const seatsList = useMemo(() => {
+    const { allSeats } = projectionEvent;
     const allSeatsOrdered: { [key: string]: ProjectionRoomSeatType[] } = {};
     allSeats.forEach((seat) => {
       if (!(seat.seatRow in allSeatsOrdered)) allSeatsOrdered[seat.seatRow] = [];

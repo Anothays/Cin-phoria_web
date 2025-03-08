@@ -1,5 +1,6 @@
 @import 'src/styles/_variables.module.scss';
 @import 'src/styles/_colors.module.scss';
+
 .mainContainer {
   width: 100%;
   display: flex;
@@ -7,31 +8,39 @@
   align-items: center;
   justify-content: center;
   color: $grey-text-color;
+
   h3 {
     color: $primary-color;
   }
+
   .infoSection {
     display: flex;
+    flex-direction: column;
     gap: $space-3xl;
     padding: $space-lg;
+
     .contactSection {
       display: flex;
       flex-direction: column;
       gap: $space-md;
+
       a {
         color: $secondary-color;
       }
     }
+
     .horaireSection {
       display: flex;
       flex-direction: column;
       gap: $space-md;
+
       .horaireContent {
         display: flex;
         gap: $space-3xl;
       }
     }
   }
+
   .legalSection {
     width: 100%;
     display: flex;
@@ -42,6 +51,7 @@
     padding: $space-lg;
     border-top: 1px solid $light-grey-color;
     max-width: $breakpoint-xl;
+
     .logoContainer {
       display: flex;
       justify-content: center;
@@ -49,24 +59,27 @@
       // flex-direction: column;
       width: 100%;
     }
+
     .linkContainer {
       display: flex;
       flex-direction: column;
       width: 100%;
+
       .category {
         font-weight: bold;
         margin-bottom: $space-sm;
       }
+
       .list {
         // remove default list style
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
         list-style-type: none;
+        text-align: center;
 
         .listItem {
           .link {
             color: $grey-text-color;
             text-decoration: none !important;
+
             &:hover {
               color: $primary-color;
             }
@@ -77,11 +90,20 @@
   }
 }
 
-@media (max-width: $breakpoint-sm) {
+@media (min-width: $breakpoint-sm) {
   .mainContainer {
-    .container {
-      grid-template-columns: repeat(1, 1fr);
-      font-size: $font-size-sm;
+    .infoSection {
+      flex-direction: row;
+    }
+
+    .legalSection {
+      .linkContainer {
+        .list {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          list-style-type: none;
+        }
+      }
     }
   }
 }
