@@ -6,8 +6,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: $space-xxl;
+
   .title {
     font-size: $h1-font-size;
+  }
+}
+
+@media screen and (min-width: $breakpoint-sm) {
+  .container {
+    padding: $space-xxl;
   }
 }
