@@ -7,7 +7,7 @@
   align-items: flex-start;
   padding: $space-xs;
 
-  @media (min-width: $breakpoint-lg) {
+  @media (min-width: $breakpoint-sm) {
     .container {
       padding: $space-lg;
     }
