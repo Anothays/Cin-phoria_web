@@ -20,9 +20,9 @@ export default function MovieCardDetailed() {
           className={styles.image}
           src={`${process.env.NEXT_PUBLIC_BASE_URL}/uploads/images/${movie.coverImageName}`}
           alt={`${movie.coverImageName}`}
-          width={400}
-          height={400}
-          // sizes="100%"
+          objectFit="contain"
+          width={375}
+          height={500}
         />
         <div className={styles.MovieInfos}>
           <h1 className={styles.mainTitle}>{movie.title}</h1>

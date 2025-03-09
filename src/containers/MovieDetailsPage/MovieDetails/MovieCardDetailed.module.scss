@@ -1,5 +1,6 @@
 @import '/src/styles/_variables.module.scss';
 @import '/src/styles/_colors.module.scss';
+
 .container {
   display: flex;
   flex-direction: column;
@@ -9,12 +10,13 @@
   // remove all href styles
   text-decoration: none !important;
   color: $black-color;
-  // gap: $space-md;
+
   .image {
-    // border-radius: 0.5rem;
-    object-fit: contain;
-    width: 100%;
+    width: 50%;
+    max-width: 250px;
+    height: auto;
   }
+
   .MovieInfos {
     display: flex;
     text-align: center;
@@ -24,23 +26,28 @@
     gap: 1rem;
     width: 100%;
     padding: $space-lg;
+
     .mainTitle {
       font-size: $font-size-xxl;
       font-weight: 800;
     }
+
     .title {
       font-size: $font-size-lg;
       font-weight: 800;
     }
+
     .text {
       font-size: $font-size-md;
       font-weight: 800;
     }
+
     span {
       color: $grey-text-color;
       font-weight: bold;
     }
   }
+
   .rating {
     display: flex;
   }
@@ -58,12 +65,6 @@
     color: $black-color;
     // gap: 5rem;
 
-    .image {
-      // width: 100%;
-      border-radius: 0.5rem;
-      object-fit: contain;
-      flex: 2;
-    }
     .MovieInfos {
       display: flex;
       flex-direction: column;
@@ -72,23 +73,28 @@
       text-align: start;
       gap: 1rem;
       width: 100%;
+
       .mainTitle {
         font-size: $font-size-xxl;
         font-weight: 800;
       }
+
       .title {
         font-size: $font-size-lg;
         font-weight: 800;
       }
+
       .text {
         font-size: $font-size-md;
         font-weight: 800;
       }
+
       span {
         color: $grey-text-color;
         font-weight: bold;
       }
     }
+
     .rating {
       display: flex;
     }
