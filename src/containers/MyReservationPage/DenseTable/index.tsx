@@ -27,7 +27,7 @@ export default function DenseTable({ reservations }: { reservations: Reservation
   const [reservationsState, setReservationState] = useState<ReservationType[]>(reservations);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [reservationId, setReserationId] = useState<number | undefined>(undefined);
+  const [reservation, setReservation] = useState<ReservationType | undefined>(undefined);
   const [isRateModalOpen, setIsRateModalOpen] = useState(false);
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -40,8 +40,13 @@ export default function DenseTable({ reservations }: { reservations: Reservation
   };
 
   const handleClick = (reservation: ReservationType) => {
-    setReserationId(reservation.id);
+    setReservation(reservation);
     setIsRateModalOpen(true);
+  };
+
+  const closeRateModal = () => {
+    setIsRateModalOpen(false);
+    setReservation(undefined);
   };
 
   return (
@@ -95,13 +100,15 @@ export default function DenseTable({ reservations }: { reservations: Reservation
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <RateModal
-        isRateModalOpen={isRateModalOpen}
-        closeRateModal={() => setIsRateModalOpen(false)}
-        reservationId={reservationId}
-        setReservationState={setReservationState}
-        reservationsState={reservationsState}
-      />
+      {isRateModalOpen ? (
+        <RateModal
+          isRateModalOpen={isRateModalOpen}
+          closeRateModal={closeRateModal}
+          reservation={reservation!}
+          setReservationState={setReservationState}
+          reservationsState={reservationsState}
+        />
+      ) : null}
     </>
   );
 }

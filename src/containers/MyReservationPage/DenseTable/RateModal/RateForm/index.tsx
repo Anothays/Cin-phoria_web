@@ -18,7 +18,7 @@ type RateForm = {
   setReservationState: () => void;
 };
 type RateFormPropsType = {
-  reservationId: number | undefined;
+  reservation: ReservationType;
   closeRateModal: () => void;
   setReservationState: Dispatch<SetStateAction<ReservationType[]>>;
   reservationsState: ReservationType[];
@@ -29,7 +29,7 @@ const schema = z.object({
 });
 
 export default function RateForm({
-  reservationId,
+  reservation,
   closeRateModal,
   setReservationState,
   reservationsState,
@@ -47,26 +47,31 @@ export default function RateForm({
 
   const mutateReservationState = () => {
     const reservationsStateCopy = [...reservationsState];
-    const index = reservationsStateCopy.findIndex((el) => el.id === reservationId);
+    const index = reservationsStateCopy.findIndex((el) => el.id === reservation.id);
     reservationsStateCopy[index].rate = true;
     setReservationState(reservationsStateCopy);
   };
 
   const onSubmit = async (formdata: RateForm) => {
-    if (!reservationId) return;
     const body = {
       points: rate,
       comment: formdata.body,
-      reservationId,
+      reservationId: reservation.id,
     };
+    const movieId = reservation.projectionEvent.movie.id;
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movies/rate`, {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: {
-          ['Authorization']: `Bearer ${data?.token}`,
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/movies/note/${movieId}`,
+        {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {
+            ['Authorization']: `Bearer ${data?.token}`,
+            'content-type': 'application/ld+json',
+          },
         },
-      });
+      );
+      console.log(response);
       if (!response.ok) {
         const result = await response.json();
         throw new Error(result.message);

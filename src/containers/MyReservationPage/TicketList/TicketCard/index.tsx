@@ -18,8 +18,8 @@ export default function TicketCard({ reservation, uniqueCode }: TicketCardProps)
   const { projectionRoom } = projectionEvent;
 
   return (
-    <Card sx={{ maxWidth: 500, minWidth: 500 }} className={styles.container}>
-      <CardMedia>
+    <Card sx={{ maxWidth: 500, minWidth: 200 }} className={styles.container}>
+      <CardMedia className={styles.cardMedia}>
         <QRCodeSVG value={uniqueCode} size={256} marginSize={0} title={uniqueCode} />
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {uniqueCode}

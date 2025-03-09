@@ -25,7 +25,7 @@ const style = {
 type RateModalType = {
   isRateModalOpen: boolean;
   closeRateModal: () => void;
-  reservationId: number | undefined;
+  reservation: ReservationType;
   setReservationState: Dispatch<SetStateAction<ReservationType[]>>;
   reservationsState: ReservationType[];
 };
@@ -33,7 +33,7 @@ type RateModalType = {
 export default function RateModal({
   isRateModalOpen,
   closeRateModal,
-  reservationId,
+  reservation,
   setReservationState,
   reservationsState,
 }: RateModalType) {
@@ -44,7 +44,7 @@ export default function RateModal({
           <CloseIcon />
         </div>
         <RateForm
-          reservationId={reservationId}
+          reservation={reservation}
           closeRateModal={closeRateModal}
           setReservationState={setReservationState}
           reservationsState={reservationsState}
