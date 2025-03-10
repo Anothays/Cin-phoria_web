@@ -56,20 +56,26 @@ export default function SignupForm() {
     setIsLoading(true);
     try {
       const dataToSend = JSON.stringify(data);
-      await fetcher('/api/users', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users`, {
         method: 'POST',
         body: dataToSend,
         headers: {
           ['Content-type']: 'application/ld+json',
         },
       });
+      const responseData = await response.json();
+      if (!response.ok) {
+        setIsLoading(false);
+        alert(responseData.detail);
+        return;
+      }
       setSnackbarContent(
         `Un email de confirmation a été envoyé à l'adresse : ${data.email}. Veuillez cliquer sur le lien qu'il contient pour pouvoir vous authentifier`,
       );
       openSnackbar();
       router.push('/');
     } catch (error) {
-      return alert(`Une erreur s'est produite ${error}`);
+      alert(error);
     }
     setIsLoading(false);
   };
