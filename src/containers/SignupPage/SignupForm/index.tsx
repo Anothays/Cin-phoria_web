@@ -1,7 +1,6 @@
 'use client';
 
 import { useGlobalContext } from '@/context/globalContext';
-import fetcher from '@/services/fetcher';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CircularProgress } from '@mui/material';
 import Button from '@mui/material/Button';
