@@ -3,6 +3,7 @@ import { ReservationContextHandler } from '@/context/ReservationContext';
 import { auth } from '@/auth';
 import fetcher from '@/services/fetcher';
 import { redirect } from 'next/navigation';
+import Alert from '@mui/material/Alert';
 
 export default async function Layout({
   children,
@@ -21,6 +22,9 @@ export default async function Layout({
 
   return (
     <ReservationContextHandler reservationProps={response}>
+      <Alert sx={{ marginTop: '1rem' }} severity="info">
+        Passé 5 minutes, vous devrez recommencer votre réservation
+      </Alert>
       <div>{children}</div>
     </ReservationContextHandler>
   );
