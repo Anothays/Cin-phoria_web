@@ -8,7 +8,7 @@ import { useState } from 'react';
 import MovieTheater from './MovieTheater';
 import ProjectionEventList from './ProjectionEventList';
 import styles from './ProjectionEventsTab.module.scss';
-import { useReservationModalContext } from '@/context/ReservationModalContext';
+import { useReservationModalContext } from '@/contexts/ReservationModalContext';
 
 export default function ProjectionEventsTab() {
   const now = Date.now();

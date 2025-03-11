@@ -1,6 +1,6 @@
 'use client';
 import LoginForm from '@/containers/LoginModal/LoginForm';
-import { useGlobalContext } from '@/context/globalContext';
+import { useGlobalContext } from '@/contexts/GlobalContext';
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';

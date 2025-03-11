@@ -3,7 +3,7 @@
 import Incrementor from '@/containers/MyReservationPage/Incrementor';
 import { useRouter } from 'next/navigation';
 import Alert from '@mui/material/Alert';
-import { useReservationContext } from '@/context/ReservationContext';
+import { useReservationContext } from '@/contexts/ReservationContext';
 
 export default function TicketChoicePage() {
   const { reservation } = useReservationContext();

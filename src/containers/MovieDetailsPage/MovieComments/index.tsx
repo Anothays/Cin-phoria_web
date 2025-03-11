@@ -2,7 +2,7 @@
 
 import CommentCard from '@/components/CommentCard';
 import styles from './MovieComments.module.scss';
-import { useReservationModalContext } from '@/context/ReservationModalContext';
+import { useReservationModalContext } from '@/contexts/ReservationModalContext';
 import { CircularProgress } from '@mui/material';
 
 export default function MovieComments() {

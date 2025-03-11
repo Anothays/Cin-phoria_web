@@ -15,6 +15,6 @@ const theme = createTheme({
   },
 });
 
-export function MUITheme({ children }: Readonly<{ children: ReactNode }>) {
+export function MuiThemeProvider({ children }: Readonly<{ children: ReactNode }>) {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }

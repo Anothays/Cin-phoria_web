@@ -4,7 +4,7 @@ import { dateFormat } from '@/utils/utils';
 import Rating from '@mui/material/Rating';
 import Image from 'next/image';
 import styles from './MovieCardDetailed.module.scss';
-import { useReservationModalContext } from '@/context/ReservationModalContext';
+import { useReservationModalContext } from '@/contexts/ReservationModalContext';
 import { CircularProgress } from '@mui/material';
 
 export default function MovieCardDetailed() {
