@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ReservationContextHandler } from '@/context/ReservationContext';
+import { ReservationContextHandler } from '@/contexts/ReservationContext';
 import { auth } from '@/auth';
 import fetcher from '@/services/fetcher';
 import { redirect } from 'next/navigation';

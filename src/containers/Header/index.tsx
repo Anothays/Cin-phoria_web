@@ -1,6 +1,6 @@
 'use client';
 import HamburgerMenu from '@/containers/Header/HamburgerMenu';
-import { useGlobalContext } from '@/context/globalContext';
+import { useGlobalContext } from '@/contexts/GlobalContext';
 import classnames from 'classnames';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';

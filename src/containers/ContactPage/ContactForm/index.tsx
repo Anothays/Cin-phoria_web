@@ -1,6 +1,6 @@
 'use client';
 
-import { useGlobalContext } from '@/context/globalContext';
+import { useGlobalContext } from '@/contexts/GlobalContext';
 import fetcher from '@/services/fetcher';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, CircularProgress, TextField, TextareaAutosize } from '@mui/material';

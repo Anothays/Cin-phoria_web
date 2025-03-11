@@ -1,18 +1,15 @@
 import CustomSnackbar from '@/components/CustomSnackbar';
-import { MUITheme } from '@/config/MUI/MUITheme';
 import Footer from '@/containers/Footer';
 import Header from '@/containers/Header';
 import LoginModal from '@/containers/LoginModal';
-import { GlobalContextHandler } from '@/context/globalContext';
 import classnames from 'classnames';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.scss';
 import styles from './HomePage.module.scss';
-import { SessionProvider } from 'next-auth/react';
-import Providers from './Providers';
 import CookieConsent from '@/components/CookieConsent';
 import { getUserCookieConsent } from '@/lib/cookie';
+import AllContextProvider from "@/contexts/AllContextProvider";
 
 export const metadata: Metadata = {
   title: 'Cinéphoria',
@@ -35,20 +32,14 @@ export default async function RootLayout({
   return (
     <html lang="fr">
       <body className={classnames(font.className, styles.layoutContainer)}>
-        <GlobalContextHandler>
-          <Providers>
-            <SessionProvider>
-              <LoginModal />
-              <CookieConsent cookie_consent={cookie_consent} />
-              <CustomSnackbar />
-              <Header />
-              <MUITheme>
-                <main className={styles.main}>{children}</main>
-              </MUITheme>
-              <Footer />
-            </SessionProvider>
-          </Providers>
-        </GlobalContextHandler>
+        <AllContextProvider>
+          <LoginModal />
+          <CookieConsent cookie_consent={cookie_consent} />
+          <CustomSnackbar />
+          <Header />
+          <main className={styles.main}>{children}</main>
+          <Footer />
+        </AllContextProvider>
       </body>
     </html>
   );

@@ -7,7 +7,7 @@ import styles from './SeatMap.module.scss';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { useReservationContext } from '@/context/ReservationContext';
+import { useReservationContext } from '@/contexts/ReservationContext';
 
 export default function SeatMap() {
   const router = useRouter();
@@ -17,6 +17,7 @@ export default function SeatMap() {
   const session = useSession();
   const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
   const projectionEvent = reservation!.projectionEvent;
+
   useEffect(() => {
     if (selectedSeats.length > 0) {
       setButtonDisabled(false);

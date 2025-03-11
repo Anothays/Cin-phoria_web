@@ -1,6 +1,6 @@
 'use client';
 
-import { useGlobalContext } from '@/context/globalContext';
+import { useGlobalContext } from '@/contexts/GlobalContext';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';

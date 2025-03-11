@@ -1,6 +1,6 @@
 'use client';
 
-import { useGlobalContext } from '@/context/globalContext';
+import { useGlobalContext } from '@/contexts/GlobalContext';
 import { ReservationType } from '@/types/ReservationType';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextField } from '@mui/material';

@@ -1,11 +1,11 @@
 'use client';
 
-import { useGlobalContext } from '@/context/globalContext';
+import { useGlobalContext } from '@/contexts/GlobalContext';
 import { ProjectionEventType } from '@/types/ProjectionEventType';
 import { Button } from '@mui/material';
 import styles from './ProjectionEventCard.module.scss';
 import AccessibleIcon from '@mui/icons-material/Accessible';
-import { useReservationModalContext } from '@/context/ReservationModalContext';
+import { useReservationModalContext } from '@/contexts/ReservationModalContext';
 import ReservationForm from '@/containers/MovieDetailsPage/ReservationModal/ReservationForm';
 
 export default function ProjectionEventCard(projectionEvent: ProjectionEventType) {

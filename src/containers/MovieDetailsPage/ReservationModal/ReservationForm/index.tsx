@@ -3,13 +3,13 @@
 import { ProjectionEventType } from '@/types/ProjectionEventType';
 import AccessibleIcon from '@mui/icons-material/Accessible';
 import { Button, CircularProgress } from '@mui/material';
-import { useReservationModalContext } from '@/context/ReservationModalContext';
+import { useReservationModalContext } from '@/contexts/ReservationModalContext';
 import styles from './ReservationForm.module.scss';
 import Image from 'next/image';
 import { useState } from 'react';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import { useSession } from 'next-auth/react';
-import { useGlobalContext } from '@/context/globalContext';
+import { useGlobalContext } from '@/contexts/GlobalContext';
 import { ReservationType } from '@/types/ReservationType';
 import fetcher from '@/services/fetcher';
 import { useRouter } from 'next/navigation';

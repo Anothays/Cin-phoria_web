@@ -3,7 +3,7 @@ import MovieDetails from '@/containers/MovieDetailsPage/MovieDetails';
 import ProjectionEventsTab from '@/containers/MovieDetailsPage/ProjectionEventsTab';
 import styles from './MovieDetails.module.scss';
 import ReservationModal from '@/containers/MovieDetailsPage/ReservationModal';
-import { ReservationModalContextHandler } from '@/context/ReservationModalContext';
+import { ReservationModalContextHandler } from '@/contexts/ReservationModalContext';
 
 export default async function MovieDetail({ params }: { params: { id: string } }) {
   return (
