@@ -1,6 +1,6 @@
 'use client';
 
-// import MovieList from '@/components/MovieList';
+// import MovieListWithFilters from '@/components/MovieListWithFilters';
 import { useMovies } from '@/services/movies';
 import { ApiJSONResponseType } from '@/types/ApiResponseType';
 import { MovieType } from '@/types/MovieType';

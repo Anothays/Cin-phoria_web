@@ -1,4 +1,4 @@
-import MovieList from '@/containers/MoviesPage/MovieList';
+import MovieList from '../../containers/MoviesPage/MovieListWithFilters';
 import styles from './Movies.module.scss';
 
 export default function MoviesPage() {

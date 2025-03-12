@@ -1,13 +1,13 @@
 'use client';
 
-import MovieCard from '@/containers/MoviesPage/MovieList/MovieCard';
+import MovieCard from '@/containers/MoviesPage/MovieListWithFilters/MovieCard';
 import styles from './MovieList.module.scss';
 import { useMovies } from '@/services/movies';
 import SearchArea from '@/containers/MoviesPage/SearchArea';
 import fetcher from '@/services/fetcher';
 import { CircularProgress } from '@mui/material';
 
-export default function MovieList() {
+export default function MovieListWithFilters() {
   const { data, isLoading, mutate } = useMovies();
 
   const callbackAction = async (query: string) => {
