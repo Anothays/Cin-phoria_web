@@ -3,10 +3,19 @@
 import { useGlobalContext } from '@/contexts/GlobalContext';
 import fetcher from '@/services/fetcher';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, CircularProgress, TextField, TextareaAutosize } from '@mui/material';
+import {
+  Button,
+  Checkbox,
+  CircularProgress,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  TextField,
+  TextareaAutosize,
+} from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import * as z from 'zod';
 import styles from './ContactForm.module.scss';
 
@@ -15,6 +24,7 @@ type ContactForm = {
   email: string;
   object: string;
   message: string;
+  acceptTerms: boolean;
 };
 
 const schema = z.object({
@@ -22,6 +32,11 @@ const schema = z.object({
   email: z.string().email('Renseignez une adresse e-mail valide'),
   object: z.string({}).min(1, { message: "Renseignez l'objet de votre demande" }),
   message: z.string().min(1, { message: 'Le message ne peut pas être vide' }),
+  acceptTerms: z.literal(true, {
+    errorMap: () => ({
+      message: "Vous devez accepter les conditions d'utilisation",
+    }),
+  }),
 });
 
 export default function ContactForm() {
@@ -33,6 +48,7 @@ export default function ContactForm() {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<ContactForm>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: ContactForm) => {
@@ -63,6 +79,7 @@ export default function ContactForm() {
         fullWidth={true}
         error={!!errors.username}
         helperText={errors.username?.message}
+        className={styles.textField}
       />
       <TextField
         {...register('email', { required: false })}
@@ -72,6 +89,7 @@ export default function ContactForm() {
         fullWidth={true}
         error={!!errors.email}
         helperText={errors.email?.message}
+        className={styles.textField}
       />
       <TextField
         {...register('object', { required: true })}
@@ -81,12 +99,27 @@ export default function ContactForm() {
         fullWidth={true}
         error={!!errors.object}
         helperText={errors.object?.message}
+        className={styles.textField}
       />
       <TextareaAutosize
         {...register('message', { required: true })}
         className={styles.textArea}
         minRows={10}
       />
+      <FormControl error={!!errors.acceptTerms} className={styles.formControl}>
+        <Controller
+          name="acceptTerms"
+          control={control}
+          defaultValue={false}
+          render={({ field }) => (
+            <FormControlLabel
+              control={<Checkbox {...field} />}
+              label="J'accepte que mes données soient sauvegardées pour traitement de ce formulaire"
+            />
+          )}
+        />
+        {errors.acceptTerms && <FormHelperText>{errors.acceptTerms.message}</FormHelperText>}
+      </FormControl>
       <Button type="submit" variant={'contained'} size={'large'} color="primary">
         {isLoading ? <CircularProgress color={'info'} size={27} /> : <span>Envoyer</span>}
       </Button>

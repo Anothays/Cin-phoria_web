@@ -2,12 +2,18 @@
 
 import { useGlobalContext } from '@/contexts/GlobalContext';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CircularProgress } from '@mui/material';
+import {
+  Checkbox,
+  CircularProgress,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+} from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import * as z from 'zod';
 import styles from './SignupForm.module.scss';
 
@@ -16,14 +22,18 @@ type CustomerSignupFormType = {
   lastname: string;
   email: string;
   password: string;
+  acceptTerms: boolean;
   confirmPassword: string;
 };
 
 const schema = z
   .object({
-    firstname: z.string().min(3, { message: 'Veuiller renseigner votre prénom.' }),
-    lastname: z.string().min(3, { message: 'Veuiller renseigner votre nom.' }),
-    email: z.string().email({ message: 'Veuiller renseigner une adresse e-mail valide.' }),
+    firstname: z.string().min(3, { message: 'Veuillez renseigner votre prénom.' }),
+    lastname: z.string().min(3, { message: 'Veuillez renseigner votre nom.' }),
+    email: z.string().email({ message: 'Veuillez renseigner une adresse e-mail valide.' }),
+    acceptTerms: z.literal(true, {
+      errorMap: () => ({ message: "Vous devez accepter les conditions d'utilisation" }),
+    }),
     password: z
       .string()
       .min(12, 'Le mot de passe doit contenir au moins 12 caractères')
@@ -46,6 +56,7 @@ export default function SignupForm() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<CustomerSignupFormType>({
     resolver: zodResolver(schema),
@@ -124,6 +135,20 @@ export default function SignupForm() {
         error={!!errors.confirmPassword}
         helperText={errors.confirmPassword?.message}
       />
+      <FormControl error={!!errors.acceptTerms}>
+        <Controller
+          name="acceptTerms"
+          control={control}
+          defaultValue={false}
+          render={({ field }) => (
+            <FormControlLabel
+              control={<Checkbox {...field} />}
+              label="J'accepte les conditions d'utilisation"
+            />
+          )}
+        />
+        {errors.acceptTerms && <FormHelperText>{errors.acceptTerms.message}</FormHelperText>}
+      </FormControl>
       <Button type="submit" variant={'contained'} size={'large'}>
         {isLoading ? <CircularProgress color={'info'} size={27} /> : <span>Je m&apos;inscris</span>}
       </Button>
