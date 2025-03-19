@@ -4,57 +4,19 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-// import ListItemButton from '@mui/material/ListItemButton';
-// import ListItemText from '@mui/material/ListItemText';
-// import { useMemo, useState } from 'react';
-import styles from './HamburgerMenu.module.scss';
-// import { signOutAction } from '@/actions/signin';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import styles from './HamburgerMenu.module.scss';
 
-const DrawerList = () => {
+const DrawerList = ({ setOpened }: { setOpened: (opened: boolean) => void }) => {
+  console.log('DRAWER LIST');
+
   const { openLoginModal, updateLoginProps } = useGlobalContext();
-  const { status, data } = useSession();
+  const { status } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-
-  // const links = useMemo(() => {
-  //   if (status === 'authenticated') {
-  //     return [
-  //       {
-  //         href: '/account',
-  //         title: 'Account',
-  //       },
-
-  //       {
-  //         onClick: () => {
-  //           // signOutAction();
-  //           onClose();
-  //         },
-  //         title: 'Déconnexion',
-  //       },
-  //     ];
-  //   }
-  //   return [
-  //     {
-  //       href: '/signup/jobber',
-  //       title: 'Devenir prestataire',
-  //     },
-  //     {
-  //       onClick: () => {
-  //         openLoginModal();
-  //         onClose();
-  //       },
-  //       title: 'Connexion',
-  //     },
-  //     {
-  //       href: '/signup',
-  //       title: 'Inscription',
-  //     },
-  //   ];
-  // }, [onClose, openLoginModal, status]);
 
   const handleLogout = async (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -75,6 +37,8 @@ const DrawerList = () => {
 
   const handleClick = async (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
+    console.log('HANDLE CLICK');
+
     if (pathname === '/login') return;
     const targetUrl = event.currentTarget.href;
     if (status === 'unauthenticated') {
@@ -94,43 +58,34 @@ const DrawerList = () => {
     }
   };
 
+  const navLinks = [
+    { path: '/', label: 'Accueil' },
+    { path: '/movies', label: 'Les films' },
+    { path: '/my_reservations', label: 'Mes réservations', onClick: handleClick },
+    { path: '/contact', label: 'Contact' },
+    status === 'authenticated'
+      ? { path: '', label: 'Déconnexion', onClick: handleLogout }
+      : { path: '/login', label: 'Connexion', onClick: handlelogin },
+  ];
+
   return (
     <Box sx={{ width: 250 }} role="presentation">
       <List className={styles.navContainer}>
         <nav>
-          <ListItem>
-            <Link className={styles.navLink} href="/">
-              Accueil
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link className={styles.navLink} href="/movies">
-              Les films
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link className={styles.navLink} href="/my_reservations" onClick={handleClick}>
-              Mes réservations
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link className={styles.navLink} href="/contact">
-              Contact
-            </Link>
-          </ListItem>
-          {data?.user ? (
-            <ListItem>
-              <Link className={styles.navLink} href="" onClick={handleLogout}>
-                Déconnexion
+          {navLinks.map((link) => (
+            <ListItem key={link.path}>
+              <Link
+                className={styles.navLink}
+                href={link.path}
+                onClick={(e) => {
+                  setOpened(false);
+                  link?.onClick?.(e);
+                }}
+              >
+                {link.label}
               </Link>
             </ListItem>
-          ) : (
-            <ListItem>
-              <Link className={styles.navLink} href="/login" onClick={handlelogin}>
-                Connexion
-              </Link>
-            </ListItem>
-          )}
+          ))}
         </nav>
       </List>
     </Box>
@@ -138,6 +93,8 @@ const DrawerList = () => {
 };
 
 export default function HamburgerMenu() {
+  console.log('HAMBURGER MENU');
+
   const [opened, setOpened] = useState(false);
   return (
     <div className={styles.container}>
@@ -154,7 +111,7 @@ export default function HamburgerMenu() {
         <span className={styles.line} />
       </label>
       <Drawer open={opened} onClose={() => setOpened(false)} anchor={'right'}>
-        <DrawerList />
+        <DrawerList setOpened={setOpened} />
       </Drawer>
     </div>
   );
