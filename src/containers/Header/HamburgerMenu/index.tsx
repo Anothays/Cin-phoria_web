@@ -20,6 +20,7 @@ const DrawerList = ({ setOpened }: { setOpened: (opened: boolean) => void }) => 
 
   const handleLogout = async (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
+    setOpened(false);
     await signOut({ callbackUrl: '/' });
   };
 
@@ -30,7 +31,7 @@ const DrawerList = ({ setOpened }: { setOpened: (opened: boolean) => void }) => 
       title: 'Connexion',
       message: 'Connectez-vous pour accéder à votre compte',
       redirectionUrl: '/',
-      callbackAction: undefined,
+      callbackAction: () => setOpened(false),
     });
     openLoginModal();
   };
@@ -47,6 +48,7 @@ const DrawerList = ({ setOpened }: { setOpened: (opened: boolean) => void }) => 
         message: 'Connectez-vous pour accéder à vos réservations',
         redirectionUrl: targetUrl,
         callbackAction: async () => {
+          setOpened(false);
           router.push(targetUrl);
         },
       });
@@ -54,6 +56,7 @@ const DrawerList = ({ setOpened }: { setOpened: (opened: boolean) => void }) => 
       return;
     }
     if (status === 'authenticated') {
+      setOpened(false);
       router.push(targetUrl);
     }
   };
@@ -78,8 +81,7 @@ const DrawerList = ({ setOpened }: { setOpened: (opened: boolean) => void }) => 
                 className={styles.navLink}
                 href={link.path}
                 onClick={(e) => {
-                  setOpened(false);
-                  link?.onClick?.(e);
+                  return link.onClick ? link.onClick(e) : setOpened(false);
                 }}
               >
                 {link.label}
