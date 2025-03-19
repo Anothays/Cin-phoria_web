@@ -13,6 +13,9 @@ import styles from './HomePage.module.scss';
 
 export const metadata: Metadata = {
   title: 'Cinéphoria',
+  icons: {
+    icon: '/cinephoria_logo.png',
+  },
   description:
     "Découvrez les dernières sorties de films, les événements exclusifs et les meilleures expériences cinématographiques avec Cinéphoria. Réservez vos billets en ligne et profitez de nos salles confortables et de notre technologie de pointe. Plongez dans l'univers du cinéma avec nous !",
 };
