@@ -4,10 +4,32 @@
 .formContainer {
   display: flex;
   flex-direction: column;
-  gap: $space-md;
-  padding: $space-lg;
-  margin: $space-xl 0;
-  justify-content: center;
-  width: 100%;
-  max-width: 20rem;
+  gap: $space-lg;
+  padding-top: $space-xxl;
+
+  .textArea {
+    box-sizing: border-box;
+    width: 100%;
+
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 3px;
+  }
+
+  .textField {
+    width: 100%;
+    height: 5rem;
+  }
+
+  .formControl {
+    width: 100%;
+    height: 5rem;
+  }
+
+  .submitButton {
+    min-width: 300px;
+    align-self: center;
+  }
 }

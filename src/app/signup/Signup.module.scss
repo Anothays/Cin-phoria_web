@@ -1,20 +1,26 @@
 @import 'src/styles/_colors.module.scss';
 @import 'src/styles/_variables.module.scss';
-.container {
+
+.page {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
+  padding: $space-md;
   width: 100%;
-  padding-top: $space-xxl;
+
   .title {
-    font-size: $font-size-xxl;
-    font-weight: 700;
+    width: 100%;
+    font-size: $h1-font-size;
+    background: $gradient1;
+    color: white;
+    padding: $space-lg;
+    border-radius: 1rem;
   }
 }
 
-@media (max-width: $breakpoint-lg) {
-  .container {
-    padding: $space-xxl $space-xl;
+@media (min-width: $breakpoint-lg) {
+  .page {
+    padding: $space-3xl;
   }
 }

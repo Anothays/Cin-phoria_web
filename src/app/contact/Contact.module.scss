@@ -6,10 +6,9 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding-top: $space-xxl;
-  height: 95vh;
-  width: 100%;
   padding: $space-md;
+  width: 100%;
+
   .title {
     width: 100%;
     font-size: $h1-font-size;
@@ -23,7 +22,5 @@
 @media (min-width: $breakpoint-lg) {
   .page {
     padding: $space-3xl;
-    .title {
-    }
   }
 }

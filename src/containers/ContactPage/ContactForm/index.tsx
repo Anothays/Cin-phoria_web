@@ -120,7 +120,13 @@ export default function ContactForm() {
         />
         {errors.acceptTerms && <FormHelperText>{errors.acceptTerms.message}</FormHelperText>}
       </FormControl>
-      <Button type="submit" variant={'contained'} size={'large'} color="primary">
+      <Button
+        type="submit"
+        variant={'contained'}
+        size={'large'}
+        color="primary"
+        className={styles.submitButton}
+      >
         {isLoading ? <CircularProgress color={'info'} size={27} /> : <span>Envoyer</span>}
       </Button>
     </form>

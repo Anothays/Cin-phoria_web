@@ -93,6 +93,7 @@ export default function SignupForm() {
   return (
     <form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
       <TextField
+        className={styles.textField}
         {...register('firstname', { required: true })}
         label="Prénom"
         variant={'outlined'}
@@ -101,6 +102,7 @@ export default function SignupForm() {
         helperText={errors.firstname?.message}
       />
       <TextField
+        className={styles.textField}
         {...register('lastname', { required: true })}
         label="Nom"
         variant={'outlined'}
@@ -109,6 +111,7 @@ export default function SignupForm() {
         helperText={errors.lastname?.message}
       />
       <TextField
+        className={styles.textField}
         {...register('email', { required: true })}
         label="Adresse e-mail"
         variant={'outlined'}
@@ -118,6 +121,7 @@ export default function SignupForm() {
         helperText={errors.email?.message}
       />
       <TextField
+        className={styles.textField}
         {...register('password', { required: true })}
         label="Mot de passe"
         variant={'outlined'}
@@ -127,6 +131,7 @@ export default function SignupForm() {
         helperText={errors.password?.message}
       />
       <TextField
+        className={styles.textField}
         {...register('confirmPassword')}
         label="Confirmez votre mot de passe"
         variant={'outlined'}
@@ -135,7 +140,7 @@ export default function SignupForm() {
         error={!!errors.confirmPassword}
         helperText={errors.confirmPassword?.message}
       />
-      <FormControl error={!!errors.acceptTerms}>
+      <FormControl error={!!errors.acceptTerms} className={styles.formControl}>
         <Controller
           name="acceptTerms"
           control={control}
@@ -143,13 +148,13 @@ export default function SignupForm() {
           render={({ field }) => (
             <FormControlLabel
               control={<Checkbox {...field} />}
-              label="J'accepte les conditions d'utilisation"
+              label="J'accepte que mes données soient sauvegardées pour traitement de ce formulaire"
             />
           )}
         />
         {errors.acceptTerms && <FormHelperText>{errors.acceptTerms.message}</FormHelperText>}
       </FormControl>
-      <Button type="submit" variant={'contained'} size={'large'}>
+      <Button type="submit" variant={'contained'} size={'large'} className={styles.submitButton}>
         {isLoading ? <CircularProgress color={'info'} size={27} /> : <span>Je m&apos;inscris</span>}
       </Button>
     </form>
