@@ -2,8 +2,7 @@
 @import '/src/styles/_colors.module.scss';
 
 .container {
-  margin: 0 auto;
-  padding: $space-xxl;
+  padding: $space-sm;
   text-align: justify;
   margin-bottom: $space-xxl;
   .title {
