@@ -11,8 +11,6 @@ import React, { useState } from 'react';
 import styles from './HamburgerMenu.module.scss';
 
 const DrawerList = ({ setOpened }: { setOpened: (opened: boolean) => void }) => {
-  console.log('DRAWER LIST');
-
   const { openLoginModal, updateLoginProps } = useGlobalContext();
   const { status } = useSession();
   const router = useRouter();
@@ -38,7 +36,6 @@ const DrawerList = ({ setOpened }: { setOpened: (opened: boolean) => void }) => 
 
   const handleClick = async (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    console.log('HANDLE CLICK');
 
     if (pathname === '/login') return;
     const targetUrl = event.currentTarget.href;
@@ -95,8 +92,6 @@ const DrawerList = ({ setOpened }: { setOpened: (opened: boolean) => void }) => 
 };
 
 export default function HamburgerMenu() {
-  console.log('HAMBURGER MENU');
-
   const [opened, setOpened] = useState(false);
   return (
     <div className={styles.container}>
