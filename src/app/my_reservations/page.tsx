@@ -1,5 +1,6 @@
 import { auth } from '@/auth';
 import ReservationCard from '@/components/ReservationCard';
+import UserSettings from '@/components/UserSettings';
 import DenseTable from '@/containers/MyReservationPage/DenseTable';
 import fetcher from '@/services/fetcher';
 import { ApiJSONResponseType } from '@/types/ApiResponseType';
@@ -33,12 +34,13 @@ export default async function MyReservationsPage() {
           reservation.projectionEvent.beginAt,
       ) < today,
   );
+  console.log(typeof session?.userInfos?.createdAt);
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Vos réservations</h1>
+      <h1 className={styles.title}>Votre espace</h1>
 
-      <h2>À venir</h2>
+      <h2>Vos séances à venir</h2>
       {incomingReservations?.length > 0 ? (
         incomingReservations?.map((reservation) => (
           <ReservationCard reservation={reservation} key={reservation.id} />
@@ -47,15 +49,17 @@ export default async function MyReservationsPage() {
         <p>Pas de réservation actuellement</p>
       )}
 
-      <h2>Vos dernières séances</h2>
-      {/* {terminatedReservations?.length > 0 ? (
-        terminatedReservations?.map((reservation) => (
-          <ReservationCard reservation={reservation} key={reservation.id} />
-        ))
-      ) : (
-        <p>Pas de réservation actuellement</p>
-      )} */}
-      <DenseTable reservations={terminatedReservations} />
+      <section className={styles.terminatedReservations}>
+        <h2>Vos dernières séances</h2>
+        <DenseTable reservations={terminatedReservations} />
+      </section>
+
+      {session?.userInfos && session?.token ? (
+        <div className={styles.userSettings}>
+          <h2>Vos informations personnelles</h2>
+          <UserSettings userInfos={session?.userInfos} token={session?.token} />
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -9,12 +9,13 @@ export interface UserType extends HydraMember {
   id: number;
   firstname: string;
   lastname: string;
+  fullName: string;
   email: string;
   roles: string[];
   password: string;
   reservations: ReservationType[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   userIdentifier: string;
   comments: CommentType[];
 }

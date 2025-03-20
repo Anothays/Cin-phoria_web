@@ -3,13 +3,14 @@
 
 .container {
   display: flex;
-  height: 80vh;
+  // height: 80vh;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
   gap: $space-lg;
   padding: $space-3xl;
+
   .title {
     width: 100%;
     font-size: $h1-font-size;
@@ -17,5 +18,21 @@
     color: white;
     padding: $space-lg;
     border-radius: 1rem;
+  }
+
+  .terminatedReservations {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-lg;
+  }
+
+  .userSettings {
+    width: 100%;
+    margin-top: $space-xl;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

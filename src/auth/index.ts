@@ -1,8 +1,8 @@
+import { JwtPayloadType } from '@/types/JwtPayloadType';
 import { UserType } from '@/types/UserType';
+import jwt from 'jsonwebtoken';
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import jwt from 'jsonwebtoken';
-import { JwtPayloadType } from '@/types/JwtPayloadType';
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   session: {
@@ -37,31 +37,51 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     signIn: '/fullrefresh',
   },
   callbacks: {
-    async jwt({ token, user }) {
-      console.log('TOKEN');
+    async jwt({ token, user, trigger, session }) {
+
+      // CE IF GERE LA CONNEXION. USER SERA UNDEFINED POUR LES PROCHAINS DECLENCHEMENT DU CALLBACK JWT
       if (user) {
         // USER CONTIENT LA REPONSE DE L'API
         token.accesstoken = user.token;
         token.user = user.user;
       }
+
+      // CE IF GERE LES MODIFICATIONS DES DONNES DE SESSION. token CONTIENT LES INFOS A MODIFIER, ET session LES MODIFS
+      if (trigger === 'update') {
+        // VERIFICATION DE LA DATE D EXPIRATION DU TOKEN
+        const payload = jwt.decode(token.accesstoken as string) as JwtPayloadType;
+        const now = Date.now();
+        if (payload.exp * 1000 < now) {
+          console.log('EXPIRED TOKEN');
+          session.token = null;
+          session.userInfos = null;
+          return null;
+        }
+        console.log('TOKEN', token);
+        console.log('T -> SESSION', session);
+        token.user = session.userInfos;
+      }
       return token;
     },
+
     async session({ session, token }) {
-      console.log('SESSION');
-      const payload = jwt.decode(token.accesstoken as string) as JwtPayloadType;
-      const now = Date.now();
-      if (payload.exp * 1000 < now) {
-        console.log('EXPIRED TOKEN');
-        session.token = null;
-        session.userInfos = null;
-        return session;
-      }
+      // console.log('SESSION', session);
+      // console.log('token', token);
+      // const payload = jwt.decode(token.accesstoken as string) as JwtPayloadType;
+      // const now = Date.now();
+      // if (payload.exp * 1000 < now) {
+      //   console.log('EXPIRED TOKEN');
+      //   session.token = null;
+      //   session.userInfos = null;
+      //   return session;
+      // }
       session.token = token.accesstoken as string;
       session.userInfos = token.user as UserType;
       return session;
     },
+
     async authorized({ auth }) {
-      console.log('AUTH');
+      // console.log('AUTH');
       const now = Date.now();
       const token = auth?.token ?? null;
       if (!token) {
@@ -71,12 +91,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       const payload = jwt.decode(token) as JwtPayloadType;
       return payload.exp * 1000 >= now;
     },
+
     async signIn() {
-      console.log('SIGNIN');
+      // console.log('SIGNIN');
       return true;
     },
+
     async redirect({ url }) {
-      console.log('REDIRECT', url);
+      // console.log('REDIRECT', url);
       return url;
     },
   },
