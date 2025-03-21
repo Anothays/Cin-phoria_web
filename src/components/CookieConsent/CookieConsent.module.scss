@@ -1,7 +1,6 @@
 @import 'src/styles/_colors.module.scss';
 @import 'src/styles/_variables.module.scss';
 
-
 .container {
   display: flex;
   flex-direction: column;
@@ -16,6 +15,7 @@
   background: $gradient2;
   color: white;
   animation: slideInUp 0.5s ease-out;
+  z-index: 1;
 
   @keyframes slideInUp {
     from {
@@ -43,5 +43,3 @@
     }
   }
 }
-
-
