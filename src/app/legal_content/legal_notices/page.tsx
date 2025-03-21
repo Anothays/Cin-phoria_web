@@ -9,9 +9,25 @@ export default function MentionsLegales() {
       <h1 className={styles.title}>Mentions légales</h1>
 
       <section className={styles.section}>
-        <h2>Éditeur du site</h2>
+        <h2>Édition du site</h2>
+
+        <p>
+          Le présent site, accessible depuis l'adresse{' '}
+          <Link href={process.env.NEXT_PUBLIC_BASE_URL}>{process.env.NEXT_PUBLIC_BASE_URL}</Link>,
+          est édité par Cinéphoria, société au capital de 1 000 000 euros, inscrite au R.C.S. de
+          Versailles sous le numéro RCS VERSAILLES 123 456 789 00001, dont le siège social est situé
+          au 1170 Av. de Saint-Germain, Plaisir, représenté(e) par Jérémy Sananikone dûment
+          habilité(e)
+        </p>
+
         <p>
           <strong>Nom ou raison sociale</strong> : Cinéphoria
+        </p>
+        <p>
+          <strong>Forme juridique</strong> : SARL
+        </p>
+        <p>
+          <strong>Numéro de TVA instracommunautaire </strong> : FRXXXXXXXXXXX
         </p>
         <p>
           <strong>Siège social</strong> : 1170 Av. de Saint-Germain, Plaisir
@@ -38,6 +54,10 @@ export default function MentionsLegales() {
         <h2>Hébergement du site</h2>
         <p>
           <strong>Nom de l’hébergeur</strong> : OVH
+        </p>
+        <p>
+          <strong>Site internet</strong> :{' '}
+          <Link href="https://www.ovh.com">https://www.ovh.com</Link>
         </p>
         <p>
           <strong>Adresse</strong> : 2, rue Kellermann, 59100 Roubaix, France

@@ -43,8 +43,8 @@ export default function Footer() {
           {/* <p className={styles.category}>Découvrir</p> */}
           <ul className={styles.list}>
             <li className={styles.listItem}>
-              <Link className={styles.link} href="/">
-                Politique RH du groupe
+              <Link className={styles.link} href="/legal_content/legal_notices">
+                Mentions légales
               </Link>
             </li>
             <li className={styles.listItem}>
@@ -54,12 +54,7 @@ export default function Footer() {
             </li>
             <li className={styles.listItem}>
               <Link className={styles.link} href="/legal_content/conditions_of_sales">
-                Conditions générales
-              </Link>
-            </li>
-            <li className={styles.listItem}>
-              <Link className={styles.link} href="/legal_content/legal_notices">
-                Mentions légales
+                Conditions générales de vente
               </Link>
             </li>
             <li className={styles.listItem}>
@@ -67,6 +62,11 @@ export default function Footer() {
                 Cookies
               </Link>
             </li>
+            {/* <li className={styles.listItem}>
+              <Link className={styles.link} href="/">
+                Politique RH du groupe
+              </Link>
+            </li> */}
           </ul>
         </div>
         <div className={styles.logoContainer}>
