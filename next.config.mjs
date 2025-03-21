@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
+        hostname: 'cinephoria.jeremysnnk.ovh',
       },
       {
         protocol: 'http',
