@@ -12,8 +12,8 @@ export default function MentionsLegales() {
         <h2>Édition du site</h2>
 
         <p>
-          Le présent site, accessible depuis l'adresse{' '}
-          <Link href={process.env.NEXT_PUBLIC_BASE_URL}>{process.env.NEXT_PUBLIC_BASE_URL}</Link>,
+          Le présent site, accessible depuis l&aposadresse{' '}
+          <Link href={process.env.NEXT_PUBLIC_BASE_URL!}>{process.env.NEXT_PUBLIC_BASE_URL}</Link>,
           est édité par Cinéphoria, société au capital de 1 000 000 euros, inscrite au R.C.S. de
           Versailles sous le numéro RCS VERSAILLES 123 456 789 00001, dont le siège social est situé
           au 1170 Av. de Saint-Germain, Plaisir, représenté(e) par Jérémy Sananikone dûment
