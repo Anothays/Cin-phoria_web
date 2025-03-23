@@ -39,11 +39,11 @@ export default function PrivacyPolicy() {
       <h2>2. Utilisation des données</h2>
       <p>
         Nous collectons vos données personnelles pour la gestion de vos commandes et réservations,
-        ainsi que pour l&apos;amélioration de nos services. Nous ne proposons pas de newsletter ou
-        d&apos;autres formes de communication marketing. La collecte et le traitement de vos données
-        personnelles reposent sur votre consentement explicite lors de la création de votre compte,
-        ainsi que pour l&apos;exécution des services que nous vous offrons (réservations, achats de
-        billets).
+        ainsi que pour l&apos;amélioration de nos services, et pour de l&apos;analyse statistique et
+        marketing. La collecte et le traitement de vos données personnelles reposent sur votre
+        consentement explicite lorsque vous arrivez sur le site web, et lors de la création de votre
+        compte, ainsi que pour l&apos;exécution des services que nous vous offrons (réservations,
+        achats de billets).
       </p>
 
       <h2>3. Partage des données</h2>
@@ -113,14 +113,16 @@ export default function PrivacyPolicy() {
       <p>
         Nous utilisons des cookies essentiels au fonctionnement du site. Ces cookies permettent de
         garantir la session utilisateur et d&apos;assurer la sécurité de votre compte (notamment
-        avec NextAuth). Aucune donnée relative à vos préférences ou comportements de navigation
-        n&apos;est collectée à des fins de marketing ou de publicité.
+        avec NextAuth). Nous utilisons aussi des cookies pour de l&apos;analyse statistique et
+        marketing. Nous ne procédons pas à l&apos;enregistrment de vos données personnels dans ces
+        cookies sans votre consentement.
       </p>
 
       <h2>8. Informations de contact</h2>
       <p>
         Si vous avez des questions ou des préoccupations concernant cette politique de
-        confidentialité, ou si vous souhaitez exercer vos droits, vous pouvez nous contacter via :
+        confidentialité, ou si vous souhaitez exercer vos droits, vous pouvez nous contacter via ce
+        formulaire :
         <ul>
           <li>
             <strong>

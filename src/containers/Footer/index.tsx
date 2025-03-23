@@ -58,7 +58,7 @@ export default function Footer() {
               </Link>
             </li>
             <li className={styles.listItem}>
-              <Link className={styles.link} href="/">
+              <Link className={styles.link} href="/legal_content/cookies">
                 Cookies
               </Link>
             </li>

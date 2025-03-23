@@ -1,0 +1,41 @@
+@import 'src/styles/_colors.module.scss';
+@import 'src/styles/_variables.module.scss';
+
+.container {
+  color: $primary-color;
+  background-color: #f9f9f9;
+  padding: $space-sm;
+
+  .content {
+    margin: 0;
+    .title {
+      margin-bottom: $space-xxl;
+      color: $primary-color;
+      text-align: center;
+    }
+
+    .subtitle {
+      margin: $space-xxl 0 $space-xl;
+      color: $primary-color;
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: $space-xl 0;
+    }
+
+    .listItem {
+      margin-bottom: $space-xl;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .listTitle {
+      color: $primary-color;
+      margin-bottom: $space-md;
+    }
+  }
+}

@@ -83,9 +83,9 @@ export default function ConditionOfSales() {
       <section className={styles.section}>
         <h2>6. Livraison et accès</h2>
         <p>
-          L&apos;utilisateur peut réserver à tout moment pour une séance qui n&apos;a pas encore
-          commencé. Une fois la réservation effectuée et payée, les billets seront envoyés par email
-          et disponibles dans l’espace « Mes réservations ».
+          L&apos;utilisateur peut réserver à tout moment pour une séance n&apos; non commencée. Une
+          fois la réservation effectuée et payée, les billets seront envoyés par email et
+          disponibles dans l’espace « Mes réservations ».
         </p>
       </section>
 
