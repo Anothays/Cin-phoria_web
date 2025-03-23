@@ -4,7 +4,6 @@ import Footer from '@/containers/Footer';
 import Header from '@/containers/Header';
 import LoginModal from '@/containers/LoginModal';
 import AllContextProvider from '@/contexts/AllContextProvider';
-import { getCookiePreferences } from '@/lib/cookie';
 import classnames from 'classnames';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
@@ -30,8 +29,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookiePreferences = await getCookiePreferences();
-
   return (
     <html lang="fr">
       <body className={classnames(font.className, styles.layoutContainer)}>
@@ -41,7 +38,7 @@ export default async function RootLayout({
           <Header />
           <main className={styles.main}>{children}</main>
           <Footer />
-          <CookieConsent cookiePreferences={cookiePreferences} />
+          <CookieConsent />
         </AllContextProvider>
       </body>
     </html>

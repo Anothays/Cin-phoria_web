@@ -37,5 +37,12 @@
       color: $primary-color;
       margin-bottom: $space-md;
     }
+
+    .button {
+      margin: $space-xl auto;
+      text-align: center;
+      justify-content: center;
+      justify-self: center;
+    }
   }
 }

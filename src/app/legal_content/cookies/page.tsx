@@ -2,10 +2,17 @@
 
 'use client';
 
-import { Box, Container } from '@mui/material';
+import { useGlobalContext } from '@/contexts/GlobalContext';
+import { Box, Button, Container } from '@mui/material';
 import styles from './cookies.module.scss';
 
 export default function CookiesPage() {
+  const { setIsCookieModalVisible } = useGlobalContext();
+
+  const displayCookiePreferences = () => {
+    setIsCookieModalVisible(true);
+  };
+
   return (
     <Container maxWidth="xl" className={styles.container}>
       <Box className={styles.content}>
@@ -84,10 +91,14 @@ export default function CookiesPage() {
         <h2 className={styles.subtitle}>Comment gérer vos préférences de cookies ?</h2>
 
         <p>
-          Vous pouvez modifier vos préférences de cookies à tout moment en cliquant ici. Vous pouvez
-          choisir d&apos;accepter tous les cookies, de les refuser tous, ou de personnaliser vos
-          préférences.
+          Vous pouvez modifier vos préférences de cookies à tout moment avec le bouton ci-dessous.
+          Vous pouvez choisir d&apos;accepter tous les cookies, de les refuser tous, ou de
+          personnaliser vos préférences.
         </p>
+
+        <Button variant="outlined" className={styles.button} onClick={displayCookiePreferences}>
+          Modifier mes préférences cookie
+        </Button>
 
         <p>
           Notez que les cookies essentiels (authjs) ne peuvent pas être désactivés car ils sont

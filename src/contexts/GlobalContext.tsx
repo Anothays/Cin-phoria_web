@@ -1,4 +1,5 @@
 'use client';
+import { CookiePreferences } from '@/lib/cookie';
 import { UserType } from '@/types/UserType';
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
 
@@ -24,11 +25,21 @@ type GlobalContextType = {
   updateLoginProps: (props: Partial<loginFormProps>) => void;
   user: UserType | undefined;
   setUser: Dispatch<SetStateAction<undefined>>;
+  isCookieModalVisible: boolean;
+  setIsCookieModalVisible: Dispatch<SetStateAction<boolean>>;
 };
 export const globalContext = createContext<GlobalContextType | undefined>(undefined);
 
-export const GlobalContextHandler = ({ children }: { children: ReactNode }) => {
+export const GlobalContextHandler = ({
+  children,
+  cookiePreferences,
+}: {
+  children: ReactNode;
+  cookiePreferences: CookiePreferences | undefined;
+}) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isCookieModalVisible, setIsCookieModalVisible] = useState(cookiePreferences === undefined);
+
   const [isSnackbarVisible, setIsSnackbarVisible] = useState(false);
   const [snackbarContent, setSnackbarContent] = useState<string | null>(null);
   const [loginFormProps, setLoginFormProps] = useState<loginFormProps>({
@@ -66,6 +77,8 @@ export const GlobalContextHandler = ({ children }: { children: ReactNode }) => {
         toggleSnackbar,
         snackbarContent,
         setSnackbarContent,
+        isCookieModalVisible,
+        setIsCookieModalVisible,
       }}
     >
       {children}

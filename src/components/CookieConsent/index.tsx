@@ -1,16 +1,13 @@
 'use client';
 
-import { acceptUserCookieConsent, CookiePreferences } from '@/lib/cookie';
+import { useGlobalContext } from '@/contexts/GlobalContext';
+import { acceptUserCookieConsent, CookiePreferences, getCookiePreferences } from '@/lib/cookie';
 import { Box, Button, Dialog, DialogContent, DialogTitle, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './CookieConsent.module.scss';
 
-export default function CookieModal({
-  cookiePreferences,
-}: {
-  cookiePreferences: CookiePreferences | undefined;
-}) {
-  const [isVisible, setIsVisible] = useState(cookiePreferences === undefined);
+export default function CookieModal() {
+  const { isCookieModalVisible, setIsCookieModalVisible } = useGlobalContext();
   const [showDetails, setShowDetails] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [preferences, setPreferences] = useState<CookiePreferences>({
@@ -18,6 +15,23 @@ export default function CookieModal({
     analytics: false,
     marketing: false,
   });
+
+  useEffect(() => {
+    const initializePreferences = async () => {
+      try {
+        const savedPreferences = await getCookiePreferences();
+        if (savedPreferences) {
+          setPreferences(savedPreferences);
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des préférences:', error);
+      }
+    };
+
+    if (isCookieModalVisible) {
+      initializePreferences();
+    }
+  }, [isCookieModalVisible]);
 
   const handleAcceptAll = async () => {
     setIsLoading(true);
@@ -28,7 +42,8 @@ export default function CookieModal({
         marketing: true,
       };
       await acceptUserCookieConsent(allPreferences);
-      setIsVisible(false);
+      setPreferences(allPreferences);
+      setIsCookieModalVisible(false);
     } catch (error) {
       console.error('Erreur lors de l&apos;enregistrement des préférences:', error);
     } finally {
@@ -45,7 +60,8 @@ export default function CookieModal({
         marketing: false,
       };
       await acceptUserCookieConsent(minimalPreferences);
-      setIsVisible(false);
+      setPreferences(minimalPreferences);
+      setIsCookieModalVisible(false);
     } catch (error) {
       console.error('Erreur lors de l&apos;enregistrement des préférences:', error);
     } finally {
@@ -57,7 +73,7 @@ export default function CookieModal({
     setIsLoading(true);
     try {
       await acceptUserCookieConsent(preferences);
-      setIsVisible(false);
+      setIsCookieModalVisible(false);
     } catch (error) {
       console.error('Erreur lors de l&apos;enregistrement des préférences:', error);
     } finally {
@@ -75,7 +91,7 @@ export default function CookieModal({
 
   return (
     <Dialog
-      open={isVisible}
+      open={isCookieModalVisible}
       maxWidth="sm"
       fullWidth
       aria-labelledby="cookie-consent-title"
