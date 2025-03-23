@@ -29,7 +29,6 @@
   .container {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     padding: $space-xxl;
-
   }
   .title {
     font-size: $font-size-xl;
