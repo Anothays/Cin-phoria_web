@@ -2,14 +2,12 @@
 @import '/src/styles/_colors.module.scss';
 
 .container {
-  // padding: $space-3xl;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 
   .submitButtonDisabled {
     width: 100%;
-    // align-self: flex-end;
     padding: $space-lg;
     background: $primary-color;
     color: white;
@@ -20,12 +18,10 @@
 
   .submitButtonEnabled {
     width: 100%;
-    // align-self: flex-end;
     padding: $space-lg;
     background: $primary-color;
     color: white;
     border-radius: 0.3rem;
-    // font-size: xx;
   }
 
   .screen {

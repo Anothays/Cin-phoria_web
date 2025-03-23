@@ -30,14 +30,15 @@
   .beginAt {
     font-size: $font-size-xl;
     //padding-inline: $space-lg;
+    color: $white-color;
   }
 
   .endAt {
-    color: $light-grey-color;
+    color: $white-color;
   }
 
   .date {
-    color: $grey-text-color;
+    color: $white-color;
   }
 
   .image {
@@ -58,12 +59,10 @@
   }
 
   .room {
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: space-between;
-    // .fauteuil {
-    //   width: 20px;
-    //   height: 20px;
-    // }
+    color: $white-color;
+  }
+
+  .pmr {
+    color: $white-color;
   }
 }

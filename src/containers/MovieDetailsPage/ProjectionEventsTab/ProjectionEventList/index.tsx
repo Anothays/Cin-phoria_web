@@ -7,6 +7,8 @@ export default function ProjectionEventList({
 }: {
   projectionEvents: ProjectionEventType[];
 }) {
+  console.log('projectionEvents ==> ', projectionEvents);
+
   return (
     <ul className={styles.projectionEventList}>
       {Object.values(projectionEvents).map((projectionEvent, key) => (

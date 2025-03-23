@@ -1,12 +1,12 @@
 'use client';
 
+import ReservationForm from '@/containers/MovieDetailsPage/ReservationModal/ReservationForm';
 import { useGlobalContext } from '@/contexts/GlobalContext';
+import { useReservationModalContext } from '@/contexts/ReservationModalContext';
 import { ProjectionEventType } from '@/types/ProjectionEventType';
+import AccessibleIcon from '@mui/icons-material/Accessible';
 import { Button } from '@mui/material';
 import styles from './ProjectionEventCard.module.scss';
-import AccessibleIcon from '@mui/icons-material/Accessible';
-import { useReservationModalContext } from '@/contexts/ReservationModalContext';
-import ReservationForm from '@/containers/MovieDetailsPage/ReservationModal/ReservationForm';
 
 export default function ProjectionEventCard(projectionEvent: ProjectionEventType) {
   const { closeLoginModal } = useGlobalContext();
@@ -58,7 +58,9 @@ export default function ProjectionEventCard(projectionEvent: ProjectionEventType
         </div>
       </div>
 
-      <div>{projectionEvent.seatsForReducedMobility ? <AccessibleIcon /> : null}</div>
+      <div>
+        {projectionEvent.seatsForReducedMobility ? <AccessibleIcon className={styles.pmr} /> : null}
+      </div>
     </Button>
   );
 }
